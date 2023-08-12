@@ -5,9 +5,7 @@ import TutorProfileForm from './TutorProfileForm';
 import ProfileInfos from './ProfileInfos';
 
 function Profile() {
-  const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [profileData, setProfileData] = useState(null);
-
   useEffect(() => {
     const checkProfileCompleteness = async () => {
       try {
@@ -21,13 +19,15 @@ function Profile() {
         });
 
         if (response.data) {
-          setIsProfileComplete(true);
+          // setIsProfileComplete(true);
           setProfileData(response.data);
         } else {
-          setIsProfileComplete(false);
+          // setIsProfileComplete(false);
         }
+
+    
       } catch (error) {
-        // console.error(error);
+        console.error(error);
       }
     };
     checkProfileCompleteness();
@@ -40,7 +40,7 @@ function Profile() {
   return (
     <Box>
       <Typography>Profile et manipulation du Profile</Typography>
-      {isProfileComplete ? <ProfileInfos /> : <TutorProfileForm/>}
+       <ProfileInfos/>
     </Box>
   );
 }

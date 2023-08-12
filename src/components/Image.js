@@ -1,8 +1,10 @@
 import React from 'react'
-
-function Image({src, alt, width, height, url}) {
+import { Box } from '@mui/material'
+function Image({imageUrl, alt, width, height}) {
+  const src = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_IMAGE_URL + imageUrl
+  console.log('src:',src)
   return (
-    <img src={src} alt={alt} width={width} height={height}/>
+    <Box component='img' src={src} alt={alt} borderRadius='50%'  width={width} height={height}/>
   )
 }
 

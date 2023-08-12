@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Stack, Typography, Button, TextField, FormLabel} from '@mui/material';
  import api from '../../../services/api'
- import Image from '../../Image.js'
-//  const url = process.env.REACT_APP_IMAGE_URL;
 
 function ProfileInfos() {
   
@@ -58,8 +56,8 @@ function ProfileInfos() {
 
   }, []);
 
-  console.log('userData:', userData);
-  console.log('profileData:', profileData);
+  // console.log('userData:', userData);
+  // console.log('profileData:', profileData);
 
   if (isLoading) {
     return <Typography>Loading</Typography>;
@@ -100,44 +98,44 @@ function ProfileInfos() {
   };
 
   return (
-    <Box border='1px solid red'>
+    <Box  display='flex' alignSelf='center' height='90vh' justifyContent='center' flexDirection='column'> 
      {!isEditing &&  ( 
-      <Box>
+      <Box  display='flex' gap='20px' margin='20px' flexDirection='column'>
      <Typography>Mon inormations de profil</Typography>
-      <Stack>
-        <Typography>photo de profil</Typography>
-        <Image src={`http://localhost:3000/images/${profileData.profile.imageUrl}`}  alt='ProfileImage' width= '100px' height= '100px' />   
-      </Stack>
-      <Stack>
-        <Typography>Nom</Typography>
-        <Typography>{userData.user.full_name}</Typography>
+      <Stack >
+        <Typography>Nom Prénom </Typography>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={userData.user.full_name}></TextField>
       </Stack>
       <Stack>
         <Typography>Email</Typography>
-        <Typography>{userData.user.email}</Typography>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={userData.user.email}></TextField>
       </Stack>  
       <Stack>
         <Typography>Compétences</Typography>
-        <Typography>{profileData.profile.skills}</Typography>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.skills}></TextField>
       </Stack>
       <Stack>
         <Typography>Expériences</Typography>
-        <Typography>{profileData.profile.experience}</Typography>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.experience}></TextField>
       </Stack>
       <Stack>
         <Typography>Tarif horaire</Typography>
-        <Typography>{profileData.profile.hourly_rate}</Typography>
+        <TextField marginTop='10px' type='number' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.hourly_rate}></TextField>
       </Stack>
       <Stack>
         <Typography>Disponibilté</Typography>
-        <Typography>{profileData.profile.availability}</Typography>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.availability}></TextField>
       </Stack> 
+      <Button variant="outlined" sx={{background:'#FFA500'}} onClick={handleEditClick}>
+          Modifier
+        </Button>
       </Box>
       )}
 
       {isEditing && (
-        <Box width='40%' margin='auto' border='1px solid gray' gap='15px' padding='15px' borderRadius='15px'>
-          <Stack>
+        <Box display='flex'  flexDirection='column' width='50%' margin='auto' border='1px solid #FFA500' gap='20px' padding='15px' borderRadius='15px'>
+          <Typography>Modification du profil</Typography>
+          <Stack display='flex'  flexDirection='column' gap='10px' >
           <FormLabel>Compétences</FormLabel>
           <TextField
             value={editedProfileData.skills}
@@ -153,7 +151,7 @@ function ProfileInfos() {
           </Stack>
           <Stack>
           <FormLabel>Tarifs Horaires</FormLabel>
-          <TextField
+          <TextField type='number'
             value={editedProfileData.hourly_rate}
             onChange={(e) => setEditedProfileData({ ...editedProfileData, hourly_rate: e.target.value })}
           />
@@ -166,23 +164,12 @@ function ProfileInfos() {
             onChange={(e) => setEditedProfileData({ ...editedProfileData, availability: e.target.value })}
           />
           </Stack>
+          <Button variant="outlined" sx={{alignSelf:'center', background:'#FFA500', color:'black'}} onClick={handleUpdateProfile}>
+          Enregistrer
+        </Button>
         </Box>
       
       )}
-        {isEditing ? (
-        <Button variant="outlined" sx={{alignSelf:'center'}} onClick={handleUpdateProfile}>
-          Enregistrer
-        </Button>
-      ) : (
-        <Button variant="outlined" onClick={handleEditClick}>
-          Modifier
-        </Button>
-      )}
-
-      {/* <Button variant="outlined" component={NavLink} to="/tutor-dashboard/profile/edit">
-        Modifier
-      </Button> */}
-     
     </Box>
 
   );

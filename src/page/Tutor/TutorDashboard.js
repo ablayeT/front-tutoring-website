@@ -6,7 +6,7 @@ function TutorDashboard() {
   return (
     <Box>
       <Typography variant='body2'>Tutor Dashboard</Typography>
-      <Dashboard />
+      <Dashboard  />
     </Box>
   )
 }
