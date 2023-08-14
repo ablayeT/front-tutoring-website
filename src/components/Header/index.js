@@ -1,7 +1,8 @@
 import {React, useState} from 'react';
 import { Link } from 'react-router-dom';
 // import './Header.css'; // Importez le fichier CSS pour styliser l'en-tête
-import { AppBar, Box, Button,Toolbar, Typography, CssBaseline, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';import { makeStyles } from 'tss-react/mui';
+import { AppBar, Box, Button,Toolbar, Typography, CssBaseline, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { makeStyles } from 'tss-react/mui';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const drawerWidth = 240;

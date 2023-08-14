@@ -1,9 +1,40 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { Box, Button, InputLabel, TextField } from '@mui/material';
+import { Box,Stack, FormLabel, TextField, Typography } from '@mui/material';
 import api from '../../services/api';
+import MuiButton from '../../components/Buttons/Button'
+
+import { makeStyles } from 'tss-react/mui'
+
+
+const useStyles = makeStyles()((theme) =>{
+  return {
+    form : {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '3rem', 
+      margin: 'auto',
+      width:'40%',
+      padding: '2rem',
+      borderRadius: '10px',
+      backgroundColor: theme.palette,
+      boxShadow: theme.shadows[5],
+      [theme.breakpoints.down('md')]: {
+        width: '90%',
+      },
+    },
+    button :{
+      fontWeight: 'bold',
+      '&:hover': {
+        backgroundColor: '#FF8C00',
+      }
+    }
+  };
+});
+
 
 function LoginForm()  {
+  const {classes} = useStyles();
   const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -66,21 +97,25 @@ function LoginForm()  {
   
 
   return (
-    <form onSubmit={handleFormSubmit} >
-      <Box display='flex' flexDirection='column' width='40%'  margin='auto' gap='20px'  justifyContent='center' textAlign='center'>
+    <form onSubmit={handleFormSubmit} className={classes.form} >
+      <Typography variant='h4'>Se Connecter</Typography>
+      <Stack  display='flex' gap='15px' flexDirection='column' justifyContent='center'>
+        <FormLabel>E-mail :</FormLabel>
+        <TextField type="email" label='E-mail'  placeholder='email' name="email"  value={email} onChange={handleInputChange} required />
+      </Stack>
 
-      <Box  display='flex' gap='15px' flexDirection='column' justifyContent='center'>
-        <InputLabel>E-mail :</InputLabel>
-        <TextField type="email" label='E-mail' margin='dense' placeholder='email' name="email" sx={{ background:'white',border:'1.5px solid #FFA500', borderRadius:'10px'}} value={email} onChange={handleInputChange} required />
-      </Box>
-
-      <Box display='flex'  fontSize='15px' flexDirection='column'  justifyContent='center'> 
-        <InputLabel >Mot de passe :</InputLabel>
-        <TextField type="password"  label='Mot de passe' margin='normal' sx={{background:'white', border:'1.5px solid #FFA500', borderRadius:'10px'}} placeholder='...........' name="password" value={password} onChange={handleInputChange} required />
-      </Box>
+      <Stack display='flex' flexDirection='column'  justifyContent='center'> 
+        <FormLabel>Mot de passe :</FormLabel>
+        <TextField type="password"  label='Mot de passe' placeholder='...........' name="password" value={password} onChange={handleInputChange} required />
+      </Stack>
       {error && <div>{error}</div>}
-      <Button type="submit" sx={{background:'#FFA500',color:'black',width:'50%',margin:'auto', marginBottom:'30px'}}>Se connecter</Button>
+      <Box>
+      <Stack>
+      <MuiButton className={classes.button} type="submit">Se connecter</MuiButton>
+      </Stack>
       </Box>
+      
+    
     </form>
   );
 };

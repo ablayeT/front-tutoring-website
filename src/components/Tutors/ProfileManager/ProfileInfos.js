@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Stack, Typography, Button, TextField, FormLabel} from '@mui/material';
+import { Box, Stack, Typography,  TextField, FormLabel} from '@mui/material';
  import api from '../../../services/api'
+ import MuiButton from '../../../components/Buttons/Button';
 
 function ProfileInfos() {
   
@@ -98,42 +99,44 @@ function ProfileInfos() {
   };
 
   return (
-    <Box  display='flex' alignSelf='center' height='90vh' justifyContent='center' flexDirection='column'> 
+    <Box  display='flex'   alignSelf='center'  justifyContent='center' flexDirection='column'> 
      {!isEditing &&  ( 
       <Box  display='flex' gap='20px' margin='20px' flexDirection='column'>
      <Typography>Mon inormations de profil</Typography>
       <Stack >
         <Typography>Nom Prénom </Typography>
-        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={userData.user.full_name}></TextField>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' padding='10px' width='50%' value={userData.user.full_name}></TextField>
       </Stack>
       <Stack>
         <Typography>Email</Typography>
-        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={userData.user.email}></TextField>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' padding='10px' width='50%' value={userData.user.email}></TextField>
       </Stack>  
       <Stack>
         <Typography>Compétences</Typography>
-        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.skills}></TextField>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileData.profile.skills}></TextField>
       </Stack>
       <Stack>
         <Typography>Expériences</Typography>
-        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.experience}></TextField>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileData.profile.experience}></TextField>
       </Stack>
       <Stack>
         <Typography>Tarif horaire</Typography>
-        <TextField marginTop='10px' type='number' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.hourly_rate}></TextField>
+        <TextField marginTop='10px' type='number' border='1px solid #FFA500' padding='10px' width='50%' value={profileData.profile.hourly_rate}></TextField>
       </Stack>
       <Stack>
         <Typography>Disponibilté</Typography>
-        <TextField marginTop='10px' type='text' border='1px solid #FFA500' borderRadius='5px' padding='10px' width='50%' value={profileData.profile.availability}></TextField>
+        <TextField marginTop='10px' type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileData.profile.availability}></TextField>
+      </Stack>
+      <Stack display='flex'justifyContent='center' >
+        <MuiButton variant="outlined" sx={{background:'#FFA500', width:'3rem' }} onClick={handleEditClick}>
+          Modifier mon proifil
+        </MuiButton>
       </Stack> 
-      <Button variant="outlined" sx={{background:'#FFA500'}} onClick={handleEditClick}>
-          Modifier
-        </Button>
       </Box>
       )}
 
       {isEditing && (
-        <Box display='flex'  flexDirection='column' width='50%' margin='auto' border='1px solid #FFA500' gap='20px' padding='15px' borderRadius='15px'>
+        <Box display='flex'  flexDirection='column' width='50%' margin='auto'  gap='20px' padding='15px' >
           <Typography>Modification du profil</Typography>
           <Stack display='flex'  flexDirection='column' gap='10px' >
           <FormLabel>Compétences</FormLabel>
@@ -164,9 +167,11 @@ function ProfileInfos() {
             onChange={(e) => setEditedProfileData({ ...editedProfileData, availability: e.target.value })}
           />
           </Stack>
-          <Button variant="outlined" sx={{alignSelf:'center', background:'#FFA500', color:'black'}} onClick={handleUpdateProfile}>
-          Enregistrer
-        </Button>
+          <Stack display='flex' justifyContent='center'>
+          <MuiButton variant="outlined" sx={{alignSelf:'center', background:'#FFA500', color:'black'}} onClick={handleUpdateProfile}>
+          Enregistrer les Modifications
+        </MuiButton>
+        </Stack>
         </Box>
       
       )}

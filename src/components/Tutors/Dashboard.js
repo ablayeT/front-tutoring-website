@@ -66,8 +66,8 @@ if (isLoading) {
 }
 
   return (
-    <Box display='flex' border='1px solid lightgray' borderRadius='30px' margin='25px' height='100vh' >
-      <Box flex='0 0 20%' backgroundColor='#FFA500' borderRadius='30px 0 0 30px' padding='20px' >
+    <Box display='flex' border='1px solid lightgray' borderRadius='20px' margin='25px'  >
+      <Box flex='0 0 20%' backgroundColor='#FFA500' borderRadius='20px 0 0 20px' padding='20px' >
       <Box>
         <ul>
           <li>

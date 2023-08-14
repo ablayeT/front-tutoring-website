@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../services/api';
-import { Box, Typography, TextField, Button, Select, MenuItem, FormControl, Stack, FormLabel } from '@mui/material';
+import { Box, Typography, TextField,  Select, MenuItem, FormControl, Stack, FormLabel } from '@mui/material';
+import MuiButton from '../../Buttons/Button';
 
 
 
-function TutoringSessionForm() {
+function TutoringSessionForm({mode, sessionToEdit}) {
   const [formData, setFormData] = useState({
     tutor_id: localStorage.getItem('userId'),
     subject_id: '',
@@ -13,12 +14,12 @@ function TutoringSessionForm() {
     end_time: '',
     location: '',
     price: '',
+    description: '',
   });
 
   const [subjects, setSubjects] = useState([]);
 
-//   const subjectId = localStorage.getItem('subjectid');
-// console.log('subjectId', subjectId);
+
   useEffect(() => {
     api.get('/tutors/subjects')
       .then((response) => {
@@ -32,6 +33,12 @@ function TutoringSessionForm() {
         console.error('Error fetching subjects:', error);
       });
   }, []);
+
+  useEffect(() => {
+    if(mode === 'edit') {
+      setFormData(sessionToEdit);
+    }
+  },[mode, sessionToEdit]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -53,6 +60,27 @@ function TutoringSessionForm() {
     formDataToSend.append('end_time', formData.end_time);
     formDataToSend.append('location', formData.location);
     formDataToSend.append('price', formData.price);
+    formDataToSend.append('description', formData.description);
+
+    const apiEndPoint = mode === 'edit'? `/tutors/sessions/${sessionToEdit.id}` : '/tutors/sessions';
+
+    const httpMethod = mode === 'edit'? 'PUT' : 'POST';
+
+    api.request({
+      method : httpMethod,
+      url: apiEndPoint,
+      data: formDataToSend,
+      headers: {
+        authorization : `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      console.log(response.data); 
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
 
     
 
@@ -76,10 +104,10 @@ function TutoringSessionForm() {
   };
 
   return (
-    <Box display='flex' flexDirection='column' justifyContent='center'  width='30%' margin ='auto' borderRadius='15px' padding='15px'>
+    <Box display='flex' flexDirection='column' justifyContent='center'   margin ='auto' borderRadius='10px' padding='15px'>
       <Typography variant='h4' marginBottom='15px' >Créer une session de tutorat</Typography>
       
-      <FormControl sx={{display:'flex', width:'95%', gap:'20px', flexDirection:'column', padding:'10px', borderRadius:'15px', border:'1px solid gray'}} >
+      <FormControl sx={{display:'flex', width:'95%', gap:'20px', flexDirection:'column', padding:'10px', borderRadius:'15px'}} >
       <form onSubmit={handleSubmit}>
         <Stack>
           <FormLabel>Tutor ID</FormLabel>
@@ -152,10 +180,22 @@ function TutoringSessionForm() {
           onChange={handleInputChange}
           required
         />
+         </Stack>
+         <Stack>
+        <FormLabel>Description</FormLabel>
+         <TextField
+          type="text"
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
+          required
+        />
         </Stack>
-        <Button  type="submit" variant="contained" sx={{width:'50%', margin:'auto'}} color="primary">
+        <Box display='flex' justifyContent='center' marginTop='2rem'>
+        <MuiButton  type="submit">
           Créer la session
-        </Button>
+        </MuiButton>
+        </Box>
         </form>
       </FormControl>
      

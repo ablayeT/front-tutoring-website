@@ -1,7 +1,34 @@
 import React, { useState } from 'react';
-import { Box, Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import api from '../../services/api';
+import MuiButton from '../../components/Buttons/Button'
+import { makeStyles } from 'tss-react/mui'
+
+
+const useStyles = makeStyles()((theme) =>{
+  return {
+    form : {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '3rem', 
+      margin: 'auto',
+      width:'40%',
+      padding: '2rem',
+      borderRadius: '10px',
+      backgroundColor: theme.palette,
+      boxShadow: theme.shadows[5],
+      [theme.breakpoints.down('md')]: {
+        width: '90%',
+      },
+      
+    }
+  };
+});
+
+
+
 function SignupForm () {
+  const {classes} = useStyles();
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
@@ -27,29 +54,32 @@ function SignupForm () {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Box display='flex' flexDirection='column' width='40%'  margin='auto' gap='20px'  textAlign='center'>
-      <Box>
+    <form onSubmit={handleSubmit} className={classes.form}>
+      <Stack>
         <InputLabel htmlFor="full_name">Nom - Prénom</InputLabel>
-        <TextField type="text" id="full_name" name="full_name" label='Nom - Prénom' placeholder='Nom - Prénom' sx={{background:'white', border:'1.5px solid #FFA500', borderRadius:'10px'}} value={formData.full_name} onChange={handleChange} />
-      </Box>
-      <Box>
+        <TextField type="text" id="full_name" name="full_name" label='Nom - Prénom' placeholder='Nom - Prénom'  value={formData.full_name} onChange={handleChange} />
+      </Stack>
+      <Stack>
         <InputLabel htmlFor="email">E-mail</InputLabel>
-        <TextField type="email" label='E-mail' margin='dense' placeholder='email' name="email" sx={{ background:'white',border:'1.5px solid #FFA500', borderRadius:'10px'}} value={formData.email} onChange={handleChange} />
-      </Box>
-      <Box>
+        <TextField type="email" label='E-mail' margin='dense' placeholder='email' name="email" value={formData.email} onChange={handleChange} />
+      </Stack>
+      <Stack>
         <InputLabel htmlFor="password">Mot de passe</InputLabel>
-        <TextField type="password"  label='Mot de passe' margin='normal' sx={{background:'white', border:'1.5px solid #FFA500', borderRadius:'10px'}} placeholder='...........' name="password" value={formData.password} onChange={handleChange} />
-      </Box>
-      <Box>
+        <TextField type="password"  label='Mot de passe' margin='normal' placeholder='...........' name="password" value={formData.password} onChange={handleChange} />
+      </Stack>
+      <Stack>
         <InputLabel htmlFor="user_type">Type</InputLabel>
-        <Select label='Type' name="user_type" id="user_type" sx={{background:'white', border:'1.5px solid #FFA500'}} value={formData.user_type} onChange={handleChange}>
+        <Select label='Type' name="user_type" id="user_type" value={formData.user_type} onChange={handleChange}>
           <MenuItem value="Student">Étudiant</MenuItem>
           <MenuItem value="Tutor">Tuteur</MenuItem>
         </Select>
+      </Stack>
+      <Box>
+        <Stack>
+      <MuiButton type="submit">S'inscrire</MuiButton>
+       </Stack>
       </Box>
-      <Button type="submit" sx={{background:'#FFA500',color:'black',width:'50%',margin:'auto', marginBottom:'30px'}}>S'inscrire</Button>
-      </Box>
+     
     </form>
   );
 };

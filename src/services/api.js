@@ -4,7 +4,6 @@ import axios from 'axios';
     baseURL:process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API_URL, 
     headers : {
         'Content-type' :'application/json',
-        
     }
     
 })

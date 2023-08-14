@@ -8,6 +8,7 @@ import StudentDashboard from './page/Students/StudentDashboard';
 import LoginForm from './components/Home/LoginForm';
 import Header from './components/Header/index';
 import Auth from './page/Auth/Index';
+import Contact from './page/Contacts/Contat';
 
 function App() {
   const userType= localStorage.getItem('userType');
@@ -27,6 +28,7 @@ function App() {
           <Route path="/student-dashboard/*" element={<StudentDashboard />} />
         )}
         <Route exact path="/login" element={<LoginForm />} /> 
+        <Route path="/contact" element={<Contact/>} />
         <Route exact path="/tutor-profile" element={<TutorProfile />} />
         <Route exact path="/student-profile"  element={<StudentProfile />} />
       </Routes>
