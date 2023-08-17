@@ -46,17 +46,7 @@ function TutorSessionsCard({session,  sessionId, onDelete}) {
         ...editedSession,
         [name]: value,
       });
-    }
-
-    // const sessionDataToSend = new ditedSession();
-    // sessionDataToSend.append('tutor_id', editedSession.tutor_id);
-    // sessionDataToSend.append('subject_id', editedSession.subject_id);
-    // sessionDataToSend.append('date', editedSession.date);
-    // sessionDataToSend.append('start_time', editedSession.start_time);
-    // sessionDataToSend.append('end_time', editedSession.end_time);
-    // sessionDataToSend.append('location', editedSession.location);
-    // sessionDataToSend.append('price', editedSession.price);
-    // sessionDataToSend.append('description', editedSession.description);
+    }   
 
     const handleSaveClick = async () => {
       setEditMode(false);
