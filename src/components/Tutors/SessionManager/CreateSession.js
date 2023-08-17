@@ -28,11 +28,20 @@ function TutoringSessionForm({mode, sessionToEdit}) {
         } else {
           console.error('Subjects data is not an array:', response.data);
         }
+
+        if(mode === 'edit') {
+          setFormData((prevData) => ({
+            ...prevData,
+            subject_id: sessionToEdit.subject_id,
+          }));
+        }
+
+
       })
       .catch((error) => {
         console.error('Error fetching subjects:', error);
       });
-  }, []);
+  }, [mode, sessionToEdit]);
 
   useEffect(() => {
     if(mode === 'edit') {

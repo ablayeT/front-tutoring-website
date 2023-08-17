@@ -50,7 +50,7 @@ if (isLoading) {
       <Typography>Mes sessions de tutorat</Typography>
       {tutorSessions.map(session => (
   <Stack key={session.id}>
-    <TutorSessionCard session={session} onDelete={handleDeleteSession}/>
+    <TutorSessionCard session={session} sessionId={session.id} onDelete={handleDeleteSession}/>
   </Stack>
 ))}
 

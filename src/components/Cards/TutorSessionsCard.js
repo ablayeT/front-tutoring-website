@@ -1,7 +1,8 @@
-import { Box, Card, MenuItem, CardContent,FormControl,FormLabel,Select, TextField, Stack, Typography} from '@mui/material'
+import { Box, Card, CardContent,FormControl,FormLabel, TextField, Stack, Typography} from '@mui/material'
 import{ React, useState} from 'react';
 import { makeStyles } from 'tss-react/mui';
 import MuiButton from '../Buttons/Button';
+import api from '../../services/api';
 
 const useStyles = makeStyles()((theme) =>{
     return {
@@ -23,11 +24,17 @@ const useStyles = makeStyles()((theme) =>{
     }
 })
 
-function TutorSessionsCard({session, onDelete}) {
+function TutorSessionsCard({session,  sessionId, onDelete}) {
     const {classes} = useStyles();
 
     const [editMode, setEditMode] = useState(false); // our gerer el mode de modification
-    const [editedSession, setEditedSession] = useState([session]);
+    const [editedSession, setEditedSession] = useState(session);
+
+    // const tutorId = localStorage.getItem('tutor_id');
+    // console.log('tutorId in tutorSessionCard :  ',tutorId);
+
+  const token = localStorage.getItem('token');
+  console.log('token in tutorSessionCard :  ',token);
 
     const handleEditClick =() => {
       setEditMode(true);
@@ -40,40 +47,44 @@ function TutorSessionsCard({session, onDelete}) {
         [name]: value,
       });
     }
-    const handleSaveClick = () => {
+
+    // const sessionDataToSend = new ditedSession();
+    // sessionDataToSend.append('tutor_id', editedSession.tutor_id);
+    // sessionDataToSend.append('subject_id', editedSession.subject_id);
+    // sessionDataToSend.append('date', editedSession.date);
+    // sessionDataToSend.append('start_time', editedSession.start_time);
+    // sessionDataToSend.append('end_time', editedSession.end_time);
+    // sessionDataToSend.append('location', editedSession.location);
+    // sessionDataToSend.append('price', editedSession.price);
+    // sessionDataToSend.append('description', editedSession.description);
+
+    const handleSaveClick = async () => {
       setEditMode(false);
+      try{
+        //Envoie de requête pour la mise à jour de la session
+        await api.put(`/tutors/sessions/${sessionId}`, editedSession,{
+          headers : {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-type': 'application/json',
+          }
+        });
+        console.log('Session mise à jour avec succès');
+      }catch(error){
+        console.error('Erreur lors de la mise à jour de la session',error);
+      }
     };
+
     console.log('editedSession',editedSession);
+
+
     return (
     <Card className={classes.card}>
         <CardContent>
           {editMode ? (
             <Box display='flex' flexDirection='column' justifyContent='center'   margin ='auto' borderRadius='10px' padding='15px'>
-            <Typography variant='h4' marginBottom='15px' >Créer une session de tutorat</Typography>
-            
+            <Typography variant='h4' marginBottom='15px' >Mise à jour de la session</Typography>
+            <form  onSubmit={handleSaveClick}>
             <FormControl sx={{display:'flex', width:'95%', gap:'20px', flexDirection:'column', padding:'10px', borderRadius:'15px'}} >
-            <form >
-              <Stack>
-                <FormLabel>Tutor ID</FormLabel>
-              <TextField
-                type="text"
-                name="tutor_id"
-                value={editedSession.tutor_id}
-                onChange={handleInputChange}
-                disabled
-                
-              />
-              </Stack>
-              <FormControl >
-                <FormLabel>Sélectionner un sujet</FormLabel>
-                <Select name="subject_id" value={editedSession.subject_id} onChange={handleInputChange} required>
-                  {editedSession.map((subject) => (
-                    <MenuItem key={subject.id} value={subject.id}>
-                      {editedSession.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
               <Stack>
                 <FormLabel>Date</FormLabel>
               <TextField
@@ -125,24 +136,14 @@ function TutorSessionsCard({session, onDelete}) {
                 required
               />
                </Stack>
-               <Stack>
-              <FormLabel>Description</FormLabel>
-               <TextField
-                type="text"
-                name="description"
-                value={editedSession.description}
-                onChange={handleInputChange}
-                required
-              />
-              </Stack>
+              
               <Box display='flex' justifyContent='center' marginTop='2rem'>
               <MuiButton  onClick={handleSaveClick}>
                 Sauvegarder
               </MuiButton>
               </Box>
+              </FormControl>
               </form>
-            </FormControl>
-           
           </Box>
           ) : (
             <Stack>
