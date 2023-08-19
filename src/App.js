@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TutorProfile from './page/Tutor/TutorProfile';
 import StudentProfile from './page/Students/StudentProfile';
@@ -7,15 +7,43 @@ import TutorDashboard from './page/Tutor/TutorDashboard';
 import StudentDashboard from './page/Students/StudentDashboard';
 import LoginForm from './components/Home/LoginForm';
 import Header from './components/Header/index';
-import Auth from './page/Auth/Index';
+import Auth from './page/Auth/Index';  
 import Contact from './page/Contacts/Contat';
+import api from './services/api';
 
 function App() {
   const userType= localStorage.getItem('userType');
   console.log('userType in App.js: ',userType);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = async () => {
+    setIsLoggedIn(false);
+    try {
+      // Faire une requête à l'API pour déconnecter l'utilisateur
+      await api.post('/auth/logout',null,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      // Supprimez le token de l'utilisateur du stockage local
+      localStorage.removeItem('token');
+
+    }catch (error) {
+      console.error('Erreur lors de la déconnexion :', error);
+    }
+
+  };
+
+  
   return (
     <Router>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleLogout={handleLogout}  />
       <Routes>
         <Route exact path="/" element={<Home />} /> 
         <Route  path="/auth" element={<Auth />} />

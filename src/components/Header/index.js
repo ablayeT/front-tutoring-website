@@ -1,12 +1,10 @@
 import {React, useState} from 'react';
-import { Link } from 'react-router-dom';
-// import './Header.css'; // Importez le fichier CSS pour styliser l'en-tête
+import { Link, useNavigate} from 'react-router-dom';
 import { AppBar, Box, Button,Toolbar, Typography, CssBaseline, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const drawerWidth = 240;
-
 
 const useStyles = makeStyles()((theme) =>{
   return {
@@ -33,8 +31,9 @@ const useStyles = makeStyles()((theme) =>{
     fontSize: '20px',
     margingLeft: theme.spacing(20),
     "&:hover": {
-      color: 'brown',
+      color: 'white',
       borderBottom: "1px solid brown",
+      background: 'black',
     },
   },
   drawer: {
@@ -61,13 +60,27 @@ const useStyles = makeStyles()((theme) =>{
 }
 })
 
-function Header() {
+function Header({isLoggedIn, handleLogout }) {
   const {classes} = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const userType = localStorage.getItem('userType');
+  console.log('userType in Header: ',userType);
+
+  const handleLogoutClick = () => {
+    console.log('handleLogoutClick');
+    if(isLoggedIn) {
+      handleLogout();
+    }
+
+    // navigate('/');
+  }
+  
 
   return (
     <AppBar className={classes.header} position='static'>
@@ -86,10 +99,16 @@ function Header() {
         </Button>      
         <Button component={Link} to="/contact" className={classes.link}>
               <ListItemText primary="Contact" />
-        </Button>    
-        <Button component={Link} to="/auth" className={classes.link}>
+        </Button> 
+           {userType === 'Tutor' || userType === 'Student' ? (
+        <Button component={Link} onClick={handleLogoutClick} to="/auth" className={classes.link}>
               <ListItemText primary="Connexion" />
-        </Button>     
+        </Button> 
+        ): (
+          <Button component={Link} to="/auth" onClick={handleLogoutClick} className={classes.link}>
+              <ListItemText primary="Déconnexion" />
+        </Button>
+        )}    
            </Box>
         <IconButton
             color="inherit"
@@ -134,9 +153,16 @@ function Header() {
             </Button>
           </ListItem>
           <ListItem>
-            <Button component={Link} to="/auth" className={classes.link}>
-              <ListItemText primary="Connexion" />
-            </Button>
+          {userType === 'Tutor' || userType === 'Student' ? (
+          <Button onClick={handleLogoutClick} className={classes.link}>
+             <ListItemText primary="Déconnexion" />
+          </Button>
+                    ) : (
+          <Button component={Link} to="/auth" onClick={handleLogoutClick} className={classes.link}>
+             <ListItemText primary="Connexion" />
+          </Button>
+)}
+
           </ListItem>
         </List>
   </Drawer>

@@ -4,12 +4,56 @@ import Profile from './ProfileManager';
 import CreateSession from './SessionManager/CreateSession'
 import Sessions from './SessionManager/Sessions';
 import EditProfile from './ProfileManager/EditProfile'
-import { Box, Typography} from '@mui/material';
+import { Box, List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui/material';
 import Image from '../Image';
 import api from '../../services/api';
 import TutorProfileForm from './ProfileManager/TutorProfileForm';
+import { makeStyles } from 'tss-react/mui';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CastForEducationIcon from '@mui/icons-material/CastForEducation';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+
+const useStyles = makeStyles()((theme) =>{
+  return {
+  // navlinks: {
+  //   margingLeft: theme.spacing(2),
+  //   display: 'flex',
+  //   flexWrap:'wrap',
+  //   gap:'15px',
+  //   [theme.breakpoints.down('md')]: {
+  //     display: 'none',
+  //   },
+  // },
+  link: {
+    display:'flex',
+    alignItems:'center',
+    textDecoration: 'none',
+    color: 'black',
+    fontSize: '20px',
+    margingLeft: theme.spacing(20),
+    border:'1px solid  none',
+    borderRadius: '10px',
+    width: '100%',
+    paddingLeft:'10px',
+    "&:hover": {
+      color: 'white',
+      borderBottom: "1px solid brown",
+      background: 'black',
+    },
+  },
+  icons : {
+    background : '#FFA500',
+    color: 'black',
+    border:'1px solid none',
+    borderRadius: '5px'
+  },
+  
+}
+})
+
 
 function Dashboard () {
+  const {classes} = useStyles();
   const  [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +103,7 @@ function Dashboard () {
 
   }, []);
 console.log('profileData in Dashboard:',profileData);
-console.log('userData in Dashboard:',userData);
+// console.log('userData in Dashboard:',userData);
 
 if (isLoading) {
   return <Typography>Loading</Typography>;
@@ -69,17 +113,31 @@ if (isLoading) {
     <Box display='flex' border='1px solid lightgray' borderRadius='20px' margin='25px'  >
       <Box flex='0 0 20%' backgroundColor='#FFA500' borderRadius='20px 0 0 20px' padding='20px' >
       <Box>
-        <ul>
-          <li>
-            <NavLink to="profile">Profil</NavLink>
-          </li>
-          <li>
-            <NavLink to="sessions" >Sessions de tutorat</NavLink>
-          </li>
-          <li>
-            <NavLink to="create-session">Créer une session</NavLink>
-          </li>
-        </ul>
+        <List>
+          <ListItem  >
+            <ListItemIcon  >
+               < AccountCircleIcon className={classes.icons}  />          
+            </ListItemIcon>
+            <NavLink to="profile" className={classes.link}>
+             <ListItemText primary='Profil' />              </NavLink>
+          </ListItem>
+          <ListItem>
+          <ListItemIcon >
+               < CastForEducationIcon  className={classes.icons}/>
+            </ListItemIcon>
+            <NavLink to="sessions"className={classes.link} >
+             <ListItemText  primary='Sessions de tutorat' />
+              </NavLink>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon >
+               < CreateNewFolderIcon className={classes.icons} />
+            </ListItemIcon>
+            <NavLink to="create-session" className={classes.link}>
+             <ListItemText  primary='Créer une session' />
+              </NavLink>
+          </ListItem>
+        </List>
       </Box>
       
       </Box>
