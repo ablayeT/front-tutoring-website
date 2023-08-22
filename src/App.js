@@ -14,26 +14,33 @@ import api from './services/api';
 function App() {
   const userType= localStorage.getItem('userType');
   console.log('userType in App.js: ',userType);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    console.log('handleLogin');
+    setIsLoggedIn(isLoggedIn);
   };
 
+  console.log('isLoggedIn :', isLoggedIn);
+
   const handleLogout = async () => {
+    console.log('handleLogout');
     setIsLoggedIn(false);
     try {
       // Faire une requête à l'API pour déconnecter l'utilisateur
-      await api.post('/auth/logout',null,
+      await api.post('/auth/logout', {},
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }
+
+        
+
       );
 
       // Supprimez le token de l'utilisateur du stockage local
       localStorage.removeItem('token');
-
     }catch (error) {
       console.error('Erreur lors de la déconnexion :', error);
     }

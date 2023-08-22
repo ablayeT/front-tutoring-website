@@ -119,7 +119,8 @@ if (isLoading) {
                < AccountCircleIcon className={classes.icons}  />          
             </ListItemIcon>
             <NavLink to="profile" className={classes.link}>
-             <ListItemText primary='Profil' />              </NavLink>
+             <ListItemText primary='Profil' />   
+             </NavLink>
           </ListItem>
           <ListItem>
           <ListItemIcon >

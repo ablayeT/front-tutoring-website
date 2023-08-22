@@ -60,6 +60,7 @@ const useStyles = makeStyles()((theme) =>{
 }
 })
 
+
 function Header({isLoggedIn, handleLogout }) {
   const {classes} = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -74,16 +75,16 @@ function Header({isLoggedIn, handleLogout }) {
 
   const handleLogoutClick = () => {
     console.log('handleLogoutClick');
-    if(isLoggedIn) {
+    if(!isLoggedIn) {
       handleLogout();
     }
 
-    // navigate('/');
+    navigate('/')
   }
   
 
   return (
-    <AppBar className={classes.header} position='static'>
+    <AppBar className={classes.header} position='fixed'>
       <CssBaseline />
       <Toolbar>
         <Typography variant='h4' className={classes.logo}>Logo</Typography>
@@ -101,12 +102,12 @@ function Header({isLoggedIn, handleLogout }) {
               <ListItemText primary="Contact" />
         </Button> 
            {userType === 'Tutor' || userType === 'Student' ? (
-        <Button component={Link} onClick={handleLogoutClick} to="/auth" className={classes.link}>
-              <ListItemText primary="Connexion" />
+        <Button  component={Link} to="/auth" className={classes.link}>
+              <ListItemText primary="Déconnexion" />
         </Button> 
         ): (
           <Button component={Link} to="/auth" onClick={handleLogoutClick} className={classes.link}>
-              <ListItemText primary="Déconnexion" />
+              <ListItemText primary="Connexion" />
         </Button>
         )}    
            </Box>
@@ -154,7 +155,7 @@ function Header({isLoggedIn, handleLogout }) {
           </ListItem>
           <ListItem>
           {userType === 'Tutor' || userType === 'Student' ? (
-          <Button onClick={handleLogoutClick} className={classes.link}>
+          <Button  onClick={handleLogoutClick} to='/auth' className={classes.link}>
              <ListItemText primary="Déconnexion" />
           </Button>
                     ) : (

@@ -1,12 +1,12 @@
-import api from '../../../services/api';
+// import api from '../../../services/api';
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import StudentProfileForm from './StudentProfileForm';
 import ProfileInfos from './ProfileInfos';
 
-function Profile() {
+function Profile({profileInfos}) {
   const [isProfileComplete, setIsProfileComplete] = useState(false);
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState(profileInfos);
 
   useEffect(() => {
     const checkProfileCompleteness = async () => {
@@ -14,15 +14,15 @@ function Profile() {
         const userId = localStorage.getItem('userId');
         console.log('userId in Profile:', userId);
 
-        const response = await api.get(`/students/profile/${userId}`, {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        // const response = await api.get(`/students/profile/${userId}`, {
+        //   headers: {
+        //     authorization: `Bearer ${localStorage.getItem('token')}`,
+        //   },
+        // });
 
-        if (response.data) {
+        if (profileData) {
           setIsProfileComplete(true);
-          setProfileData(response.data);
+          setProfileData(profileData);
         } else {
           setIsProfileComplete(false);
         }
@@ -31,16 +31,17 @@ function Profile() {
       }
     };
     checkProfileCompleteness();
-  }, []);
+  });
 
   if (profileData === null) {
     return <StudentProfileForm />;
   }
+ 
 
   return (
     <Box>
       <Typography>Profile et manipulation du Profile</Typography>
-      {isProfileComplete ? <ProfileInfos profileData={profileData} /> : <StudentProfileForm />}
+      {isProfileComplete ? <ProfileInfos /> : <StudentProfileForm />}
     </Box>
   );
 }

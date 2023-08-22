@@ -1,92 +1,32 @@
-import React, { useState } from 'react';
-import api from '../../services/api';
-import { Box, Typography, TextField, Button } from '@mui/material';
+import React from 'react';
+import { Route, Routes, NavLink } from 'react-router-dom';
+import Profile from './profileManager';
+// import CreateSession from './CreateSession'
+import Sessions from './Sessions';
 
-function TutoringSessionForm() {
-  const [formData, setFormData] = useState({
-    date: '',
-    startTime: '',
-    endTime: '',
-    location: '',
-    price: '',
-  });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await api.post('/tutors/sessions', formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-
-      // Handle the response, show success message, etc.
-      console.log('Session created:', response.data);
-    } catch (error) {
-      // Handle the error, show error message, etc.
-      console.error('Error creating session:', error);
-    }
-  };
-
+const Dashboard = () => {
   return (
-    <Box>
-      <Typography>Créer une session de tutorat</Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Date"
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleInputChange}
-          required
-        />
-        <TextField
-          label="Heure de début"
-          type="time"
-          name="startTime"
-          value={formData.startTime}
-          onChange={handleInputChange}
-          required
-        />
-        <TextField
-          label="Heure de fin"
-          type="time"
-          name="endTime"
-          value={formData.endTime}
-          onChange={handleInputChange}
-          required
-        />
-        <TextField
-          label="Emplacement"
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleInputChange}
-          required
-        />
-        <TextField
-          label="Prix"
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleInputChange}
-          required
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Créer la session
-        </Button>
-      </form>
-    </Box>
+    <div>
+      <h1>Tableau de bord l'étudiant</h1>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="profile">Profil</NavLink>
+          </li>
+          <li>
+            <NavLink to="sessions">Sessions</NavLink>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="profile" element={<Profile />} />
+        <Route path="sessions" element={<Sessions />} />
+        {/* <Route path="/student-dashboard/create-session" element={<CreateSession />} /> */}
+      </Routes>
+    </div>
   );
-}
+};
 
-export default TutoringSessionForm;
+export default Dashboard;
+²
