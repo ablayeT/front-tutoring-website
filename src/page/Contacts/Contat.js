@@ -4,7 +4,7 @@ import Contact from '../../components/Contacts/Contact';
 
 function Index() {
   return (
-    <Box>
+    <Box height='100vh' display='flex' justifyContent='center'>
         <Contact />
     </Box>
   )

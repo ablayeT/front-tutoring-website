@@ -38,7 +38,7 @@ function Index() {
 
    return (
     <Box>
-    <Box display='flex' justifyContent='center' paddingTop='5rem' flexDirection='column' textAlign='center' >
+    <Box display='flex' justifyContent='center' paddingTop='5rem' flexDirection='column' height='100vh' textAlign='center' >
       {isLoginForm ? <SignupForm /> : <LoginForm />}
       <Box marginTop='10px'>
         <Stack width='50%' margin='auto'>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Box, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
-import api from '../../services/api';
+import { Box,  MenuItem,Typography, Select, Stack, TextField } from '@mui/material';
+import instanceAxios from '../../services/axiosInterceptor';
 import MuiButton from '../../components/Buttons/Button'
 import { makeStyles } from 'tss-react/mui'
+import {useNavigate} from 'react-router-dom'
+
 
 
 const useStyles = makeStyles()((theme) =>{
@@ -19,8 +21,12 @@ const useStyles = makeStyles()((theme) =>{
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
         width: '90%',
-      },
-      
+      }, 
+    },
+    input :  {
+      textAlign: 'left',
+      fontSize: '19px',
+      fontWeight: 'bold',
     }
   };
 });
@@ -28,9 +34,11 @@ const useStyles = makeStyles()((theme) =>{
 
 
 function SignupForm () {
+  const navigate = useNavigate();
   const {classes} = useStyles();
   const [formData, setFormData] = useState({
-    full_name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     user_type : 'Tutor', 
@@ -46,8 +54,9 @@ function SignupForm () {
     e.preventDefault();
     try {
       // Envoyer une requête POST à votre backend pour l'inscription
-      const response = await api.post('/auth/signup', formData);
-      console.log(response.data); // Afficher la réponse du backend (par exemple, un message de succès ou les détails de l'utilisateur enregistré)
+      const response = await instanceAxios.post('/auth/signup', formData);
+      console.log(response.data); 
+      navigate('/login');
     } catch (error) {
       console.error(error); // Afficher toute erreur survenue lors de la requête
     }
@@ -55,25 +64,26 @@ function SignupForm () {
 
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
+       <Typography variant='h4'>S'inscrire</Typography>
       <Stack>
-        <InputLabel htmlFor="full_name">Nom - Prénom</InputLabel>
-        <TextField type="text" id="full_name" name="full_name" label='Nom - Prénom' placeholder='Nom - Prénom'  value={formData.full_name} onChange={handleChange} />
+        <TextField type="text" id="last_name" name="last_name" label='Nom' placeholder='Nom'  value={formData.last_name} onChange={handleChange} />
       </Stack>
       <Stack>
-        <InputLabel htmlFor="email">E-mail</InputLabel>
-        <TextField type="email" label='E-mail' margin='dense' placeholder='email' name="email" value={formData.email} onChange={handleChange} />
+        <TextField type="text" id="first_name" name="first_name" label='Prénom' placeholder='Prénom'  value={formData.first_name} onChange={handleChange} />
       </Stack>
       <Stack>
-        <InputLabel htmlFor="password">Mot de passe</InputLabel>
-        <TextField type="password"  label='Mot de passe' margin='normal' placeholder='...........' name="password" value={formData.password} onChange={handleChange} />
-      </Stack>
-      <Stack>
-        <InputLabel htmlFor="user_type">Type</InputLabel>
-        <Select label='Type' name="user_type" id="user_type" value={formData.user_type} onChange={handleChange}>
+        <Select type='select' label='Type' name="user_type" id="user_type" value={formData.user_type} onChange={handleChange}>
           <MenuItem value="Student">Étudiant</MenuItem>
           <MenuItem value="Tutor">Tuteur</MenuItem>
         </Select>
       </Stack>
+      <Stack>
+        <TextField type="email" label='Email' margin='dense' placeholder='email' name="email" value={formData.email} onChange={handleChange} />
+      </Stack>
+      <Stack>
+        <TextField type="password"  label='Mot de passe' margin='normal' placeholder='...........' name="password" value={formData.password} onChange={handleChange} />
+      </Stack>
+     
       <Box>
         <Stack>
       <MuiButton type="submit">S'inscrire</MuiButton>

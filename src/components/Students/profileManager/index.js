@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import StudentProfileForm from './StudentProfileForm';
 import ProfileInfos from './ProfileInfos';
 
-function Profile({profileInfos}) {
+function Profile({profileInfos, userInfos}) {
   const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [profileData, setProfileData] = useState(profileInfos);
+  const [userData, setUserData] = useState(userInfos);
 
   useEffect(() => {
     const checkProfileCompleteness = async () => {
@@ -14,14 +15,9 @@ function Profile({profileInfos}) {
         const userId = localStorage.getItem('userId');
         console.log('userId in Profile:', userId);
 
-        // const response = await api.get(`/students/profile/${userId}`, {
-        //   headers: {
-        //     authorization: `Bearer ${localStorage.getItem('token')}`,
-        //   },
-        // });
-
         if (profileData) {
           setIsProfileComplete(true);
+          setUserData(userData)
           setProfileData(profileData);
         } else {
           setIsProfileComplete(false);
@@ -40,8 +36,7 @@ function Profile({profileInfos}) {
 
   return (
     <Box>
-      <Typography>Profile et manipulation du Profile</Typography>
-      {isProfileComplete ? <ProfileInfos /> : <StudentProfileForm />}
+      {isProfileComplete ? <ProfileInfos profileData={profileData} userData={userData}/> : <StudentProfileForm />}
     </Box>
   );
 }

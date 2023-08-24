@@ -1,9 +1,9 @@
 import {React, useState} from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import {useAuth} from '../Home/AuthContext'
+import { Link} from 'react-router-dom';
 import { AppBar, Box, Button,Toolbar, Typography, CssBaseline, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import MenuIcon from '@mui/icons-material/Menu';
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles()((theme) =>{
@@ -61,10 +61,12 @@ const useStyles = makeStyles()((theme) =>{
 })
 
 
-function Header({isLoggedIn, handleLogout }) {
-  const {classes} = useStyles();
+function Header() {
+  const { isLoggedIn } = useAuth();
+  const {classes} =  useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -73,16 +75,16 @@ function Header({isLoggedIn, handleLogout }) {
   const userType = localStorage.getItem('userType');
   console.log('userType in Header: ',userType);
 
-  const handleLogoutClick = () => {
-    console.log('handleLogoutClick');
-    if(!isLoggedIn) {
-      handleLogout();
-    }
+  // const handleLogoutClick = () => {
+  //   console.log('handleLogoutClick');
+  //   if(isLoggedIn) {
+      
+  //   }
 
-    navigate('/')
-  }
+  //   navigate('/')
+  // }
   
-
+console.log(isLoggedIn);
   return (
     <AppBar className={classes.header} position='fixed'>
       <CssBaseline />
@@ -95,19 +97,19 @@ function Header({isLoggedIn, handleLogout }) {
         <Button component={Link} to="/cours" className={classes.link}>
               <ListItemText primary="Cours" />
         </Button>
-        <Button component={Link} to="/devenir-tuteur" className={classes.link}>
+        <Button component={Link} to="/auth" className={classes.link}>
               <ListItemText primary="Devenir Tuteur" />
         </Button>      
         <Button component={Link} to="/contact" className={classes.link}>
               <ListItemText primary="Contact" />
         </Button> 
-           {userType === 'Tutor' || userType === 'Student' ? (
-        <Button  component={Link} to="/auth" className={classes.link}>
-              <ListItemText primary="Déconnexion" />
+           {!isLoggedIn ? (
+        <Button component={Link} to="/auth" className={classes.link}>
+              <ListItemText primary="Connexion" />
         </Button> 
         ): (
-          <Button component={Link} to="/auth" onClick={handleLogoutClick} className={classes.link}>
-              <ListItemText primary="Connexion" />
+          <Button to="/auth"className={classes.link} >
+              <ListItemText primary="Déconnexion" />
         </Button>
         )}    
            </Box>
@@ -155,11 +157,11 @@ function Header({isLoggedIn, handleLogout }) {
           </ListItem>
           <ListItem>
           {userType === 'Tutor' || userType === 'Student' ? (
-          <Button  onClick={handleLogoutClick} to='/auth' className={classes.link}>
+          <Button    className={classes.link}>
              <ListItemText primary="Déconnexion" />
           </Button>
                     ) : (
-          <Button component={Link} to="/auth" onClick={handleLogoutClick} className={classes.link}>
+          <Button component={Link} to="/auth"  className={classes.link}>
              <ListItemText primary="Connexion" />
           </Button>
 )}

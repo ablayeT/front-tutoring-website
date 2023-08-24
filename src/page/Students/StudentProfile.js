@@ -4,7 +4,7 @@ import StudentProfileForm from '../../components/Students/profileManager/Student
 function StudentProfile() {
   return (
     <div>
-        <h2>StudentProfile</h2>
+        <h2>Completer votre profil</h2>
         <StudentProfileForm />
     </div>
   )

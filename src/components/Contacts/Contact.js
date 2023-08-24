@@ -51,7 +51,7 @@ function Index() {
     }
   };
   return (
-    <Box paddingTop='5rem'>
+    <Box paddingTop='5rem' width='90%' marginTop='50px'>
     <form  className={classes.form} component='form' onSubmit={handleSubmit}>
        <Box  display='flex' flexDirection='column' gap='3rem'>
     <Typography variant="h6" gutterBottom>

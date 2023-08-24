@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, FormControl,Divider, Stack, TextField, Typography } from '@mui/material';
 import api from '../../../services/api';
+import Button from '../../Buttons/Button'
 
 
 function StudentProfileForm() {
@@ -60,41 +61,38 @@ function StudentProfileForm() {
   };
 
   return (
-    <Box>
+    <Box display='flex'  justifyContent='center' width='50%' margin='auto' >
       { isProfileComplete ? (
       <Stack>
         <Typography>Profil de l'etudiant</Typography>
         {/* afficher les détails du profil de l'etudiant */}
       </Stack>
       ) :(
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <h2>Profil de l'étudiant</h2>
-      <div>
-        <label htmlFor="imageUrl">Image de profil</label>
-        <input type="file" name="imageUrl" id="imageUrl" onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="skills">Compétences</label>
-        <textarea name="skills" id="skills" value={formData.skills} onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="experience">Expérience</label>
-        <textarea name="experience" id="experience" value={formData.experience} onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="grade_level">Niveau d'études</label>
-        <input type="text" name="grade_level" id="grade_level" value={formData.grade_level} onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="major">domaine d'étude</label>
-        <input type="text" name="major" id="major" value={formData.major} onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="university">Etablissement</label>
-        <input type="text" name="university" id="university" value={formData.university} onChange={handleChange} />
-      </div>
-      <button type="submit">Soumettre</button>
-    </form>
+    <FormControl onSubmit={handleSubmit} encType="multipart/form-data" sx={{ gap:'20px', width:'100%'}}>
+      <Box display='flex' justifyContent='center'>
+      <Typography variant='h5'>Completez votre profil</Typography>
+      </Box>
+      <Divider />
+      <Stack>
+        <TextField type="file" name="imageUrl" id="imageUrl" onChange={handleChange} />
+      </Stack>
+      <Stack>
+        <TextField name="skills" label="Compétences" placeholder="Compétences" id="skills" value={formData.skills} onChange={handleChange} />
+      </Stack>
+      <Stack>
+        <TextField name="experience" label="Expériences" placeholder="Expériences" id="experience" value={formData.experience} onChange={handleChange} />
+      </Stack>
+      <Stack>
+        <TextField type="text" label="Niveau d'étude" placeholder="Niveau d'étude" name="grade_level" id="grade_level" value={formData.grade_level} onChange={handleChange} />
+      </Stack>
+      <Stack>
+        <TextField type="text" label="Domaine d'étude" placeholder="domaine d'étude" name="major" id="major" value={formData.major} onChange={handleChange} />
+      </Stack>
+      <Stack>
+        <TextField type="text" label='Etablissement' placeholder="Etablissement" name="school_name" id="school_name" value={formData.school_name} onChange={handleChange} />
+      </Stack>
+      <Button type="submit" onClick={handleSubmit}>Soumettre</Button>
+    </FormControl>
     )}
     </Box>
   );

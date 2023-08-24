@@ -72,7 +72,9 @@ const AppBar = styled(MuiAppBar, {
 function Dashboard () {
   const theme = useTheme();
   const [profileInfos, setProfileInfos] = useState()
+  const [userInfos, setUserInfos]= useState();
   const [open, setOpen] = useState(false);
+  const [showMain, setShowMain] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,6 +83,26 @@ function Dashboard () {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    const fetchUserInfos = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const userResponse = await api.get(`/users/profiles/${userId}`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        setUserInfos(userResponse.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserInfos();
+  }, []);
+
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -101,28 +123,39 @@ function Dashboard () {
     };
     fetchProfileData();
   }, []);
-console.log('prfileInfos : ',profileInfos)
+console.log('profileInfos : ',profileInfos)
+console.log('userInfos in Dashboard :', userInfos)
+
+function handleMain () {
+  setShowMain(false);
+}
+
   return (
-    <Box display='flex' border='1px solid lightgray' sx={{marginTop:'80px'}} >
+    <Box display='flex'  height='100vh' sx={{marginTop:'80px'}} >
        <CssBaseline />
-       <AppBar position='fixed' sx={{marginTop:'5rem', backgroundColor:'#ffe19c', color:'#4a4a49'}} open={open}>
-        <Toolbar sx={{background: 'transparent'}}>
+       <AppBar position='fixed' sx={{marginTop:'4rem', backgroundColor:'#ffe19c', color:'#4a4a49'}} open={open}>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 2, ...(open && { display: 'none' })}}
           >
             <MenuIcon />
           </IconButton>
 
-          <Box sx={{display:'flex', justifyContent:'space-between', border:'1px solid red', width:'100%', height:'100%'}}>
+          <Box sx={{display:'flex', justifyContent:'space-between', width:'100%'}}>
           <Typography variant="h6" noWrap component="div">
             Tableau de bord 
           </Typography>
-          <Stack>
-          <Image imageUrl={'profileData.profile.imageUrl'} alt='ProfileImage'   width= '100%' height= '100%'/>
+          {userInfos && profileInfos && (
+          <Box display='flex' gap='10px'>
+            <Typography>Bienvenue, <br/>{userInfos.user.first_name} </Typography>
+            <Stack>
+          <Image imageUrl={profileInfos.imageUrl} alt='ProfileImage'   width= '50px' height= '50px'/>
           </Stack>
+          </Box>
+          )}
             </Box>
         </Toolbar>
       </AppBar>
@@ -148,9 +181,9 @@ console.log('prfileInfos : ',profileInfos)
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-            <ListItem sx={{display:'block', flexDirection:'column'}} disablePadding>
-              <ListItemButton sx={{minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}} >
+        <List >
+            <ListItem sx={{display:'block',listStyle:'none', flexDirection:'column'}} disablePadding>
+              <ListItemButton onClick={handleMain} sx={{minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}} >
                 <ListItemIcon>
                    <AccountCircleIcon /> 
                 </ListItemIcon>
@@ -158,7 +191,7 @@ console.log('prfileInfos : ',profileInfos)
                 <ListItemText primary='Profil' sx={{listStyle:'none'}} />
                 </NavLink>
               </ListItemButton >
-              <ListItemButton sx={{display:'flex'}}>
+              <ListItemButton onClick={handleMain}  sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
                 <ListItemIcon>
                    <CastForEducationIcon /> 
                 </ListItemIcon>
@@ -166,37 +199,30 @@ console.log('prfileInfos : ',profileInfos)
                 <ListItemText primary='Sessions' />
                 </NavLink>
               </ListItemButton>
+              <ListItemButton onClick={handleMain}  sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
+                <ListItemIcon>
+                   <CastForEducationIcon /> 
+                </ListItemIcon>
+                <NavLink to="sessions" display='flex'>
+                <ListItemText primary='Mes tuteurs' />
+                </NavLink>
+              </ListItemButton>
             </ListItem>
-       
         </List>
         <Divider />
-       
       </Drawer>
-      {/* <Box flex='0 0 20%' backgroundColor='#FFA500'  padding='20px'>
-        <Box>
-      <h1>Tableau de bord l'étudiant</h1>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="profile">Profil</NavLink>
-          </li>
-          <li>
-            <NavLink to="sessions">Sessions</NavLink>
-          </li>
-
-        </ul>
-      </nav>
-      </Box>
-      </Box> */}
         
       <Main  flex='1' padding='20px' open={open}>
       <DrawerHeader />
+      {!showMain ? (
       <Routes>
-        <Route path="profile" element={<Profile profileInfos={profileInfos} />} />
+        <Route path="profile" element={<Profile profileInfos={profileInfos} userInfos={userInfos} />} />
         <Route path="sessions" element={<Sessions />} />
         {/* <Route path="/student-dashboard/create-session" element={<CreateSession />} /> */}
       </Routes>
-      <Typography paragraph>
+      ) : (
+        <Box open={open}>
+      <Typography paragraph >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -210,6 +236,7 @@ console.log('prfileInfos : ',profileInfos)
           consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
           sapien faucibus et molestie ac.
         </Typography>
+        
         <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
           eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
@@ -223,6 +250,7 @@ console.log('prfileInfos : ',profileInfos)
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+        </Box> )}
       </Main>
     </Box>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { Box,Stack, FormLabel, TextField, Typography } from '@mui/material';
-import api from '../../services/api';
+import { Box,Stack,  TextField, Typography } from '@mui/material';
+import instanceAxios from '../../services/axiosInterceptor';
 import MuiButton from '../../components/Buttons/Button'
 
 import { makeStyles } from 'tss-react/mui'
@@ -28,6 +28,10 @@ const useStyles = makeStyles()((theme) =>{
       '&:hover': {
         backgroundColor: '#FF8C00',
       }
+    },
+    container : {
+      height :'100vh', 
+      paddingTop: '15rem'
     }
   };
 });
@@ -49,20 +53,12 @@ function LoginForm()  {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/login', {
+      const response = await instanceAxios.post('/auth/login', {
         email,
         password,
       });
       console.log('User ID:', response.data.userId);
-
-      // Enregistrez le userType dans le localStorage
-      localStorage.setItem('userType', response.data.userType);
-
-      localStorage.setItem('userId', response.data.userId);
-      localStorage.setItem('token', response.data.token);
-
       // Redirigez vers la page de profil du tuteur ou de l'etudiant après la connexion réussie
-      // navigate(response.data.userType === 'Tutor' ?  : );
       if(response.data.userType === 'Tutor') {
         navigate('/tutor-dashboard')
       }else if(response.data.userType === 'Student') {
@@ -97,15 +93,16 @@ function LoginForm()  {
   
 
   return (
+    <Box className={classes.container}>
     <form onSubmit={handleFormSubmit} className={classes.form} >
       <Typography variant='h4'>Se Connecter</Typography>
       <Stack  display='flex' gap='15px' flexDirection='column' justifyContent='center'>
-        <FormLabel>E-mail :</FormLabel>
-        <TextField type="email" label='E-mail'  placeholder='email' name="email"  value={email} onChange={handleInputChange} required />
+        {/* <FormLabel>E-mail :</FormLabel> */}
+        <TextField type="email" label='Email'  placeholder='email' name="email"  value={email} onChange={handleInputChange} required />
       </Stack>
 
       <Stack display='flex' flexDirection='column'  justifyContent='center'> 
-        <FormLabel>Mot de passe :</FormLabel>
+        {/* <FormLabel>Mot de passe :</FormLabel> */}
         <TextField type="password"  label='Mot de passe' placeholder='...........' name="password" value={password} onChange={handleInputChange} required />
       </Stack>
       {error && <div>{error}</div>}
@@ -117,6 +114,7 @@ function LoginForm()  {
       
     
     </form>
+    </Box>
   );
 };
 
