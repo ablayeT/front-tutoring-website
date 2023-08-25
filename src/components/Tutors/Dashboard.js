@@ -4,45 +4,27 @@ import Profile from './ProfileManager';
 import CreateSession from './SessionManager/CreateSession'
 import Sessions from './SessionManager/Sessions';
 import EditProfile from './ProfileManager/EditProfile'
-import { Box, List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
+import ListItemButton from '@mui/material/ListItemButton';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from '@mui/material/Drawer';
+import { Box, Stack,List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui/material';
 import Image from '../Image';
 import api from '../../services/api';
 import TutorProfileForm from './ProfileManager/TutorProfileForm';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
 // import { makeStyles } from 'tss-react/mui';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
-// const useStyles = makeStyles()((theme) =>{
-//   return {
-//   link: {
-//     display:'flex',
-//     alignItems:'center',
-//     textDecoration: 'none',
-//     color: 'black',
-//     fontSize: '20px',
-//     margingLeft: theme.spacing(20),
-//     border:'1px solid  none',
-//     borderRadius: '10px',
-//     width: '100%',
-//     paddingLeft:'10px',
-//     "&:hover": {
-//       color: 'white',
-//       borderBottom: "1px solid brown",
-//       background: 'black',
-//     },
-//   },
-//   icons : {
-//     background : '#FFA500',
-//     color: 'black',
-//     border:'1px solid none',
-//     borderRadius: '5px'
-//   },
-  
-// }
-// })
+
 
 const drawerWidth = 220;
 
@@ -99,7 +81,15 @@ function Dashboard () {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isProfileComplete, setIsProfileComplete] = useState(false);
+  const [open, setOpen] = useState(false);
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -151,39 +141,87 @@ if (isLoading) {
 }
 
   return (
-    <Box display='flex' border='1px solid lightgray' borderRadius='20px' margin='25px'  >
-      <Box flex='0 0 20%' backgroundColor='#FFA500' borderRadius='20px 0 0 20px' padding='20px' >
-      <Box>
-        <List>
-          <ListItem  >
-            <ListItemIcon  >
-               < AccountCircleIcon   />          
-            </ListItemIcon>
-            <NavLink to="profile" >
-             <ListItemText primary='Profil' />   
-             </NavLink>
-          </ListItem>
-          <ListItem>
-          <ListItemIcon >
-               < CastForEducationIcon  />
-            </ListItemIcon>
-            <NavLink to="sessions" >
-             <ListItemText  primary='Sessions de tutorat' />
-              </NavLink>
-          </ListItem>
-          <ListItem>
-            <ListItemIcon >
-               < CreateNewFolderIcon  />
-            </ListItemIcon>
-            <NavLink to="create-session" >
-             <ListItemText  primary='Créer une session' />
-              </NavLink>
-          </ListItem>
-        </List>
-      </Box>
-      </Box>
+    <Box display='flex'  height='100vh' sx={{marginTop:'80px'}}  >
+      <CssBaseline />
+      <AppBar position='fixed' sx={{marginTop:'4rem', backgroundColor:'#ffe19c', color:'#4a4a49'}} open={open}>
+        <Toolbar >
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            sx={{ mr: 2, ...(open && { display: 'none' })}}
+          >
+            <MenuIcon />
+          </IconButton>
 
-      <Box flex='1' padding='20px'>
+          <Box sx={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+          <Typography variant="h6" noWrap component="div">
+            Tableau de bord 
+          </Typography>
+          {userData && profileData && (
+          <Box display='flex' gap='10px'>
+            <Typography>Bienvenue, <br/>{userData.user.first_name} </Typography>
+            <Stack>
+          <Image imageUrl={profileData.profile.imageUrl} alt='ProfileImage'   width= '50px' height= '50px'/>
+          </Stack>
+          </Box>
+          )}
+            </Box>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            marginTop:'5rem',
+            backgroundColor:'#ffe19c',
+          },
+          
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader sx={{background:'white'}}>
+          <IconButton onClick={handleDrawerClose} >
+            {theme.direction === 'ltr' ? <ChevronLeftIcon color='white' /> : <ChevronRightIcon/>}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List >
+            <ListItem sx={{display:'block',listStyle:'none', flexDirection:'column'}} disablePadding>
+              <ListItemButton  sx={{minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}} >
+                <ListItemIcon>
+                   <AccountCircleIcon /> 
+                </ListItemIcon>
+                <NavLink to='profile' display='flex'>
+                <ListItemText primary='Profil' sx={{listStyle:'none'}} />
+                </NavLink>
+              </ListItemButton >
+              <ListItemButton   sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
+                <ListItemIcon>
+                   <CastForEducationIcon /> 
+                </ListItemIcon>
+                <NavLink to="sessions" display='flex'>
+                <ListItemText primary='Sessions de tutorat' />
+                </NavLink>
+              </ListItemButton>
+              <ListItemButton   sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
+                <ListItemIcon>
+                   <CreateNewFolderIcon /> 
+                </ListItemIcon>
+                <NavLink to="create-session" display='flex'>
+                <ListItemText primary='Créer une session' />
+                </NavLink>
+              </ListItemButton>
+            </ListItem>
+        </List>
+        <Divider />
+      </Drawer>
+      <Main flex='1' padding='20px' open={open}>
        {isProfileComplete ? <TutorProfileForm /> 
        :(<Routes>
         <Route path="profile" element={<Profile profileData={profileData} userData={userData}/>} />
@@ -191,12 +229,9 @@ if (isLoading) {
         <Route path="sessions" element={<Sessions />} />
         <Route path="create-session" element={<CreateSession />} />
       </Routes>)}
-      </Box>
+      </Main>
       <Box display="flex" gap='10px' margin='15px'>
         <Typography marginTop='30px'>Benvenue,  {userData.user.full_name}</Typography>
-        <Box width='110px' height='110px'>
-        <Image imageUrl={profileData.profile.imageUrl} alt='ProfileImage'   width= '100%' height= '100%'/>
-        </Box>
       </Box>
     </Box>
   );

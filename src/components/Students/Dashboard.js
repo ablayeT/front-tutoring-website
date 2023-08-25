@@ -118,17 +118,18 @@ function Dashboard () {
 
        setProfileInfos(response.data);   
       } catch (error) {
-        // console.error(error);
+        console.error(error);
       }
     };
     fetchProfileData();
   }, []);
-console.log('profileInfos : ',profileInfos)
-console.log('userInfos in Dashboard :', userInfos)
+// console.log('profileInfos : ',profileInfos)
+// console.log('userInfos in Dashboard :', userInfos)
 
 function handleMain () {
   setShowMain(false);
 }
+
 
   return (
     <Box display='flex'  height='100vh' sx={{marginTop:'80px'}} >
