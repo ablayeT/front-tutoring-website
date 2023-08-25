@@ -1,5 +1,5 @@
 // import api from '../../../services/api';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import StudentProfileForm from './StudentProfileForm';
 import ProfileInfos from './ProfileInfos';

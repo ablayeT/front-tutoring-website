@@ -10,7 +10,7 @@ const useStyles = makeStyles()((theme) =>{
             background: '#FFA500', 
             color:'black',
             fontSize: '19px', 
-            height:'60px', 
+            height:'100px', 
         }
     }
     

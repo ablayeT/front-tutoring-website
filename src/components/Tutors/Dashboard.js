@@ -8,52 +8,93 @@ import { Box, List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui
 import Image from '../Image';
 import api from '../../services/api';
 import TutorProfileForm from './ProfileManager/TutorProfileForm';
-import { makeStyles } from 'tss-react/mui';
+import { styled, useTheme } from '@mui/material/styles';
+import MuiAppBar from '@mui/material/AppBar';
+// import { makeStyles } from 'tss-react/mui';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
-const useStyles = makeStyles()((theme) =>{
-  return {
-  // navlinks: {
-  //   margingLeft: theme.spacing(2),
-  //   display: 'flex',
-  //   flexWrap:'wrap',
-  //   gap:'15px',
-  //   [theme.breakpoints.down('md')]: {
-  //     display: 'none',
-  //   },
-  // },
-  link: {
-    display:'flex',
-    alignItems:'center',
-    textDecoration: 'none',
-    color: 'black',
-    fontSize: '20px',
-    margingLeft: theme.spacing(20),
-    border:'1px solid  none',
-    borderRadius: '10px',
-    width: '100%',
-    paddingLeft:'10px',
-    "&:hover": {
-      color: 'white',
-      borderBottom: "1px solid brown",
-      background: 'black',
-    },
-  },
-  icons : {
-    background : '#FFA500',
-    color: 'black',
-    border:'1px solid none',
-    borderRadius: '5px'
-  },
+// const useStyles = makeStyles()((theme) =>{
+//   return {
+//   link: {
+//     display:'flex',
+//     alignItems:'center',
+//     textDecoration: 'none',
+//     color: 'black',
+//     fontSize: '20px',
+//     margingLeft: theme.spacing(20),
+//     border:'1px solid  none',
+//     borderRadius: '10px',
+//     width: '100%',
+//     paddingLeft:'10px',
+//     "&:hover": {
+//       color: 'white',
+//       borderBottom: "1px solid brown",
+//       background: 'black',
+//     },
+//   },
+//   icons : {
+//     background : '#FFA500',
+//     color: 'black',
+//     border:'1px solid none',
+//     borderRadius: '5px'
+//   },
   
-}
-})
+// }
+// })
 
+const drawerWidth = 220;
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  }),
+);
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
 function Dashboard () {
-  const {classes} = useStyles();
+  // const {classes} = useStyles();
+  const theme = useTheme();
+
   const  [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -102,7 +143,7 @@ function Dashboard () {
     fetchData();
 
   }, []);
-console.log('profileData in Dashboard:',profileData);
+// console.log('profileData in Dashboard:',profileData);
 // console.log('userData in Dashboard:',userData);
 
 if (isLoading) {
@@ -116,38 +157,37 @@ if (isLoading) {
         <List>
           <ListItem  >
             <ListItemIcon  >
-               < AccountCircleIcon className={classes.icons}  />          
+               < AccountCircleIcon   />          
             </ListItemIcon>
-            <NavLink to="profile" className={classes.link}>
+            <NavLink to="profile" >
              <ListItemText primary='Profil' />   
              </NavLink>
           </ListItem>
           <ListItem>
           <ListItemIcon >
-               < CastForEducationIcon  className={classes.icons}/>
+               < CastForEducationIcon  />
             </ListItemIcon>
-            <NavLink to="sessions"className={classes.link} >
+            <NavLink to="sessions" >
              <ListItemText  primary='Sessions de tutorat' />
               </NavLink>
           </ListItem>
           <ListItem>
             <ListItemIcon >
-               < CreateNewFolderIcon className={classes.icons} />
+               < CreateNewFolderIcon  />
             </ListItemIcon>
-            <NavLink to="create-session" className={classes.link}>
+            <NavLink to="create-session" >
              <ListItemText  primary='Créer une session' />
               </NavLink>
           </ListItem>
         </List>
       </Box>
-      
       </Box>
 
       <Box flex='1' padding='20px'>
        {isProfileComplete ? <TutorProfileForm /> 
        :(<Routes>
-        <Route path="profile" element={<Profile />} />
-        <Route path="profile/edit" element={<EditProfile />} />
+        <Route path="profile" element={<Profile profileData={profileData} userData={userData}/>} />
+        <Route path="profile/edit" element={<EditProfile profileData={profileData} />} />
         <Route path="sessions" element={<Sessions />} />
         <Route path="create-session" element={<CreateSession />} />
       </Routes>)}

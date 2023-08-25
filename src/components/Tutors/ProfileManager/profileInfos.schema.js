@@ -1,5 +1,6 @@
 
 const profileFields = [
+   
     {
       key: 'skills',
       label: 'Compétences',
@@ -9,18 +10,13 @@ const profileFields = [
       label: 'Expériences',
     },
     {
-      key: 'grade_level',
-      label: 'Niveau d\'étude',
+      key: 'hourly_rate',
+      label: 'Tarifs horaires',
     },
     {
-      key: 'major',
-      label: 'Matières',
-    },
-    {
-      key: 'school_name',
-      label: 'Etablissement',
-    },
-
+      key: 'availability',
+      label: 'Disponiibilités',
+    }
   ];
   
   export default profileFields;

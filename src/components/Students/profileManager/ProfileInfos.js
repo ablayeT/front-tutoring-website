@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 import api from '../../../services/api'
 import { Box, Stack, Typography,  TextField, FormLabel} from '@mui/material';
+import profileFields from './ProfileInfo.schema';
 
 
 import MuiButton from '../../Buttons/Button'
@@ -90,39 +91,14 @@ function ProfileInfos({profileData, userData}) {
     <Box  display='flex' alignSelf='center'  justifyContent='center' flexDirection='column'> 
      {!isEditing &&  ( 
       <Box  display='flex' gap='20px' margin='20px' flexDirection='column'>
-     <Typography>Mon inormations de profil</Typography>
-      <Stack >
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Nom </FormLabel>
-        <TextField  type='text' border='1px solid ' padding='10px' width='50%' value={userInfos.user.first_name}/>
-      </Stack>
-      <Stack >
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Prénom </FormLabel>
-        <TextField  type='text' border='1px solid #FFA500' padding='10px' width='50%' value={userInfos.user.last_name}/>
-      </Stack>
-      <Stack>
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Email</FormLabel>
-        <TextField  type='text' border='1px solid #FFA500' padding='10px' width='50%' value={userInfos.user.email}/>
-      </Stack>  
-      <Stack>
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Compétences</FormLabel>
-        <TextField  type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileInfos.skills}/>
-      </Stack>
-      <Stack>
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Expériences</FormLabel>
-        <TextField  type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileInfos.experience}/>
-      </Stack>
-      <Stack>
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Niveau d'étude</FormLabel>
-        <TextField  type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileInfos.grade_level}/>
-      </Stack>
-      <Stack>
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Matières</FormLabel>
-        <TextField  type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileInfos.major}/>
-      </Stack>
-      <Stack>
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Etablissement</FormLabel>
-        <TextField  type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileInfos.school_name}/>
-      </Stack>
+     <Typography>Mes inoformations de profil</Typography>
+     {profileFields.map((field) => (
+            <Stack key={field.key}>
+              <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>{field.label}</FormLabel>
+              <TextField type='text' border='1px solid #FFA500' padding='10px' width='50%' value={profileData[field.key]} />
+            </Stack>
+          ))}
+  
       <Stack display='flex'justifyContent='center' >
         <MuiButton variant="outlined" sx={{background:'#FFA500', width:'3rem' }} onClick={handleEditClick}>
           Modifier mon proifil
@@ -134,42 +110,15 @@ function ProfileInfos({profileData, userData}) {
       {isEditing && (
         <Box display='flex'  flexDirection='column' width='50%' margin='auto'  gap='20px' padding='15px' >
           <Typography>Modification du profil</Typography>
-          <Stack display='flex'  flexDirection='column' gap='10px' >
-          <FormLabel  sx={{fontSize:'19px', fontWeight:'bold' }}>Compétences</FormLabel>
-          <TextField
-            value={editedProfileData.skills}
-            onChange={(e) => setEditedProfileData({ ...editedProfileData, skills: e.target.value })}
-          />
-          </Stack>
-          <Stack display='flex'  flexDirection='column' gap='10px' >
-          <FormLabel  sx={{fontSize:'19px', fontWeight:'bold' }}>Expériences</FormLabel>
-          <TextField
-            value={editedProfileData.skills}
-            onChange={(e) => setEditedProfileData({ ...editedProfileData, experience: e.target.value })}
-          />
-          </Stack>
-          <Stack>
-          <FormLabel  sx={{fontSize:'19px', fontWeight:'bold' }}>Niveau d'étude</FormLabel>
-          <TextField
-            value={editedProfileData.experience}
-            onChange={(e) => setEditedProfileData({ ...editedProfileData, grade_level: e.target.value })}
-          />
-          </Stack>
-          <Stack>
-          <FormLabel  sx={{fontSize:'19px', fontWeight:'bold' }}>Matières</FormLabel>
-          <TextField type='text'
-            value={editedProfileData.hourly_rate}
-            onChange={(e) => setEditedProfileData({ ...editedProfileData, major: e.target.value })}
-          />
-          </Stack>
-          
-          <Stack>
-          <FormLabel sx={{fontSize:'19px', fontWeight:'bold' }}>Etablissement</FormLabel>
-          <TextField
-            value={editedProfileData.availability}
-            onChange={(e) => setEditedProfileData({ ...editedProfileData, school_name: e.target.value })}
-          />
-          </Stack>
+          {profileFields.map((field) => (
+            <Stack key={field.key} display='flex' flexDirection='column' gap='10px'>
+              <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>{field.label}</FormLabel>
+              <TextField
+                value={editedProfileData[field.key]}
+                onChange={(e) => setEditedProfileData({ ...editedProfileData, [field.key]: e.target.value })}
+              />
+            </Stack>
+          ))}
           <Stack display='flex' justifyContent='center'>
           <MuiButton variant="outlined" sx={{alignSelf:'center', background:'#FFA500', color:'black'}} onClick={handleUpdateProfile}>
           Enregistrer les Modifications

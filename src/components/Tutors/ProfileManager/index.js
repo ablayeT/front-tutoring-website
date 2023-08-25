@@ -1,46 +1,42 @@
-import api from '../../../services/api';
 import { Box, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, {  useState, useEffect } from 'react';
 import TutorProfileForm from './TutorProfileForm';
 import ProfileInfos from './ProfileInfos';
 
-function Profile() {
-  const [profileData, setProfileData] = useState(null);
+function Profile({profileData, userData}) {
+  const [isProfileComplete, setIsProfileComplete] = useState(false);
+  const [profileInfos, setProfileInfos] = useState(profileData);
+  const [userInfos, setUserInfos] = useState( userData);
+
   useEffect(() => {
     const checkProfileCompleteness = async () => {
       try {
-        const userId = localStorage.getItem('userId');
-        console.log('userId in Profile:', userId);
 
-        const response = await api.get(`/tutors/profile/${userId}`, {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        if (response.data) {
-          // setIsProfileComplete(true);
-          setProfileData(response.data);
-        } else {
-          // setIsProfileComplete(false);
+        if(profileData) {
+          setIsProfileComplete(true);
+          setUserInfos(userInfos);
+          setProfileInfos(profileInfos);
+        }else {
+          setIsProfileComplete(false)
         }
-
-    
       } catch (error) {
         console.error(error);
       }
     };
     checkProfileCompleteness();
-  }, []);
+  });
 
-  if (profileData === null) {
-    return <TutorProfileForm />;
+
+  if (profileInfos === null) {
+    return <TutorProfileForm profileInfos={profileInfos}/>;
   }
+  // console.log('porfileInfos in profile:',profileInfos)
+  // console.log('userInfos  in profile:',userInfos)
 
   return (
     <Box>
       <Typography>Profile et manipulation du Profile</Typography>
-       <ProfileInfos/>
+      {isProfileComplete ? <ProfileInfos profileInfos={profileInfos} userInfos={userInfos}/> : <TutorProfileForm />}
     </Box>
   );
 }
