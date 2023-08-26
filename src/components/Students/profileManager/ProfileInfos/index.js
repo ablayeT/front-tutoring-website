@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import api from '../../../services/api'
+import api from '../../../../services/api'
 import { Box, Stack, Typography,  TextField, FormLabel} from '@mui/material';
-import profileFields from './ProfileInfo.schema';
-
-
-import MuiButton from '../../Buttons/Button'
+import profileFields from '../ProfileInfo.schema';
+import MuiButton from '../../../Buttons/Button'
 
 function ProfileInfos({profileData, userData}) {
   const [isEditing, setIsEditing] = useState(false);

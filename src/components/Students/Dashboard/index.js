@@ -1,15 +1,13 @@
-import * as React from 'react';
-
+import { useEffect, useState } from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
-import Profile from './profileManager';
+import Profile from '../profileManager';
 import CssBaseline from '@mui/material/CssBaseline';
-import Sessions from './Sessions';
-import { Box, Typography, List, } from '@mui/material';
+import Sessions from '../Sessions';
+import { Box, Typography, List, Stack, } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import Divider from '@mui/material/Divider';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -19,8 +17,12 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { styled, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import Image from '../../Assets/Image';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CastForEducationIcon from '@mui/icons-material/CastForEducation';
+import api from '../../../services/api';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -47,7 +49,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-start',
+  justifyContent: 'flex-end',
 }));
 
 const AppBar = styled(MuiAppBar, {
@@ -67,10 +69,12 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-function SideNav () {
+function Dashboard () {
   const theme = useTheme();
-
-  const [open, setOpen] = React.useState(false);
+  const [profileInfos, setProfileInfos] = useState()
+  const [userInfos, setUserInfos]= useState();
+  const [open, setOpen] = useState(false);
+  const [showMain, setShowMain] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -80,22 +84,80 @@ function SideNav () {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const fetchUserInfos = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const userResponse = await api.get(`/users/profiles/${userId}`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        setUserInfos(userResponse.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserInfos();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        console.log('userId in Dashboard:', userId);
+
+        const response = await api.get(`/students/profile/${userId}`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+       setProfileInfos(response.data);   
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProfileData();
+  }, []);
+// console.log('profileInfos : ',profileInfos)
+// console.log('userInfos in Dashboard :', userInfos)
+
+function handleMain () {
+  setShowMain(false);
+}
+
+
   return (
-    <Box display='flex' border='1px solid lightgray'  marginTop='50px' >
+    <Box display='flex'  height='100vh' sx={{marginTop:'80px'}} >
        <CssBaseline />
-       <AppBar position='fixed' open={open}>
-        <Toolbar>
+       <AppBar position='fixed' sx={{marginTop:'4rem', backgroundColor:'#ffe19c', color:'#4a4a49'}} open={open}>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 2, ...(open && { display: 'none' })}}
           >
             <MenuIcon />
           </IconButton>
+
+          <Box sx={{display:'flex', justifyContent:'space-between', width:'100%'}}>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            Tableau de bord 
           </Typography>
+          {userInfos && profileInfos && (
+          <Box display='flex' gap='10px'>
+            <Typography>Bienvenue, <br/>{userInfos.user.first_name} </Typography>
+            <Stack>
+          <Image imageUrl={profileInfos.imageUrl} alt='ProfileImage'   width= '50px' height= '50px'/>
+          </Stack>
+          </Box>
+          )}
+            </Box>
         </Toolbar>
       </AppBar>
        <Drawer
@@ -105,67 +167,63 @@ function SideNav () {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            marginTop:'5rem',
+            backgroundColor:'#ffe19c',
           },
+          
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        <DrawerHeader sx={{background:'white'}}>
+          <IconButton onClick={handleDrawerClose} >
+            {theme.direction === 'ltr' ? <ChevronLeftIcon color='white' /> : <ChevronRightIcon/>}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-            <ListItem sx={{display:'block', flexDirection:'column'}} disablePadding>
-              <ListItemButton sx={{minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5,}} >
+        <List >
+            <ListItem sx={{display:'block',listStyle:'none', flexDirection:'column'}} disablePadding>
+              <ListItemButton onClick={handleMain} sx={{minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}} >
                 <ListItemIcon>
-                   <InboxIcon /> 
+                   <AccountCircleIcon /> 
                 </ListItemIcon>
                 <NavLink to='profile' display='flex'>
-                <ListItemText primary='Profil' />
+                <ListItemText primary='Profil' sx={{listStyle:'none'}} />
                 </NavLink>
               </ListItemButton >
-              <ListItemButton sx={{display:'flex'}}>
+              <ListItemButton onClick={handleMain}  sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
                 <ListItemIcon>
-                   <InboxIcon /> 
+                   <CastForEducationIcon /> 
                 </ListItemIcon>
                 <NavLink to="sessions" display='flex'>
                 <ListItemText primary='Sessions' />
                 </NavLink>
               </ListItemButton>
+              <ListItemButton onClick={handleMain}  sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
+                <ListItemIcon>
+                   <CastForEducationIcon /> 
+                </ListItemIcon>
+                <NavLink to="sessions" display='flex'>
+                <ListItemText primary='Mes tuteurs' />
+                </NavLink>
+              </ListItemButton>
             </ListItem>
-       
         </List>
         <Divider />
-       
       </Drawer>
-      {/* <Box flex='0 0 20%' backgroundColor='#FFA500'  padding='20px'>
-        <Box>
-      <h1>Tableau de bord l'étudiant</h1>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="profile">Profil</NavLink>
-          </li>
-          <li>
-            <NavLink to="sessions">Sessions</NavLink>
-          </li>
-
-        </ul>
-      </nav>
-      </Box>
-      </Box> */}
-         <DrawerHeader />
-      <Main  flex='1' padding='20px'>
-     
+        
+      <Main  flex='1' padding='20px' open={open}>
+      <DrawerHeader />
+      {!showMain ? (
       <Routes>
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<Profile profileInfos={profileInfos} userInfos={userInfos} />} />
         <Route path="sessions" element={<Sessions />} />
         {/* <Route path="/student-dashboard/create-session" element={<CreateSession />} /> */}
       </Routes>
-      <Typography paragraph>
+      ) : (
+        <Box>
+      <Typography paragraph >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -179,6 +237,7 @@ function SideNav () {
           consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
           sapien faucibus et molestie ac.
         </Typography>
+        
         <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
           eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
@@ -192,10 +251,10 @@ function SideNav () {
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+        </Box> )}
       </Main>
-      <Box display='flex'><Typography>Image Profil</Typography></Box>
     </Box>
   );
 };
 
-export default SideNav;
+export default Dashboard;

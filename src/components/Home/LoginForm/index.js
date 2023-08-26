@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { Box,Stack,  TextField, Typography } from '@mui/material';
-import instanceAxios from '../../services/axiosInterceptor';
-import MuiButton from '../../components/Buttons/Button'
+import instanceAxios from '../../../services/axiosInterceptor';
+import MuiButton from '../../Buttons/Button'
 
 import { makeStyles } from 'tss-react/mui'
 

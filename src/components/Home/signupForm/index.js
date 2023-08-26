@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box,  MenuItem,Typography, Select, Stack, TextField } from '@mui/material';
-import instanceAxios from '../../services/axiosInterceptor';
-import MuiButton from '../../components/Buttons/Button'
+import instanceAxios from '../../../services/axiosInterceptor';
+import MuiButton from '../../Buttons/Button'
 import { makeStyles } from 'tss-react/mui'
 import {useNavigate} from 'react-router-dom'
 

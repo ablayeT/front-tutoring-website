@@ -1,6 +1,6 @@
 import  { React,useState } from 'react';
 import LoginForm from '../../components/Home/LoginForm';
-import SignupForm from '../../components/Home/SignupForm';
+import SignupForm from '../../components/Home/signupForm/index';
 import { Box, Button, Stack } from '@mui/material';
 import { makeStyles } from 'tss-react/mui'
 

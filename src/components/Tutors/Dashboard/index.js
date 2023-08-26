@@ -1,26 +1,30 @@
-import { useEffect, useState } from 'react';
+import {React, useEffect, useState} from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
-import Profile from './profileManager';
-import CssBaseline from '@mui/material/CssBaseline';
-import Sessions from './Sessions';
-import { Box, Typography, List, Stack, } from '@mui/material';
-import ListItem from '@mui/material/ListItem';
+import Profile from '../ProfileManager/index';
+import CreateSession from '../SessionManager/CreateSession/index'
+import Sessions from '../SessionManager/Sessions';
+import EditProfile from '../ProfileManager/EditProfile'
+import Toolbar from '@mui/material/Toolbar';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import IconButton from '@mui/material/IconButton';
-import Drawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import { styled, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import Image from '../Image';
+import Drawer from '@mui/material/Drawer';
+import { Box, Stack,List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui/material';
+import Image from '../../Assets/Image';
+import api from '../../../services/api';
+// import TutorProfileForm from './ProfileManager/TutorProfileForm';
+import { styled, useTheme } from '@mui/material/styles';
+import MuiAppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
+// import { makeStyles } from 'tss-react/mui';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
-import api from '../../services/api';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+
+
 
 const drawerWidth = 220;
 
@@ -70,9 +74,13 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 function Dashboard () {
+  // const {classes} = useStyles();
   const theme = useTheme();
-  const [profileInfos, setProfileInfos] = useState()
-  const [userInfos, setUserInfos]= useState();
+
+  const [profileData, setProfileData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [open, setOpen] = useState(false);
   const [showMain, setShowMain] = useState(true);
 
@@ -85,7 +93,7 @@ function Dashboard () {
   };
 
   useEffect(() => {
-    const fetchUserInfos = async () => {
+    const fetchUserData = async () => {
       try {
         const userId = localStorage.getItem('userId');
         const userResponse = await api.get(`/users/profiles/${userId}`, {
@@ -94,47 +102,53 @@ function Dashboard () {
           },
         });
 
-        setUserInfos(userResponse.data);
+        setUserData(userResponse.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchUserInfos();
-  }, []);
-
-
-  useEffect(() => {
     const fetchProfileData = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        console.log('userId in Dashboard:', userId);
-
-        const response = await api.get(`/students/profile/${userId}`, {
+        const profileResponse = await api.get(`/tutors/profile/${userId}`, {
           headers: {
             authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-
-       setProfileInfos(response.data);   
+        if(profileResponse ===  null) {
+          setIsProfileComplete(true);
+        }
+        setProfileData(profileResponse.data);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchProfileData();
+
+    const fetchData = async () => {
+      setIsLoading(true);
+      await Promise.all([fetchUserData(), fetchProfileData()]);
+      setIsLoading(false);
+    };
+
+    fetchData();
+
   }, []);
-// console.log('profileInfos : ',profileInfos)
-// console.log('userInfos in Dashboard :', userInfos)
+// console.log('profileData in Dashboard:',profileData);
+// console.log('userData in Dashboard:',userData);
+
+if (isLoading) {
+  return <Typography>Loading</Typography>;
+}
 
 function handleMain () {
   setShowMain(false);
 }
 
-
   return (
-    <Box display='flex'  height='100vh' sx={{marginTop:'80px'}} >
-       <CssBaseline />
-       <AppBar position='fixed' sx={{marginTop:'4rem', backgroundColor:'#ffe19c', color:'#4a4a49'}} open={open}>
+    <Box display='flex'  height='100vh' sx={{marginTop:'80px'}}  >
+      <CssBaseline />
+      <AppBar position='fixed' sx={{marginTop:'4rem', backgroundColor:'#ffe19c', color:'#4a4a49'}} open={open}>
         <Toolbar >
           <IconButton
             color="inherit"
@@ -149,18 +163,18 @@ function handleMain () {
           <Typography variant="h6" noWrap component="div">
             Tableau de bord 
           </Typography>
-          {userInfos && profileInfos && (
+          {userData && profileData && (
           <Box display='flex' gap='10px'>
-            <Typography>Bienvenue, <br/>{userInfos.user.first_name} </Typography>
+            <Typography>Bienvenue, <br/>{userData.user.first_name} </Typography>
             <Stack>
-          <Image imageUrl={profileInfos.imageUrl} alt='ProfileImage'   width= '50px' height= '50px'/>
+          <Image imageUrl={profileData.profile.imageUrl} alt='ProfileImage'   width= '50px' height= '50px'/>
           </Stack>
           </Box>
           )}
             </Box>
         </Toolbar>
       </AppBar>
-       <Drawer
+      <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -192,38 +206,37 @@ function handleMain () {
                 <ListItemText primary='Profil' sx={{listStyle:'none'}} />
                 </NavLink>
               </ListItemButton >
-              <ListItemButton onClick={handleMain}  sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
+              <ListItemButton  onClick={handleMain} sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
                 <ListItemIcon>
                    <CastForEducationIcon /> 
                 </ListItemIcon>
                 <NavLink to="sessions" display='flex'>
-                <ListItemText primary='Sessions' />
+                <ListItemText primary='Sessions de tutorat' />
                 </NavLink>
               </ListItemButton>
               <ListItemButton onClick={handleMain}  sx={{display:'flex', minHeight:48, justifyContent: open ? "initial" :  "center", px:2.5}}>
                 <ListItemIcon>
-                   <CastForEducationIcon /> 
+                   <CreateNewFolderIcon /> 
                 </ListItemIcon>
-                <NavLink to="sessions" display='flex'>
-                <ListItemText primary='Mes tuteurs' />
+                <NavLink to="create-session" display='flex'>
+                <ListItemText primary='Créer une session' />
                 </NavLink>
               </ListItemButton>
             </ListItem>
         </List>
         <Divider />
       </Drawer>
-        
-      <Main  flex='1' padding='20px' open={open}>
-      <DrawerHeader />
-      {!showMain ? (
-      <Routes>
-        <Route path="profile" element={<Profile profileInfos={profileInfos} userInfos={userInfos} />} />
+      <Main flex='1' padding='20px' open={open}>
+        {!showMain ? (
+       <Routes>
+        <Route path="profile" element={<Profile profileData={profileData} userData={userData}/>} />
+        <Route path="profile/edit" element={<EditProfile profileData={profileData} />} />
         <Route path="sessions" element={<Sessions />} />
-        {/* <Route path="/student-dashboard/create-session" element={<CreateSession />} /> */}
+        <Route path="create-session" element={<CreateSession />} />
       </Routes>
       ) : (
-        <Box open={open}>
-      <Typography paragraph >
+      <Box open={!open}>
+      <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -251,10 +264,12 @@ function handleMain () {
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-        </Box> )}
+        </Box>
+        )}
       </Main>
+     
     </Box>
   );
 };
 
-export default Dashboard;
+export default Dashboard;           

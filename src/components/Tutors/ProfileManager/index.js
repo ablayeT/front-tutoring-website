@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import React, {  useState, useEffect } from 'react';
-import TutorProfileForm from './TutorProfileForm';
-import ProfileInfos from './ProfileInfos';
+import TutorProfileForm from './TutorProfileForm/index';
+import ProfileInfos from '../../Tutors/ProfileManager/ProfileInfos/index';
 
 function Profile({profileData, userData}) {
   const [isProfileComplete, setIsProfileComplete] = useState(false);
@@ -35,7 +35,6 @@ function Profile({profileData, userData}) {
 
   return (
     <Box>
-      <Typography>Profile et manipulation du Profile</Typography>
       {isProfileComplete ? <ProfileInfos profileInfos={profileInfos} userInfos={userInfos}/> : <TutorProfileForm />}
     </Box>
   );

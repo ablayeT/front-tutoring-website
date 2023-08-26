@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
-import api from '../../../services/api'; // Assurez-vous d'importer correctement votre instance Axios configurée
-import TutorSessionCard  from '../../Cards/TutorSessionsCard'
+// import instanceAxios from '../../../services/axiosInterceptor';
+import api from '../../../../services/api'
+import TutorSessionCard  from '../../../Cards/TutorSessionsCard'
+import { NavLink } from 'react-router-dom';
+import Button from '../../../Buttons/Button';
 
 function Sessions() {
   const [tutorSessions, setTutorSessions] = useState([]);
@@ -43,11 +46,23 @@ const handleDeleteSession = async (sessionId) => {
 }
 
 if (isLoading) {
-  return <Typography>Loading</Typography>;
+  return <Typography>Loading</Typography>; 
 }
+
+
   return (
     <Box>
-      <Typography>Mes sessions de tutorat</Typography>
+      { tutorSessions.length === 0 ? (
+        <Box display='flex' justifyContent='center' marginTop={5} gap='1rem'>
+         <Typography variant='h5' textAlign='center' >Vous n'avez pas encore de Séssion,</Typography> 
+         <NavLink to="/tutor-dashboard/create-session" >
+             <Button>Créer une session</Button>
+         </NavLink>
+         </Box>
+
+      ) : ( 
+      <Typography level='h5' >Mes sessions de tutorat</Typography>
+      )}
       {tutorSessions.map(session => (
   <Stack key={session.id}>
     <TutorSessionCard session={session} sessionId={session.id} onDelete={handleDeleteSession}/>

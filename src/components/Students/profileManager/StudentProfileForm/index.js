@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, FormControl,Divider, Stack, TextField, Typography } from '@mui/material';
-import api from '../../../services/api';
-import Button from '../../Buttons/Button'
+import api from '../../../../services/api';
+import Button from '../../../Buttons/Button'
 
 
 function StudentProfileForm() {

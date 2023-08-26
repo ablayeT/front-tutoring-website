@@ -1,4 +1,4 @@
-import TutorProfileForm from '../../components/Tutors/ProfileManager/TutorProfileForm'
+import TutorProfileForm from '../../components/Tutors/ProfileManager/TutorProfileForm/index'
 import React from 'react'
 
 function TutorProfile() {

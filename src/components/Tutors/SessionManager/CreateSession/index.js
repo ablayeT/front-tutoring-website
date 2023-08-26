@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../../services/api';
+import api from '../../../../services/api';
 import { Box, Typography, TextField,  Select, MenuItem, FormControl, Stack, FormLabel } from '@mui/material';
-import MuiButton from '../../Buttons/Button';
-
+import Button from '../../../Buttons/Button';
+import tutoringSessionFields from '../sessionSchema/TutoringSessionForm.schema/index';
 
 
 function TutoringSessionForm({mode, sessionToEdit}) {
@@ -116,96 +116,39 @@ function TutoringSessionForm({mode, sessionToEdit}) {
     <Box display='flex' flexDirection='column' justifyContent='center'   margin ='auto' borderRadius='10px' padding='15px'>
       <Typography variant='h4' marginBottom='15px' >Créer une session de tutorat</Typography>
       
-      <FormControl sx={{display:'flex', width:'95%', gap:'20px', flexDirection:'column', padding:'10px', borderRadius:'15px'}} >
-      <form onSubmit={handleSubmit}>
-        <Stack>
-          <FormLabel>Tutor ID</FormLabel>
-        <TextField
-          type="text"
-          name="tutor_id"
-          value={formData.tutor_id}
-          onChange={handleInputChange}
-          disabled
-          
-        />
-        </Stack>
-        <FormControl >
-          <FormLabel>Sélectionner un sujet</FormLabel>
-          <Select name="subject_id" value={formData.subject_id} onChange={handleInputChange} required>
-            {subjects.map((subject) => (
-              <MenuItem key={subject.id} value={subject.id}>
-                {subject.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Stack>
-          <FormLabel>Date</FormLabel>
-        <TextField
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleInputChange}
-          required
-        />
-        </Stack>
-        <Stack>
-        <FormLabel>Heure de début</FormLabel>
-        <TextField
-          type="time"
-          name="start_time"
-          value={formData.start_time}
-          onChange={handleInputChange}
-          required
-        />
-        </Stack>
-        <Stack>
-        <FormLabel>Heure de fin</FormLabel>
-        <TextField
-          type="time"
-          name="end_time"
-          value={formData.end_time}
-          onChange={handleInputChange}
-          required
-          variant='outlined'
-        />
-        </Stack>
-        <Stack>
-        <FormLabel>Emplacement</FormLabel>
-        <TextField
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleInputChange}
-          required
-        />
-        </Stack>
-        <Stack>
-        <FormLabel>Prix</FormLabel>
-        <TextField
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleInputChange}
-          required
-        />
-         </Stack>
-         <Stack>
-        <FormLabel>Description</FormLabel>
-         <TextField
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          required
-        />
-        </Stack>
+      <FormControl component='form' onSubmit={handleSubmit} sx={{display:'flex', width:'95%', gap:'20px', flexDirection:'column', padding:'10px', borderRadius:'15px'}} >
+      {/* <form onSubmit={handleSubmit}> */}
+      {tutoringSessionFields.map((field) => (
+      <Stack key={field.key}>
+        <FormLabel>{field.label}</FormLabel>
+        {field.type === 'select' ? (
+            <FormControl >
+            <Select name="subject_id" value={formData.subject_id} onChange={handleInputChange} required>
+              {subjects.map((subject) => (
+                <MenuItem key={subject.id} value={subject.id}>
+                  {subject.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ) : (
+          <TextField
+            type={field.type}
+            name={field.key}
+            value={formData[field.key]}
+            onChange={handleInputChange}
+            required={field.required}
+            disabled={field.disabled}
+          />
+        )}
+      </Stack>
+    ))}
         <Box display='flex' justifyContent='center' marginTop='2rem'>
-        <MuiButton  type="submit">
+        <Button  type="submit">
           Créer la session
-        </MuiButton>
+        </Button>
         </Box>
-        </form>
+        {/* </form> */}
       </FormControl>
      
     </Box>

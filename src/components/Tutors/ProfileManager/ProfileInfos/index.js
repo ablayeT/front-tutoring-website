@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Stack, Typography,  TextField, FormLabel} from '@mui/material';
- import api from '../../../services/api'
- import MuiButton from '../../../components/Buttons/Button';
- import profileFields from './profileInfos.schema';
-import userFields from './userInfos.schema';
+ import api from '../../../../services/api'
+ import MuiButton from '../../../Buttons/Button';
+ import profileFields from '../ProfilSchema/ProfileInfos.schema';
+import userFields from '../ProfilSchema/userInfos.schema/index'; 
 
 function ProfileInfos({userInfos,profileInfos}) {
   
@@ -80,7 +80,7 @@ function ProfileInfos({userInfos,profileInfos}) {
     <Box  display='flex'   alignSelf='center'  justifyContent='center' flexDirection='column'> 
      {!isEditing &&  ( 
       <Box  display='flex' gap='20px' margin='20px' flexDirection='column'>
-     <Typography>Mon inormations de profil</Typography>
+     <Typography>Mes inormations de profil</Typography>
 
      {userFields.map((field) => (
      <Stack key={field.key}>
@@ -98,7 +98,7 @@ function ProfileInfos({userInfos,profileInfos}) {
           ))}
       <Stack display='flex'justifyContent='center' >
         <MuiButton variant="outlined" sx={{background:'#FFA500', width:'3rem' }} onClick={handleEditClick}>
-          Modifier mon proifil
+          Mise à jour du  profil
         </MuiButton>
       </Stack> 
       </Box>
@@ -106,7 +106,7 @@ function ProfileInfos({userInfos,profileInfos}) {
 
       {isEditing && (
         <Box display='flex'  flexDirection='column' width='50%' margin='auto'  gap='20px' padding='15px' >
-          <Typography>Modification du profil</Typography>
+          <Typography> Mise à jour du  profil</Typography>
           {profileFields.map((field) => (
             <Stack key={field.key}>
             <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>{field.label}</FormLabel>
