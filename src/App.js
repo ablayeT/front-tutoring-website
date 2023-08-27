@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './components/Home/AuthContext';
 import TutorProfile from './page/Tutor/TutorProfile';
 import StudentProfile from './page/Students/StudentProfile';
-import Home from './page/Home/Home';
+import Home from './page/Home/index';
 import TutorDashboard from './page/Tutor/TutorDashboard';
 import StudentDashboard from './page/Students/StudentDashboard';
 import LoginForm from './components/Home/LoginForm';
 import Header from './components/Header/index';
 import Auth from './page/Auth/Index';  
 import Contact from './page/Contacts/Contat';
-import Footer from './components/Footer/Index'
+import Footer from './components/Footer/index'
 
 function App() {
   const userType= localStorage.getItem('userType');

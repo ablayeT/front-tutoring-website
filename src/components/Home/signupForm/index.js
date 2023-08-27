@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box,  MenuItem,Typography, Select, Stack, TextField } from '@mui/material';
+import { Box,  MenuItem,Typography, Select, Stack, FormControl,TextField } from '@mui/material';
 import instanceAxios from '../../../services/axiosInterceptor';
 import MuiButton from '../../Buttons/Button'
 import { makeStyles } from 'tss-react/mui'
@@ -17,10 +17,11 @@ const useStyles = makeStyles()((theme) =>{
       width:'40%',
       padding: '2rem',
       borderRadius: '10px',
-      backgroundColor: theme.palette,
+      backgroundColor:theme.palette,
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
-        width: '90%',
+        width: 'auto',
+        marginTop: '5rem',
       }, 
     },
     input :  {
@@ -42,7 +43,6 @@ function SignupForm () {
     email: '',
     password: '',
     user_type : 'Tutor', 
-
   });
 
   const handleChange = (e) => {
@@ -63,12 +63,12 @@ function SignupForm () {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={classes.form}>
+    <FormControl component='form' onSubmit={handleSubmit} className={classes.form}>
        <Typography variant='h4'>S'inscrire</Typography>
       <Stack>
         <TextField type="text" id="last_name" name="last_name" label='Nom' placeholder='Nom'  value={formData.last_name} onChange={handleChange} />
-      </Stack>
-      <Stack>
+      </Stack>                   
+      <Stack>                  
         <TextField type="text" id="first_name" name="first_name" label='Prénom' placeholder='Prénom'  value={formData.first_name} onChange={handleChange} />
       </Stack>
       <Stack>
@@ -89,8 +89,7 @@ function SignupForm () {
       <MuiButton type="submit">S'inscrire</MuiButton>
        </Stack>
       </Box>
-     
-    </form>
+    </FormControl>
   );
 };
 

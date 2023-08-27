@@ -6,7 +6,7 @@ import Dashboard from '../../components/Students/Dashboard'
 function StudentDashboard() {
   return (
     <Box>
-    <Typography variant='body2'>Tutor Dashboard</Typography>
+    <Typography variant='body2'>Student Dashboard</Typography>
     <Dashboard />
     </Box>
   )

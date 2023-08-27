@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import Profile from '../profileManager';
 import CssBaseline from '@mui/material/CssBaseline';
-import Sessions from '../Sessions';
+import Sessions from '../SessionManager/Sessions';
 import { Box, Typography, List, Stack, } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';

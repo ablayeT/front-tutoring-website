@@ -1,7 +1,7 @@
 import  { React,useState } from 'react';
 import LoginForm from '../../components/Home/LoginForm';
 import SignupForm from '../../components/Home/signupForm/index';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Button} from '@mui/material';
 import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()((theme) =>{
@@ -18,6 +18,7 @@ const useStyles = makeStyles()((theme) =>{
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
         width: '100%',
+       
       },
     },
     button :{
@@ -37,18 +38,17 @@ function Index() {
       };
 
    return (
-    <Box>
-    <Box display='flex' justifyContent='center' paddingTop='5rem' flexDirection='column' height='100vh' textAlign='center' >
+  
+    <Box  paddingTop='10rem' height='100vh' margin='1rem' >
+    <Box  textAlign='center'  width='100%'>
       {isLoginForm ? <SignupForm /> : <LoginForm />}
-      <Box marginTop='10px'>
-        <Stack width='50%' margin='auto'>
-      <Button onClick={toggleForm}  className={classes.button}>
+      <Button onClick={toggleForm}  className={classes.button} >
         {isLoginForm ? 'Avez vous déjà un compte ? Se connecter'  : "Vous n'avez pas de compte ? S'inscrire"}
       </Button>
-      </Stack>
       </Box>
+    
     </Box>
-    </Box>
+   
   );
 }
 

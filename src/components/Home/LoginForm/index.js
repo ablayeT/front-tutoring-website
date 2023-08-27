@@ -20,7 +20,8 @@ const useStyles = makeStyles()((theme) =>{
       backgroundColor: theme.palette,
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
-        width: '90%',
+        width: 'auto',
+        marginTop: '5rem',
       },
     },
     button :{
@@ -29,10 +30,7 @@ const useStyles = makeStyles()((theme) =>{
         backgroundColor: '#FF8C00',
       }
     },
-    container : {
-      height :'100vh', 
-      paddingTop: '15rem'
-    }
+   
   };
 });
 
