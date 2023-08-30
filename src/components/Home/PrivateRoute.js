@@ -1,11 +1,15 @@
-import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+// import React from 'react';
 import { useAuth } from './AuthContext'; // Importer le hook
+import { Navigate} from 'react-router-dom';
 
 const PrivateRoute = ({ element, ...rest }) => {
-  const { isLoggedIn } = useAuth();
-
-  return isLoggedIn ? <Route {...rest} element={element} /> : <Navigate to="/auth" />;
-};
-
-export default PrivateRoute;
+  const { verifyLogin } = useAuth();
+  
+   
+  if(verifyLogin()) {
+    return  element
+}else {
+  return <Navigate to='/auth' />;
+}
+}
+export default  PrivateRoute;

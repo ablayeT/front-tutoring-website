@@ -62,7 +62,8 @@ const useStyles = makeStyles()((theme) =>{
 
 
 function Header() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
+
   const {classes} =  useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
   // const navigate = useNavigate();
@@ -72,17 +73,10 @@ function Header() {
     setMobileOpen(!mobileOpen);
   };
 
-  const userType = localStorage.getItem('userType');
-  console.log('userType in Header: ',userType);
+  // const userType = localStorage.getItem('userType');
+  // // console.log('userType in Header: ',userType);
 
-  // const handleLogoutClick = () => {
-  //   console.log('handleLogoutClick');
-  //   if(isLoggedIn) {
-      
-  //   }
 
-  //   navigate('/')
-  // }
   
 console.log(isLoggedIn);
   return (
@@ -103,13 +97,13 @@ console.log(isLoggedIn);
         <Button component={Link} to="/contact" className={classes.link}>
               <ListItemText primary="Contact" />
         </Button> 
-           {!isLoggedIn ? (
-        <Button component={Link} to="/auth" className={classes.link}>
-              <ListItemText primary="Connexion" />
+           {isLoggedIn ? (
+        <Button  to="/auth" className={classes.link}  onClick={logout}>
+              <ListItemText primary="Déconnexion" />
         </Button> 
         ): (
-          <Button to="/auth"className={classes.link} >
-              <ListItemText primary="Déconnexion" />
+          <Button component={Link} to="/auth"className={classes.link} >
+              <ListItemText primary="Connexion" />
         </Button>
         )}    
            </Box>
@@ -146,7 +140,7 @@ console.log(isLoggedIn);
             </Button>
           </ListItem>
           <ListItem>
-            <Button component={Link} to="/devenir-tuteur" className={classes.link}>
+            <Button component={Link} to="/auth" className={classes.link}>
               <ListItemText primary="Devenir Tuteur" />
             </Button>
           </ListItem>
@@ -156,8 +150,8 @@ console.log(isLoggedIn);
             </Button>
           </ListItem>
           <ListItem>
-          {userType === 'Tutor' || userType === 'Student' ? (
-          <Button    className={classes.link}>
+          {isLoggedIn  ? (
+          <Button    className={classes.link}  onClick={logout}>
              <ListItemText primary="Déconnexion" />
           </Button>
                     ) : (
@@ -165,7 +159,6 @@ console.log(isLoggedIn);
              <ListItemText primary="Connexion" />
           </Button>
 )}
-
           </ListItem>
         </List>
   </Drawer>

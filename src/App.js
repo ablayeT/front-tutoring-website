@@ -1,13 +1,10 @@
 import {React, useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import PrivateRoute from './components/Home/PrivateRoute'
-import { AuthProvider } from './components/Home/AuthContext';
-import TutorProfile from './page/Tutor/TutorProfile';
-import StudentProfile from './page/Students/StudentProfile';
+import PrivateRoute from './components/Home/PrivateRoute'
+import {AuthProvider}  from './components/Home/AuthContext';
 import Home from './page/Home/index';
 import TutorDashboard from './page/Tutor/TutorDashboard';
 import StudentDashboard from './page/Students/StudentDashboard';
-import LoginForm from './components/Home/LoginForm';
 import Header from './components/Header/index';
 import Auth from './page/Auth/Index';  
 import Contact from './page/Contacts/Contat';
@@ -26,28 +23,22 @@ function App() {
   console.log('isLoggedIn :', isLoggedIn);
   
   return (
-    <AuthProvider>
+  
     <Router>
-      <Header isLoggedIn={isLoggedIn} handleLogin={handleLogin}  />
+   <AuthProvider>
+   <Header isLoggedIn={isLoggedIn} handleLogin={handleLogin}  />
       <Routes>
         <Route exact path="/" element={<Home />} /> 
-        <Route  path="/auth" element={<Auth />} />
-                              
-        {/* Rediriger vers page appropriée en fonction du type si l'utilisateur a déjà un compte et un profil */}
-        {userType === 'Tutor' && (
-          <Route path="/tutor-dashboard/*" element={<TutorDashboard />} />
-        )}
-        {userType === 'Student' && (       
-          <Route path="/student-dashboard/*" element={<StudentDashboard />} />
-        )}
-        <Route exact path="/login" element={<LoginForm />} /> 
         <Route path="/contact" element={<Contact/>} />
-        <Route exact path="/tutor-profile" element={<TutorProfile />} />
-        <Route exact path="/student-profile"  element={<StudentProfile />} />
+        <Route  path="/auth" element={<Auth />} /> 
+        <Route path="/tutor-dashboard/*" element={<PrivateRoute element={<TutorDashboard />} />} />      
+        <Route path="/student-dashboard/*" element={<PrivateRoute element={<StudentDashboard />} />} />
       </Routes>
       <Footer/>
+      </AuthProvider>
     </Router>
-    </AuthProvider>
+   
+  
   );
 }
 

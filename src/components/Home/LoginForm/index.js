@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { Box,Stack,  TextField, Typography } from '@mui/material';
-import instanceAxios from '../../../services/axiosInterceptor';
+// import instanceAxios from '../../../services/axiosInterceptor';
 import MuiButton from '../../Buttons/Button'
+import  {useAuth} from '../AuthContext' 
 
 import { makeStyles } from 'tss-react/mui'
 
@@ -38,9 +39,12 @@ const useStyles = makeStyles()((theme) =>{
 function LoginForm()  {
   const {classes} = useStyles();
   const navigate = useNavigate()
+
+  const {login} =  useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,44 +54,26 @@ function LoginForm()  {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await instanceAxios.post('/auth/login', {
-        email,
-        password,
-      });
-      console.log('User ID:', response.data.userId);
+     const userData =    await login(email,password);
+
+     if (userData.error) {
+        console.log('Erreur de connexion :', userData.error)
+     }else {
+      // console.log('User ID:', response.data.userId);
       // Redirigez vers la page de profil du tuteur ou de l'etudiant après la connexion réussie
-      if(response.data.userType === 'Tutor') {
+      console.log('userData:', userData)
+      console.log('userType :',userData.userType)
+      if(userData.userType === 'Tutor') {
         navigate('/tutor-dashboard')
-      }else if(response.data.userType === 'Student') {
+      }else if(userData.userType === 'Student') {
         navigate('/student-dashboard')
       }else {
         navigate('/')
       }
-    } catch (error) {
-      setError('Adresse email ou mot de passe incorrect');
     }
-  };
+  };  
 
-  // const handleLogout = async () => {
-  //   try {
-      // Faire une requête à votre API pour déconnecter l'utilisateur
-  //     await api.post('/auth/logout', null, {
-  //       headers: {
-  //         authorization: `Bearer ${localStorage.getItem('token')}`,
-  //       },
-  //     });
 
-      // Supprimez le token de l'utilisateur du stockage local
-  //     localStorage.removeItem('token');
-
-      // Rechargez la page pour réinitialiser l'état de l'application
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.error('Erreur lors de la déconnexion :', error);
-  //   }
-  // };
- 
   
 
   return (
@@ -103,14 +89,13 @@ function LoginForm()  {
         {/* <FormLabel>Mot de passe :</FormLabel> */}
         <TextField type="password"  label='Mot de passe' placeholder='...........' name="password" value={password} onChange={handleInputChange} required />
       </Stack>
-      {error && <div>{error}</div>}
+      {/* {error && <div>{error}</div>} */}
       <Box>
       <Stack>
       <MuiButton className={classes.button} type="submit">Se connecter</MuiButton>
       </Stack>
       </Box>
       
-    
     </form>
     </Box>
   );
