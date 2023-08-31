@@ -77,16 +77,11 @@ function Header() {
 
   const { classes } = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
-  // const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  // const userType = localStorage.getItem('userType');
-  // // console.log('userType in Header: ',userType);
-
-  console.log(isLoggedIn);
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />

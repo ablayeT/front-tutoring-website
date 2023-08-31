@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Box, Stack, Typography, TextField, FormLabel } from '@mui/material';
 import instanceAxios from '../../../../services/axiosInterceptor';
 import MuiButton from '../../../Buttons/Button';
-import profileFields from './ProfileInfo.schema/ProfileInfo.schema';
-import userFields from './ProfileInfo.schema/ProfileInfo.schema';
+import profileFields from './ProfileInfo.schema';
+import userFields from '../userInfos.schema';
 
 function ProfileInfos({ userInfos, profileInfos }) {
   const [userData, setUserData] = useState(userInfos);
@@ -79,6 +79,7 @@ function ProfileInfos({ userInfos, profileInfos }) {
     }
   };
 
+  console.log('userData ine profileinfos: ', userData);
   return (
     <Box
       display="flex"

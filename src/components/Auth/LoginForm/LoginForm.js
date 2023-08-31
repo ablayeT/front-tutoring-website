@@ -4,7 +4,7 @@ import { Box, Stack, TextField, Typography } from '@mui/material';
 // import instanceAxios from '../../../services/axiosInterceptor';
 import MuiButton from '../../Buttons/Button';
 import { useAuth } from '../AuthContext/AuthContext';
-import { useStyles } from './LoginForm.styles';
+import { useStyles } from './Styles/LoginForm.styles';
 
 function LoginForm() {
   const { classes } = useStyles();
@@ -60,8 +60,6 @@ function LoginForm() {
             placeholder="email"
             name="email"
             value={email}
-            defaultValue={'emile@gmail.com'}
-            // defaultValue={('abdoulaye@gmail.com')}
             onChange={handleInputChange}
             required
           />
@@ -75,8 +73,6 @@ function LoginForm() {
             placeholder="..........."
             name="password"
             value={password}
-            defaultValue={'Emile'}
-            // defaultValue={'Abdoulaye'}
             onChange={handleInputChange}
             required
           />

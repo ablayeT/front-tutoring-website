@@ -10,33 +10,8 @@ import {
 } from '@mui/material';
 import instanceAxios from '../../../services/axiosInterceptor';
 import MuiButton from '../../Buttons/Button';
-import { makeStyles } from 'tss-react/mui';
 import { useNavigate } from 'react-router-dom';
-
-const useStyles = makeStyles()((theme) => {
-  return {
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '3rem',
-      margin: 'auto',
-      width: '40%',
-      padding: '2rem',
-      borderRadius: '10px',
-      backgroundColor: theme.palette,
-      boxShadow: theme.shadows[5],
-      [theme.breakpoints.down('md')]: {
-        width: 'auto',
-        marginTop: '5rem',
-      },
-    },
-    input: {
-      textAlign: 'left',
-      fontSize: '19px',
-      fontWeight: 'bold',
-    },
-  };
-});
+import { useStyles } from './Styles/SignupForm.style';
 
 function SignupForm() {
   const navigate = useNavigate();
