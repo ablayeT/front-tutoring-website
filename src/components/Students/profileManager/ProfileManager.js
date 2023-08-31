@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import StudentProfileForm from './StudentProfileForm';
-import ProfileInfos from './ProfileInfos';
+import StudentProfileForm from './StudentProfileForm/StudentProfileForm';
+import ProfileInfos from './ProfileInfos/ProfileInfos';
 
 function ProfileManager({ profileInfos, userInfos }) {
   const [isProfileComplete, setIsProfileComplete] = useState(false);

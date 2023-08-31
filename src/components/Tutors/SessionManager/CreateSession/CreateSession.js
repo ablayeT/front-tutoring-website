@@ -11,7 +11,7 @@ import {
   FormLabel,
 } from '@mui/material';
 import Button from '../../../Buttons/Button';
-import tutoringSessionFields from '../sessionSchema/TutoringSessionForm.schema/index';
+import tutoringSessionFields from '../sessionSchema/TutoringSessionForm.schema/TutoringSessionsForm.schema';
 
 function TutoringSessionForm({ mode, sessionToEdit }) {
   const [formData, setFormData] = useState({

@@ -2,7 +2,7 @@ import { React } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import { AuthProvider } from './components/Auth/AuthContext/AuthContext';
-import Home from './page/Home';
+import Home from './page/Home/Home';
 import TutorDashboard from './page/Tutor/TutorDashboard/TutorDashboard';
 import StudentDashboard from './page/Students/StudentDashboard/StudentDashboard';
 import Header from './components/Header/Header';
