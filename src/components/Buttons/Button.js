@@ -2,8 +2,8 @@ import React from 'react';
 import MuiButton from '@mui/material/Button';
 import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles()((theme) =>{
-    return {
+const useStyles = makeStyles()((theme) => {
+  return {
     button: {
       backgroundColor: '#FFA500',
       color: 'black',
@@ -14,17 +14,15 @@ const useStyles = makeStyles()((theme) =>{
       },
     },
   };
-})
+});
 
-function Button({children ,onClick}) {
-    const {classes} = useStyles()
+function Button({ children, onClick }) {
+  const { classes } = useStyles();
 
-    return (
-        <MuiButton type='submit' className={classes.button} onClick={onClick}>
-        {children}
-        </MuiButton>
-    );
-
-
+  return (
+    <MuiButton type="submit" className={classes.button} onClick={onClick}>
+      {children}
+    </MuiButton>
+  );
 }
 export default Button;

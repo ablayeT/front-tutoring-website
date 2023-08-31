@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function CreateSessionCard() {
-  return (
-    <div>CreateSessionCard</div>
-  )
+  return <div>CreateSessionCard</div>;
 }
 
-export default CreateSessionCard
+export default CreateSessionCard;
