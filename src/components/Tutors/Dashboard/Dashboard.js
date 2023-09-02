@@ -22,60 +22,16 @@ import {
   Typography,
 } from '@mui/material';
 import Image from '../../Assets/Image';
-import { styled, useTheme } from '@mui/material/styles';
-import MuiAppBar from '@mui/material/AppBar';
+import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 // import { makeStyles } from 'tss-react/mui';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import instanceAxios from '../../../services/axiosInterceptor';
+import api from '../../../services/api';
+import { Main, AppBar, DrawerHeader } from './Styles';
 
 const drawerWidth = 220;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 function Dashboard() {
   // const {classes} = useStyles();
@@ -100,14 +56,11 @@ function Dashboard() {
     const fetchUserData = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const userResponse = await instanceAxios.get(
-          `/users/profiles/${userId}`,
-          {
-            headers: {
-              authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const userResponse = await api.get(`/users/profiles/${userId}`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        );
+        });
 
         setUserData(userResponse.data);
       } catch (error) {
@@ -118,14 +71,11 @@ function Dashboard() {
     const fetchProfileData = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const profileResponse = await instanceAxios.get(
-          `/tutors/profile/${userId}`,
-          {
-            headers: {
-              authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const profileResponse = await api.get(`/tutors/profile/${userId}`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        );
+        });
         if (profileResponse === null) {
           // setIsProfileComplete(true);
         }

@@ -1,20 +1,6 @@
 import React from 'react';
 import MuiButton from '@mui/material/Button';
-import { makeStyles } from 'tss-react/mui';
-
-const useStyles = makeStyles()((theme) => {
-  return {
-    button: {
-      backgroundColor: '#FFA500',
-      color: 'black',
-      fontWeight: 'bold',
-      '&:hover': {
-        backgroundColor: 'black',
-        color: 'white',
-      },
-    },
-  };
-});
+import useStyles from './Styles';
 
 function Button({ children, onClick }) {
   const { classes } = useStyles();

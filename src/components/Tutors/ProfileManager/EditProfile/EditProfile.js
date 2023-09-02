@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import instanceAxios from '../../../../services/axiosInterceptor/axiosInterceptor';
+import instanceAxios from '../../../../services/api/api';
 
 function EditProfile() {
   const [profileData, setProfileData] = useState({

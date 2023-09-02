@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import instanceAxios from '../../../services/api';
+import api from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await instanceAxios.post('/auth/login', {
+      const response = await api.post('/auth/login', {
         email,
         password,
       });
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Faire une requête à l'API pour déconnecter l'utilisateur
-      await instanceAxios.post(
+      await api.post(
         '/auth/logout',
         {},
         {
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyLogin = async () => {
     try {
-      const response = await instanceAxios.get('/auth/current', {
+      const response = await api.get('/auth/current', {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`,
         },

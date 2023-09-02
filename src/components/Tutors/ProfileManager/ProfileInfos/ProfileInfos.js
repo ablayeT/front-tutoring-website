@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Stack, Typography, TextField, FormLabel } from '@mui/material';
-import instanceAxios from '../../../../services/axiosInterceptor';
+import api from '../../../../services/api';
 import MuiButton from '../../../Buttons/Button';
 import profileFields from './ProfileInfo.schema';
 import userFields from '../userInfos.schema';
@@ -53,18 +53,14 @@ function ProfileInfos({ userInfos, profileInfos }) {
   const handleUpdateProfile = async () => {
     try {
       // Envoyer les données mise à jour au seveur
-      await instanceAxios.put(
-        `/tutors/profile/${userData.user.id}`,
-        editedProfileData,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
+      await api.put(`/tutors/profile/${userData.user.id}`, editedProfileData, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      );
+      });
 
       // Mettre à jour les donnees
-      const updatedProfileResponse = await instanceAxios.get(
+      const updatedProfileResponse = await api.get(
         `/tutors/profile/${userData.user.id}`,
         {
           headers: {

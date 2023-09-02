@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import TutorSessionCard from '../../../Cards/TutorSessionsCard';
 import { NavLink } from 'react-router-dom';
 import Button from '../../../Buttons/Button';
-import instanceAxios from '../../../../services/axiosInterceptor';
+import instanceAxios from '../../../../services/api/index.js';
 
 function Sessions() {
   const [tutorSessions, setTutorSessions] = useState([]);

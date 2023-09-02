@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import Dashboard from '../../../components/Tutors/Dashboard/Dashboard';
+import Dashboard from '../../components/Tutors/Dashboard/Dashboard';
 
 function TutorDashboard() {
   return (

@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const instance = axios.create();
+const api = axios.create();
 
-instance.defaults.baseURL =
+api.defaults.baseURL =
   process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API_URL;
 
-instance.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
-    console.log(instance.interceptors.request);
+    console.log(api.interceptors.request);
     const token = localStorage.getItem('token');
     // if (token) {
     //   config.headers['authorization'] = `Bearer ${token}`;
@@ -44,4 +44,4 @@ instance.interceptors.request.use(
 //   },
 // );
 
-export default instance;
+export default api;

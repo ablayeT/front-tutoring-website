@@ -11,7 +11,7 @@ import {
 import { React, useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
 import MuiButton from '../Buttons/Button';
-import api from '../../services/axiosInterceptor';
+import api from '../../services/api/index.js';
 
 const useStyles = makeStyles()((theme) => {
   return {

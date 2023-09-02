@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import instanceAxios from '../../../../services/axiosInterceptor';
+import api from '../../../../services/api';
 import {
   Box,
   FormControl,
@@ -46,7 +46,7 @@ function TutorProfileForm() {
       formDataToSend.append('availability', formData.availability);
 
       // Envoyer une requête POST au backend pour enregistrer le profil du tuteur
-      const response = await instanceAxios.post(
+      const response = await api.post(
         `/tutors/profile/${userId}`,
         formDataToSend,
         {

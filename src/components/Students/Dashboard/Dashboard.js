@@ -4,7 +4,6 @@ import Profile from '../profileManager/ProfileManager';
 import CssBaseline from '@mui/material/CssBaseline';
 import Sessions from '../SessionManager/Sessions/Sessions';
 import { Box, Typography, List, Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
 import ListItem from '@mui/material/ListItem';
 import SearchIcon from '@mui/icons-material/Search';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -15,101 +14,27 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import IconButton from '@mui/material/IconButton';
 import Drawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { styled, useTheme, alpha } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from '../../Assets/Image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import api from '../../../services/api';
-
+import {
+  Main,
+  Search,
+  AppBar,
+  SearchIconWrapper,
+  StyledInputBase,
+  DrawerHeader,
+} from './Styles';
+// import Search from './Styles';
+// import AppBar from './Styles';
+// import SearchIconWrapper from './Styles';
+// import StyledInputBase from './Styles';
+// import DrawerHeader from './Styles';
 const drawerWidth = 220;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-
-  backgroundColor: alpha(theme.palette.common.white, 1),
-  border: `2px solid rgba(255, 187, 51, 1)`,
-  borderRadius: '0.6rem',
-  '&:hover': {
-    backgroundColor: 'rgba(240, 240, 240, 0.8)',
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: '50%',
-  },
-}));
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 function Dashboard() {
   const theme = useTheme();

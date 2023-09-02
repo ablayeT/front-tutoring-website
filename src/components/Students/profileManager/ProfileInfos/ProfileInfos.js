@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../../../services/api';
+import api from '../../../../services/api2';
 import { Box, Stack, Typography, TextField, FormLabel } from '@mui/material';
 import profileFields from './ProfileInfo.schema';
 import MuiButton from '../../../Buttons/Button';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import Dashboard from '../../../components/Students/Dashboard/Dashboard';
-// import Typography from '@material-ui';
+import Dashboard from '../../components/Students/Dashboard/Dashboard';
 
 function StudentDashboard() {
   return (

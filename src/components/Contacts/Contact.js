@@ -2,26 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Stack, Typography, Box, FormLabel } from '@mui/material';
 import api from '../../services/api';
 import MuiButton from '../../components/Buttons/Button';
-import { makeStyles } from 'tss-react/mui';
-
-const useStyles = makeStyles()((theme) => {
-  return {
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '3rem',
-      width: '40%',
-      margin: 'auto',
-      padding: '2rem',
-      borderRadius: '10px',
-      backgroundColor: theme.palette,
-      boxShadow: theme.shadows[5],
-      [theme.breakpoints.down('md')]: {
-        width: '90%',
-      },
-    },
-  };
-});
+import { useStyles } from './Styles';
 
 function Index() {
   const { classes } = useStyles();

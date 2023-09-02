@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Stack, TextField, Typography } from '@mui/material';
-// import instanceAxios from '../../../services/axiosInterceptor';
 import MuiButton from '../../Buttons/Button';
 import { useAuth } from '../AuthContext/AuthContext';
 import { useStyles } from './Styles/LoginForm.styles';
@@ -14,7 +13,6 @@ function LoginForm() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +27,6 @@ function LoginForm() {
     if (userData.error) {
       console.log('Erreur de connexion :', userData.error);
     } else {
-      // console.log('User ID:', response.data.userId);
       // Redirigez vers la page de profil du tuteur ou de l'etudiant après la connexion réussie
       console.log('userData:', userData);
       console.log('userType1 :', userData.userType);
@@ -53,7 +50,6 @@ function LoginForm() {
           flexDirection="column"
           justifyContent="center"
         >
-          {/* <FormLabel>E-mail :</FormLabel> */}
           <TextField
             type="email"
             label="Email"
@@ -66,7 +62,6 @@ function LoginForm() {
         </Stack>
 
         <Stack display="flex" flexDirection="column" justifyContent="center">
-          {/* <FormLabel>Mot de passe :</FormLabel> */}
           <TextField
             type="password"
             label="Mot de passe"
@@ -77,7 +72,6 @@ function LoginForm() {
             required
           />
         </Stack>
-        {/* {error && <div>{error}</div>} */}
         <Box>
           <Stack>
             <MuiButton className={classes.button} type="submit">

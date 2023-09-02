@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import { AuthProvider } from './components/Auth/AuthContext/AuthContext';
 import Home from './page/Home/Home';
-import TutorDashboard from './page/Tutor/TutorDashboard/TutorDashboard';
-import StudentDashboard from './page/Students/StudentDashboard/StudentDashboard';
+import TutorDashboard from './page/Tutors/TutorDashboard';
+import StudentDashboard from './page/Students';
 import Header from './components/Header/Header';
 import Auth from './page/Auth/Auth';
 import Contact from './page/Contacts/Contat';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (

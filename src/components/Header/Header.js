@@ -14,63 +14,9 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import { makeStyles } from 'tss-react/mui';
 import MenuIcon from '@mui/icons-material/Menu';
-const drawerWidth = 240;
-
-const useStyles = makeStyles()((theme) => {
-  return {
-    navlinks: {
-      margingLeft: theme.spacing(2),
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '15px',
-      [theme.breakpoints.down('md')]: {
-        display: 'none',
-      },
-    },
-    header: {
-      color: 'black',
-      background: '#FFA500',
-      height: '5rem',
-    },
-    logo: {
-      flexGrow: 1,
-      cursor: 'pointer',
-    },
-    link: {
-      textDecoration: 'none',
-      color: 'black',
-      fontSize: '20px',
-      margingLeft: theme.spacing(20),
-      '&:hover': {
-        color: 'white',
-        borderBottom: '1px solid brown',
-        background: 'black',
-      },
-    },
-    drawer: {
-      [theme.breakpoints.up('md')]: {
-        display: 'none',
-        background: '#FFA500',
-      },
-      width: drawerWidth,
-      height: '100px',
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-      height: '300px',
-      background: 'FEFE00',
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up('md')]: {
-        display: 'none',
-      },
-    },
-  };
-});
+import useStyles from './Styles';
+import buttonsData from './ButtonsData.schema';
 
 function Header() {
   const { isLoggedIn, logout } = useAuth();
@@ -81,7 +27,7 @@ function Header() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const newButtonsData = buttonsData(isLoggedIn);
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />
@@ -90,26 +36,19 @@ function Header() {
           Logo
         </Typography>
         <Box className={classes.navlinks}>
-          <Button component={Link} to="/" className={classes.link}>
-            <ListItemText primary="Accueil" />
-          </Button>
-          <Button component={Link} to="/cours" className={classes.link}>
-            <ListItemText primary="Cours" />
-          </Button>
-          <Button component={Link} to="/auth" className={classes.link}>
-            <ListItemText primary="Devenir Tuteur" />
-          </Button>
-          <Button component={Link} to="/contact" className={classes.link}>
-            <ListItemText primary="Contact" />
-          </Button>
-          {isLoggedIn ? (
-            <Button to="/auth" className={classes.link} onClick={logout}>
-              <ListItemText primary="Déconnexion" />
-            </Button>
-          ) : (
-            <Button component={Link} to="/auth" className={classes.link}>
-              <ListItemText primary="Connexion" />
-            </Button>
+          {newButtonsData.map(
+            (button, index) =>
+              button.display && (
+                <Button
+                  key={index}
+                  to={button.path}
+                  component={Link}
+                  className={classes.link}
+                  onClick={logout}
+                >
+                  <ListItemText primary={button.label} />
+                </Button>
+              ),
           )}
         </Box>
         <IconButton
@@ -134,37 +73,21 @@ function Header() {
         }}
       >
         <List>
-          <ListItem>
-            <Button component={Link} to="/" className={classes.link}>
-              <ListItemText primary="Accueil" />
-            </Button>
-          </ListItem>
-          <ListItem>
-            <Button component={Link} to="/cours" className={classes.link}>
-              <ListItemText primary="Cours" />
-            </Button>
-          </ListItem>
-          <ListItem>
-            <Button component={Link} to="/auth" className={classes.link}>
-              <ListItemText primary="Devenir Tuteur" />
-            </Button>
-          </ListItem>
-          <ListItem>
-            <Button component={Link} to="/contact" className={classes.link}>
-              <ListItemText primary="Contact" />
-            </Button>
-          </ListItem>
-          <ListItem>
-            {isLoggedIn ? (
-              <Button className={classes.link} onClick={logout}>
-                <ListItemText primary="Déconnexion" />
-              </Button>
-            ) : (
-              <Button component={Link} to="/auth" className={classes.link}>
-                <ListItemText primary="Connexion" />
-              </Button>
-            )}
-          </ListItem>
+          {newButtonsData.map(
+            (button, index) =>
+              button.display && (
+                <ListItem key={index}>
+                  <Button
+                    to={button.path}
+                    component={Link}
+                    className={classes.link}
+                    onClick={logout}
+                  >
+                    <ListItemText primary={button.label} />
+                  </Button>
+                </ListItem>
+              ),
+          )}
         </List>
       </Drawer>
     </AppBar>

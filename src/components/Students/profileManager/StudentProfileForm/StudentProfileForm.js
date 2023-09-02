@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import api from '../../../../services/api';
+import api from '../../../../services/api2';
 import Button from '../../../Buttons/Button';
 
 function StudentProfileForm() {

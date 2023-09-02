@@ -8,7 +8,7 @@ import {
   FormControl,
   TextField,
 } from '@mui/material';
-import instanceAxios from '../../../services/axiosInterceptor';
+import instanceAxios from '../../../services/api/index.js';
 import MuiButton from '../../Buttons/Button';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from './Styles/SignupForm.style';

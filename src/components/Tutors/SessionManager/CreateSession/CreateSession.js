@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import instanceAxios from '../../../../services/axiosInterceptor';
+import api from '../../../../services/api';
 import {
   Box,
   Typography,
@@ -11,7 +11,7 @@ import {
   FormLabel,
 } from '@mui/material';
 import Button from '../../../Buttons/Button';
-import tutoringSessionFields from '../sessionSchema/TutoringSessionForm.schema/TutoringSessionsForm.schema';
+import tutoringSessionFields from './CreateSessionForm.schema/CreateSessionsForm.schema';
 
 function TutoringSessionForm({ mode, sessionToEdit }) {
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    instanceAxios
+    api
       .get('/tutors/subjects')
       .then((response) => {
         if (Array.isArray(response.data.subjects)) {
@@ -83,7 +83,7 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
 
     const httpMethod = mode === 'edit' ? 'PUT' : 'POST';
 
-    instanceAxios
+    api
       .request({
         method: httpMethod,
         url: apiEndPoint,
@@ -100,7 +100,7 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
         console.log(error);
       });
 
-    instanceAxios
+    api
       .post('/tutors/sessions', formDataToSend, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`,
