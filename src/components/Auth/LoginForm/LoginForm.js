@@ -31,8 +31,10 @@ function LoginForm() {
       console.log('userData:', userData);
       console.log('userType1 :', userData.userType);
       if (userData.userType === 'Tutor') {
+        localStorage.setItem('userType', 'Tutor');
         navigate('/tutor-dashboard');
       } else if (userData.userType === 'Student') {
+        localStorage.setItem('userType', 'Student');
         navigate('/student-dashboard');
       } else {
         navigate('/');

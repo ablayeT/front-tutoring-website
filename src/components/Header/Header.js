@@ -17,17 +17,16 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import useStyles from './Styles';
 import buttonsData from './ButtonsData.schema';
-
 function Header() {
   const { isLoggedIn, logout } = useAuth();
-
   const { classes } = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const newButtonsData = buttonsData(isLoggedIn);
+  const userType = localStorage.getItem('userType');
+  const newButtonsData = buttonsData(isLoggedIn, userType);
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />
@@ -44,7 +43,7 @@ function Header() {
                   to={button.path}
                   component={Link}
                   className={classes.link}
-                  onClick={logout}
+                  onClick={button.label === 'Déconnexion' ? logout : undefined}
                 >
                   <ListItemText primary={button.label} />
                 </Button>
@@ -81,7 +80,9 @@ function Header() {
                     to={button.path}
                     component={Link}
                     className={classes.link}
-                    onClick={logout}
+                    onClick={
+                      button.label === 'Déconnexion' ? logout : undefined
+                    }
                   >
                     <ListItemText primary={button.label} />
                   </Button>

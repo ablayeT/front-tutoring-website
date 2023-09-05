@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import { React, useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
-import MuiButton from '../Buttons/Button';
-import api from '../../services/api/index.js';
+import MuiButton from '../../Buttons/Button';
+import api from '../../../services/api/index.js';
 
 const useStyles = makeStyles()((theme) => {
   return {
@@ -36,7 +36,7 @@ const useStyles = makeStyles()((theme) => {
 function TutorSessionsCard({ session, sessionId, onDelete }) {
   const { classes } = useStyles();
 
-  const [editMode, setEditMode] = useState(false); // our gerer el mode de modification
+  const [editMode, setEditMode] = useState(false); // pour gerer el mode de modification
   const [editedSession, setEditedSession] = useState(session);
 
   // const tutorId = localStorage.getItem('tutor_id');
@@ -46,6 +46,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
   console.log('token in tutorSessionCard :  ', token);
 
   const handleEditClick = () => {
+    console.log('handleEditClick');
     setEditMode(true);
   };
 
@@ -73,7 +74,12 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
     }
   };
 
-  console.log('editedSession', editedSession);
+  const handleCancelEdit = () => {
+    setEditMode(false);
+    setEditedSession(session);
+  };
+
+  // console.log('editedSession', editedSession);
 
   return (
     <Card className={classes.card}>
@@ -153,14 +159,20 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
                   />
                 </Stack>
 
-                <Box display="flex" justifyContent="center" marginTop="2rem">
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  gap="1rem"
+                  marginTop="2rem"
+                >
                   <MuiButton onClick={handleSaveClick}>Sauvegarder</MuiButton>
+                  <MuiButton onClick={handleCancelEdit}>Annuler</MuiButton>
                 </Box>
               </FormControl>
             </form>
           </Box>
         ) : (
-          <Stack>
+          <Box>
             <Typography className={classes.title}>
               Nom :{session.name}{' '}
             </Typography>
@@ -188,7 +200,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
                 Supprimer
               </MuiButton>
             </Box>
-          </Stack>
+          </Box>
         )}
       </CardContent>
     </Card>

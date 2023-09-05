@@ -9,6 +9,7 @@ import Header from './components/Header/Header';
 import Auth from './page/Auth/Auth';
 import Contact from './page/Contacts/Contat';
 import Footer from './components/Footer/Footer';
+import AllSessions from './page/Courses/AllSessions/AllSessions';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/courses" element={<AllSessions />} />
           <Route
             path="/tutor-dashboard/*"
             element={<PrivateRoute element={<TutorDashboard />} />}

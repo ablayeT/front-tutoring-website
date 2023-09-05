@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 // import instanceAxios from '../../../services/axiosInterceptor';
-import TutorSessionCard from '../../../Cards/TutorSessionsCard';
+import TutorSessionCard from '../../../Cards/TutorSessionCard/TutorSessionsCard';
 import { NavLink } from 'react-router-dom';
 import Button from '../../../Buttons/Button';
 import instanceAxios from '../../../../services/api/index.js';
+import api from '../../../../services/api';
 
 function Sessions() {
   const [tutorSessions, setTutorSessions] = useState([]);
@@ -33,7 +34,7 @@ function Sessions() {
 
   const handleDeleteSession = async (sessionId) => {
     try {
-      await instanceAxios.delete(`tutors/sessions/${sessionId}`, {
+      await api.delete(`tutors/sessions/${sessionId}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -52,7 +53,7 @@ function Sessions() {
   }
 
   return (
-    <Box paddingTop="10rem">
+    <Box paddingTop="10rem" paddingBottom="5rem">
       {tutorSessions.length === 0 ? (
         <Box display="flex" justifyContent="center" marginTop={5} gap="1rem">
           <Typography variant="h5" textAlign="center">
@@ -63,7 +64,9 @@ function Sessions() {
           </NavLink>
         </Box>
       ) : (
-        <Typography level="h5">Mes sessions de tutorat</Typography>
+        <Typography variant="h5" marginBottom="1rem">
+          Mes sessions de tutorat
+        </Typography>
       )}
       {tutorSessions.map((session) => (
         <Stack key={session.id}>

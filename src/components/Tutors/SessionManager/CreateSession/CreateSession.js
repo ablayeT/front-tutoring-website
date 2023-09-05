@@ -99,20 +99,6 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
       .catch((error) => {
         console.log(error);
       });
-
-    api
-      .post('/tutors/sessions', formDataToSend, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        console.log(response.data); // Utilisez response.data au lieu de response.json
-      })
-      .catch((error) => console.log(error));
-
-    // console.log('Session created:', response.data);
   };
 
   return (
@@ -121,9 +107,10 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
       flexDirection="column"
       justifyContent="center"
       paddingTop="8rem"
+      paddingBottom="8rem"
     >
       <Typography variant="h4" marginBottom="15px">
-        Créer une session de tutorat
+        Créer une session
       </Typography>
 
       <FormControl
@@ -168,7 +155,7 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
           </Stack>
         ))}
         <Box display="flex" justifyContent="center" marginTop="2rem">
-          <Button type="submit">Créer la session</Button>
+          <Button>Créer la session</Button>
         </Box>
         {/* </form> */}
       </FormControl>

@@ -24,7 +24,6 @@ import {
 import Image from '../../Assets/Image';
 import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-// import { makeStyles } from 'tss-react/mui';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
@@ -34,13 +33,11 @@ import { Main, AppBar, DrawerHeader } from './Styles';
 const drawerWidth = 220;
 
 function Dashboard() {
-  // const {classes} = useStyles();
   const theme = useTheme();
 
   const [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [open, setOpen] = useState(false);
   const [showMain, setShowMain] = useState(true);
 
@@ -77,7 +74,6 @@ function Dashboard() {
           },
         });
         if (profileResponse === null) {
-          // setIsProfileComplete(true);
         }
         setProfileData(profileResponse.data);
       } catch (error) {
@@ -93,9 +89,6 @@ function Dashboard() {
 
     fetchData();
   }, []);
-  // console.log('profileData in Dashboard:',profileData);
-  // console.log('userData in Dashboard:',userData);
-  // return null;
 
   if (isLoading) {
     return <Typography>Loading</Typography>;
@@ -106,7 +99,7 @@ function Dashboard() {
   }
 
   return (
-    <Box display="flex" height="100vh" sx={{ marginTop: '80px' }}>
+    <Box display="flex">
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -132,11 +125,18 @@ function Dashboard() {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
+              flexWrap: 'wrap',
               width: '100%',
             }}
           >
+            <Typography variant="h5">Tableau de bord</Typography>
             {userData && profileData && (
-              <Box display="flex" gap="10px" flexWrap="wrap">
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                gap="10px"
+                flexWrap="wrap"
+              >
                 <Typography>
                   Bienvenue, <br />
                   {userData.user.first_name}{' '}

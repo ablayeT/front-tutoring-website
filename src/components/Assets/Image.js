@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
-function Image({ imageUrl, alt, width, height }) {
+
+function Image({ imageUrl, alt, width, height, borderRadius }) {
   const src =
     process.env.REACT_APP_BASE_URL + process.env.REACT_APP_IMAGE_URL + imageUrl;
 
@@ -9,7 +10,7 @@ function Image({ imageUrl, alt, width, height }) {
       component="img"
       src={src}
       alt={alt}
-      borderRadius="50%"
+      borderRadius={borderRadius}
       width={width}
       height={height}
     />

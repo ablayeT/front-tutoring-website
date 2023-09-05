@@ -1,6 +1,6 @@
 // ButtonData.js
 
-export const buttonsData = (isLoggedIn) => [
+export const buttonsData = (isLoggedIn, userType) => [
   {
     label: 'Accueil',
     path: '/',
@@ -8,8 +8,8 @@ export const buttonsData = (isLoggedIn) => [
   },
   {
     label: 'Cours',
-    path: '/cours',
-    display: true,
+    path: '/courses',
+    display: isLoggedIn && userType === 'Student',
   },
   {
     label: 'Devenir Tuteur',

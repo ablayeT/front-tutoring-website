@@ -8,7 +8,6 @@ import userFields from '../userInfos.schema';
 function ProfileInfos({ userInfos, profileInfos }) {
   const [userData, setUserData] = useState(userInfos);
   const [profileData, setProfileData] = useState(profileInfos);
-  // const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfileData, setEditedProfileData] = useState({
     skills: '',
@@ -48,8 +47,6 @@ function ProfileInfos({ userInfos, profileInfos }) {
     });
   };
 
-  // console.log(url)
-
   const handleUpdateProfile = async () => {
     try {
       // Envoyer les données mise à jour au seveur
@@ -82,6 +79,7 @@ function ProfileInfos({ userInfos, profileInfos }) {
       alignSelf="center"
       justifyContent="center"
       flexDirection="column"
+      height="100vh"
     >
       {!isEditing && (
         <Box display="flex" gap="20px" margin="20px" flexDirection="column">

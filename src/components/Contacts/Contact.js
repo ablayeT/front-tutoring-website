@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Stack, Typography, Box, FormLabel } from '@mui/material';
 import api from '../../services/api';
 import MuiButton from '../../components/Buttons/Button';
-import { useStyles } from './Styles';
+import useStyles from './Styles';
 
 function Index() {
   const { classes } = useStyles();
