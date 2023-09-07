@@ -14,7 +14,7 @@ export const buttonsData = (isLoggedIn, userType) => [
   {
     label: 'Devenir Tuteur',
     path: '/auth',
-    display: true,
+    display: !isLoggedIn && userType !== 'Tutor',
   },
   {
     label: 'Contact',

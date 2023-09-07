@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../services/api';
-import Image from '../../Assets/Image';
-import { Box, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Stack } from '@mui/material';
+import AllSessionCard from '../AllSessionCard/AllSessionCard';
 // import { useNavigate } from 'react-router-dom';
 
 function TutorSessionsWithTutors() {
@@ -39,32 +39,24 @@ function TutorSessionsWithTutors() {
   console.log('sessionsWithTutors:', sessionsWithTutors);
 
   return (
-    <Box height="100vh">
+    <Box height="100vh" width="90%" margin="auto">
       {isLoading ? (
         <p>Chargement en cours...</p>
       ) : (
-        <List>
-          {sessionsWithTutors.map((session) => (
-            <ListItem key={session.id}>
-              <ListItemText primary={`Nom du tuteur: ${session.first_name}`} />
-              <ListItemText
-                primary={`Prénom du tuteur: ${session.last_name}`}
-              />
-              <ListItemText primary={`Date: ${session.date}`} />
-              <ListItemText primary={`Heure de début: ${session.start_time}`} />
-              <ListItemText primary={`Heure de fin: ${session.end_time}`} />
-              <ListItemText primary={`Lieu: ${session.location}`} />
-              <ListItemText primary={`Prix: ${session.price}`} />
-              <Image
-                imageUrl={session.imageUrl}
-                alt="ProfileImage"
-                width="100px"
-                height="80px"
-                borderRadius="10px"
-              />
-            </ListItem>
-          ))}
-        </List>
+        <Stack
+          border="1px solid red"
+          display="flex"
+          flexDirection="row"
+          flexWrap="wrap"
+          justifyContent="center"
+          padding="1rem"
+          gap="20px"
+          marginTop="10rem"
+        >
+          {sessionsWithTutors.map((session, Index) => {
+            return <AllSessionCard session={session} />;
+          })}
+        </Stack>
       )}
     </Box>
   );
