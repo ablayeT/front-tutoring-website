@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import Profile from '../profileManager/ProfileManager';
 import CssBaseline from '@mui/material/CssBaseline';
-import Sessions from '../SessionManager/Sessions/Sessions';
+import Sessions from '../SessionManager/MySessions/Sessions';
 import { Box, Typography, List, Stack } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import SearchIcon from '@mui/icons-material/Search';
@@ -97,7 +97,7 @@ function Dashboard() {
   }
 
   return (
-    <Box display="flex" height="100vh" sx={{ marginTop: '80px' }}>
+    <Box display="flex" minHeight="100vh" sx={{ marginTop: '80px' }}>
       <CssBaseline />
       <AppBar
         position="fixed"

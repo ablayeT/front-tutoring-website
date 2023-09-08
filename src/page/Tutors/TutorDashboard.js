@@ -4,7 +4,7 @@ import Dashboard from '../../components/Tutors/Dashboard/Dashboard';
 
 function TutorDashboard() {
   return (
-    <Box>
+    <Box minHeight="100vh">
       <Typography variant="body2">Tutor Dashboard</Typography>
       <Dashboard />
     </Box>

@@ -79,7 +79,8 @@ function ProfileInfos({ userInfos, profileInfos }) {
       alignSelf="center"
       justifyContent="center"
       flexDirection="column"
-      height="100vh"
+      minHeight="100vh"
+      paddingTop="2rem"
     >
       {!isEditing && (
         <Box display="flex" gap="20px" margin="20px" flexDirection="column">

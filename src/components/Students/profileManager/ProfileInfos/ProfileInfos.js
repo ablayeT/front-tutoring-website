@@ -74,7 +74,6 @@ function ProfileInfos({ profileData, userData }) {
         },
       );
 
-      // Refresh the profile data
       const updatedProfileResponse = await api.get(
         `/students/profile/${userInfos.user.id}`,
         {

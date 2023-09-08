@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { Box, Stack } from '@mui/material';
 import AllSessionCard from '../AllSessionCard/AllSessionCard';
-// import { useNavigate } from 'react-router-dom';
+import { useStyles } from './Styles/AllSession.styles';
 
 function TutorSessionsWithTutors() {
-  // const navigate = useNavigate();
+  const { classes } = useStyles();
   const [sessionsWithTutors, setSessionsWithTutors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -39,19 +39,17 @@ function TutorSessionsWithTutors() {
   console.log('sessionsWithTutors:', sessionsWithTutors);
 
   return (
-    <Box height="100vh" width="90%" margin="auto">
+    <Box className={classes.container}>
       {isLoading ? (
         <p>Chargement en cours...</p>
       ) : (
         <Stack
-          border="1px solid red"
           display="flex"
           flexDirection="row"
           flexWrap="wrap"
           justifyContent="center"
           padding="1rem"
           gap="20px"
-          marginTop="10rem"
         >
           {sessionsWithTutors.map((session, Index) => {
             return <AllSessionCard session={session} />;

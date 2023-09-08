@@ -35,7 +35,7 @@ function SignupForm() {
       // Envoyer une requête POST à votre backend pour l'inscription
       const response = await instanceAxios.post('/auth/signup', formData);
       console.log(response.data);
-      navigate('/login');
+      navigate('/auth');
     } catch (error) {
       console.error(error); // Afficher toute erreur survenue lors de la requête
     }

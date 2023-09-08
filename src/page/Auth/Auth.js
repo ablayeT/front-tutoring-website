@@ -12,7 +12,7 @@ function Index() {
   };
 
   return (
-    <Box paddingTop="4rem" margin="1rem">
+    <Box paddingTop="6rem" margin="1rem" minHeight="100vh">
       <Box textAlign="center" width="100%">
         {isLoginForm ? <SignupForm /> : <LoginForm />}
         <Button onClick={toggleForm} className={classes.button}>

@@ -1,37 +1,45 @@
-import { Box, CardContent, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
-// import Image from '../../Assets/Image';
-import { ListItemText } from '@mui/material';
-import { makeStyles } from 'tss-react/mui';
-
-const useStyles = makeStyles()((theme) => {
-  return {
-    boxContent: {
-      '&:hover': {
-        boxShadow: '3px 3px 5px #FFA500',
-      },
-    },
-  };
-});
+import Button from '../../Buttons/Button';
+import { useStyles } from './Styles/AllSessionCard.styles';
+import api from '../../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 function AllSessionCard({ session }) {
+  const navigate = useNavigate();
   const { classes } = useStyles();
+
+  const handleReservationClick = async () => {
+    try {
+      const reservationData = {
+        student_id: localStorage.getItem('userId'),
+        tutoring_session_id: session.id, // ID de la session
+        date: session.date,
+        start_time: session.start_time,
+        end_time: session.end_time,
+        subject: session.subject_id,
+        price: session.price,
+        status: 'Pending',
+      };
+
+      const response = await api.post(
+        '/students/book-session',
+        reservationData,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
+      console.log('Reponse du serveur :', response.data);
+      navigate('/student-dashboard/sessions');
+    } catch (error) {
+      console.error('Error lors de la réservation :', error);
+    }
+  };
+
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        display: 'flex',
-        marginBottom: '10px',
-        width: '23%',
-        height: '500px',
-        padding: '1rem',
-        borderRadius: '5px',
-        boxShadow: '1px 1px 3px #FFA500',
-        border: '1px solid #FFA500',
-        flexWrap: 'wrap',
-      }}
-      className={classes.boxContent}
-    >
+    <Box className={classes.boxContent}>
       <Box
         sx={{
           display: 'flex',
@@ -40,50 +48,60 @@ function AllSessionCard({ session }) {
           backgroundImage: `url(http://localhost:3000/images/${session.imageUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          borderRadius: '5px',
           backgroundRepeat: 'no-repeat',
           width: '100%',
-          height: '100%',
+          height: '77%',
           pl: 1,
           pb: 1,
         }}
       ></Box>
-      <Box
-        position="absolute"
-        top="60px"
-        bottom="50px"
-        left="0"
-        width="45%"
-        backgroundColor="white"
-      >
-        <CardContent
+      <Box className={classes.paper}>
+        <Box
           sx={{
-            flex: '1 0 auto',
             display: 'flex',
-            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: '10px',
             width: '100%',
           }}
         >
-          <Typography
-            component="div"
-            variant="h5"
-          >{`Nom du tuteur: ${session.first_name}`}</Typography>
-          <Typography component="div" variant="h5">
-            {`Prénom du tuteur: ${session.last_name}`}{' '}
+          <Typography component="div" variant="h6" fontWeight="bold">
+            {session.first_name}
           </Typography>
-          <Typography
-            component="div"
-            variant="h5"
-            color="green"
-          >{`Prix: ${session.price}`}</Typography>
-        </CardContent>
+          <Typography component="div" variant="h6" fontWeight="bold">
+            {session.last_name}{' '}
+          </Typography>
+        </Box>
 
-        <CardContent>
-          <Typography>{`Date: ${session.date}`}</Typography>
-          <Typography>{`Heure de début: ${session.start_time}`}</Typography>
-          <Typography> {`Heure de fin: ${session.end_time}`}</Typography>
-          <ListItemText>{`Lieu: ${session.location}`}</ListItemText>
-        </CardContent>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+            marginTop: '1.5rem',
+          }}
+        >
+          <Typography>Date : {session.date}</Typography>
+          <Typography>Début : {session.start_time}</Typography>
+          <Typography>Fin {session.end_time}</Typography>
+          <Typography>Lieu : {session.location}</Typography>
+        </Box>
+      </Box>
+      <Box>
+        <Typography component="div" variant="h6">
+          {session.subject_name}
+        </Typography>
+        <Typography component="div">{session.subject_description}</Typography>
+      </Box>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        width="100%"
+        margin="1rem"
+      >
+        <Button onClick={handleReservationClick}>Réserver</Button>
+        <Typography component="div" variant="h5" color="green">
+          ${session.price}
+        </Typography>
       </Box>
     </Box>
   );
