@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import Profile from '../profileManager/ProfileManager';
 import CssBaseline from '@mui/material/CssBaseline';
-import Sessions from '../SessionManager/MySessions/Sessions';
+import Sessions from '../SessionManager/MySessions';
 import { Box, Typography, List, Stack } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import SearchIcon from '@mui/icons-material/Search';
@@ -89,8 +89,6 @@ function Dashboard() {
     };
     fetchProfileData();
   }, []);
-  // console.log('profileInfos : ',profileInfos)
-  // console.log('userInfos in Dashboard :', userInfos)
 
   function handleMain() {
     setShowMain(false);
@@ -142,6 +140,7 @@ function Dashboard() {
                     alt="ProfileImage"
                     width="50px"
                     height="50px"
+                    object-fit="cover"
                   />
                 </Stack>
               </Box>

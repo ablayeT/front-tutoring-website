@@ -9,9 +9,9 @@ export const useStyles = makeStyles()((theme) => {
       height: '500px',
       padding: '1.5rem',
       borderRadius: '5px',
-      boxShadow: '1px 1px 3px lightgrey',
+      boxShadow: '1px 1px 3px #FFA500',
       flexWrap: 'wrap',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#ffe19c',
       [theme.breakpoints.down('md')]: {
         width: '40%',
       },
@@ -28,7 +28,7 @@ export const useStyles = makeStyles()((theme) => {
       bottom: '160px',
       left: '0',
       width: '45%',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#ffe19c',
       padding: '10px',
     },
   };

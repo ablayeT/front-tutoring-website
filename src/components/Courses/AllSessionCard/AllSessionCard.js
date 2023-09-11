@@ -5,7 +5,7 @@ import { useStyles } from './Styles/AllSessionCard.styles';
 import api from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
 
-function AllSessionCard({ session }) {
+function AllSessionCard({ session, buttonText = 'Réserver', onCancelClick }) {
   const navigate = useNavigate();
   const { classes } = useStyles();
 
@@ -35,6 +35,28 @@ function AllSessionCard({ session }) {
       navigate('/student-dashboard/sessions');
     } catch (error) {
       console.error('Error lors de la réservation :', error);
+    }
+  };
+
+  const handleCancelClick = async () => {
+    const sessionId = session.id;
+    console.log('sesionId :', sessionId);
+    try {
+      console.log(sessionId);
+      const response = await api.post(
+        '/students/cancel-session',
+        {
+          sessionId: sessionId,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
+      console.lo(response.data);
+    } catch (error) {
+      console.error("Erreur lors de l'annulation de session :", error);
     }
   };
 
@@ -82,7 +104,7 @@ function AllSessionCard({ session }) {
         >
           <Typography>Date : {session.date}</Typography>
           <Typography>Début : {session.start_time}</Typography>
-          <Typography>Fin {session.end_time}</Typography>
+          <Typography>Fin :{session.end_time}</Typography>
           <Typography>Lieu : {session.location}</Typography>
         </Box>
       </Box>
@@ -98,7 +120,18 @@ function AllSessionCard({ session }) {
         width="100%"
         margin="1rem"
       >
-        <Button onClick={handleReservationClick}>Réserver</Button>
+        {/* <Button onClick={handleCancelClick}>Annuler</Button> */}
+
+        <Button
+          onClick={
+            session.status === 'Pending'
+              ? handleReservationClick
+              : handleCancelClick
+          }
+        >
+          {buttonText}
+        </Button>
+
         <Typography component="div" variant="h5" color="green">
           ${session.price}
         </Typography>

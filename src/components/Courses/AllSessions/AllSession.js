@@ -51,8 +51,8 @@ function TutorSessionsWithTutors() {
           padding="1rem"
           gap="20px"
         >
-          {sessionsWithTutors.map((session, Index) => {
-            return <AllSessionCard session={session} />;
+          {sessionsWithTutors.map((session) => {
+            return <AllSessionCard key={session.id} session={session} />;
           })}
         </Stack>
       )}
