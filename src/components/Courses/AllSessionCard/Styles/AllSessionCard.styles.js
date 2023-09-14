@@ -5,7 +5,7 @@ export const useStyles = makeStyles()((theme) => {
     boxContent: {
       position: 'relative',
       display: 'flex',
-      width: '32%',
+      width: '100%',
       height: '500px',
       padding: '1.5rem',
       borderRadius: '5px',
@@ -13,14 +13,26 @@ export const useStyles = makeStyles()((theme) => {
       flexWrap: 'wrap',
       backgroundColor: '#ffe19c',
       [theme.breakpoints.down('md')]: {
-        width: '40%',
+        width: '100%',
       },
       [theme.breakpoints.down('sm')]: {
         width: '100%',
       },
       [theme.breakpoints.up('lg')]: {
-        width: '29%',
+        width: '100%',
       },
+    },
+    boxContentChild: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      width: '100%',
+      height: '77%',
+      pl: 1,
+      pb: 1,
     },
     paper: {
       position: 'absolute',
@@ -30,6 +42,24 @@ export const useStyles = makeStyles()((theme) => {
       width: '45%',
       backgroundColor: '#ffe19c',
       padding: '10px',
+    },
+    paperChildOne: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '10px',
+      width: '100%',
+    },
+    paperChilTwo: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1rem',
+      marginTop: '1.5rem',
+    },
+    buttonBox: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+      margin: '1rem',
     },
   };
 });

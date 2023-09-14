@@ -3,6 +3,7 @@ import api from '../../../../services/api';
 import { Box, Stack, Typography, TextField, FormLabel } from '@mui/material';
 import profileFields from './ProfileInfo.schema';
 import MuiButton from '../../../Buttons/Button';
+import userFields from './userInfo.schema';
 
 function ProfileInfos({ profileData, userData }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -99,6 +100,20 @@ function ProfileInfos({ profileData, userData }) {
       {!isEditing && (
         <Box display="flex" gap="20px" margin="20px" flexDirection="column">
           <Typography>Mes inoformations de profil</Typography>
+          {userFields.map((field) => (
+            <Stack key={field.key}>
+              <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>
+                {field.label}
+              </FormLabel>
+              <TextField
+                type="text"
+                border="1px solid #FFA500"
+                padding="10px"
+                width="50%"
+                value={userData.user[field.key]}
+              />
+            </Stack>
+          ))}
           {profileFields.map((field) => (
             <Stack key={field.key}>
               <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>

@@ -147,6 +147,8 @@ function Dashboard() {
                     alt="ProfileImage"
                     width="50px"
                     height="50px"
+                    object-fit="fill"
+                    borderRadius="50px"
                   />
                 </Stack>
               </Box>

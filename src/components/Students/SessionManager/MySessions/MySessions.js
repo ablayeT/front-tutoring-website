@@ -2,9 +2,11 @@ import { React, useEffect } from 'react';
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import api from '../../../../services/api';
-import AllSessionCard from '../../../Courses/AllSessionCard';
+import ReservedSessionCard from '../../../Cards/ReservedSessionCard';
+import useStyles from './Styles';
 
 function MySessions() {
+  const { classes } = useStyles();
   const [reservedSessions, setReservedSessions] = useState([]);
 
   useEffect(() => {
@@ -16,8 +18,8 @@ function MySessions() {
           },
         });
 
-        const studentSessions = response.data;
-        setReservedSessions(studentSessions);
+        // const studentSessions = response.data;
+        setReservedSessions(response.data);
       } catch (error) {
         console.error(
           'Erreur lors de la récupération de la session réservées :',
@@ -49,22 +51,27 @@ function MySessions() {
     }
   };
 
+  const generateUniqueKey = (session) => {
+    return session.tutoring_session_id + Date.now();
+  };
+
   console.log('reserved sessions:', reservedSessions);
   return (
     <Box width="100%">
       <Typography> Mes Sessions</Typography>
-
-      <Box display="flex" flexWrap="wrap" gap="1rem" width="100%">
+      <Box className={classes.MySessionContainer}>
         {reservedSessions.map((session) => {
           return (
-            <AllSessionCard
-              key={session.id}
-              session={session}
-              buttonText={
-                session.status === 'Pending' ? 'Annuler' : 'Session annulée'
-              }
-              onCancelClick={() => handleCancelSession(session.id)}
-            />
+            <Box className={classes.MySessionCard}>
+              <ReservedSessionCard
+                key={generateUniqueKey(session)}
+                session={session}
+                buttonText={
+                  session.status === 'Pending' ? 'Annuler' : 'Session annulée'
+                }
+                onCancelClick={() => handleCancelSession(session.id)}
+              />
+            </Box>
           );
         })}
       </Box>
