@@ -12,6 +12,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from '@mui/material/Drawer';
+import SchoolIcon from '@mui/icons-material/School';
 import {
   Box,
   Stack,
@@ -29,6 +30,7 @@ import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import api from '../../../services/api';
 import { Main, AppBar, DrawerHeader } from './Styles';
+import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
 
 const drawerWidth = 220;
 
@@ -237,6 +239,22 @@ function Dashboard() {
                 <ListItemText primary="Créer une session" />
               </NavLink>
             </ListItemButton>
+            <ListItemButton
+              onClick={handleMain}
+              sx={{
+                display: 'flex',
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon>
+                <SchoolIcon />
+              </ListItemIcon>
+              <NavLink to="reserved-sessions" display="flex">
+                <ListItemText primary="Sessions réservées" />
+              </NavLink>
+            </ListItemButton>
           </ListItem>
         </List>
         <Divider />
@@ -256,6 +274,7 @@ function Dashboard() {
             />
             <Route path="sessions" element={<Sessions />} />
             <Route path="create-session" element={<CreateSession />} />
+            <Route path="reserved-sessions" element={<ReservedSessions />} />
           </Routes>
         ) : (
           <Box open={!open}>

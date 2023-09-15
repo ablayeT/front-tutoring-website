@@ -1,2 +1,2 @@
-import reservedSessionCard from './ReservedSessionCard';
-export default reservedSessionCard;
+import ReservedSessionCard from './ReservedSessionCard';
+export default ReservedSessionCard;

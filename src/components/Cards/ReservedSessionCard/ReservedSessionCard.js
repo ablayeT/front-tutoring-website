@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import Button from '../../Buttons/Button';
-import useStyles from '../../Courses/AllSessionCard/Styles';
+import useStyles from './Styles';
 import api from '../../../services/api';
 // import { useNavigate } from 'react-router-dom';
 

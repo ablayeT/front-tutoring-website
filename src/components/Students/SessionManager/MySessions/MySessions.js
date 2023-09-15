@@ -57,7 +57,7 @@ function MySessions() {
 
   console.log('reserved sessions:', reservedSessions);
   return (
-    <Box width="100%">
+    <Box width="100%" border="1px soslid red">
       <Typography> Mes Sessions</Typography>
       <Box className={classes.MySessionContainer}>
         {reservedSessions.map((session) => {
