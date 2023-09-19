@@ -39,6 +39,7 @@ function Dashboard() {
 
   const [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [sessionData, setSessionData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [showMain, setShowMain] = useState(true);
@@ -92,6 +93,25 @@ function Dashboard() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchTutorSessions = async () => {
+      try {
+        const response = await api.get('tutors/sessions', {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        setSessionData(response.data.sessions);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTutorSessions();
+  }, []);
+
   if (isLoading) {
     return <Typography>Loading</Typography>;
   }
@@ -100,6 +120,7 @@ function Dashboard() {
     setShowMain(false);
   }
 
+  console.log(sessionData);
   return (
     <Box display="flex">
       <CssBaseline />
@@ -272,9 +293,15 @@ function Dashboard() {
               path="profile/edit"
               element={<EditProfile profileData={profileData} />}
             />
-            <Route path="sessions" element={<Sessions />} />
+            <Route
+              path="sessions"
+              element={<Sessions sessionData={sessionData} />}
+            />
             <Route path="create-session" element={<CreateSession />} />
-            <Route path="reserved-sessions" element={<ReservedSessions />} />
+            <Route
+              path="reserved-sessions"
+              element={<ReservedSessions sessionData={sessionData} />}
+            />
           </Routes>
         ) : (
           <Box open={!open}>

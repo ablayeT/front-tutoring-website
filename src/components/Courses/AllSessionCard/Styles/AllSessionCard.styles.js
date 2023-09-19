@@ -12,15 +12,20 @@ export const useStyles = makeStyles()((theme) => {
       boxShadow: '1px 1px 3px #FFA500',
       flexWrap: 'wrap',
       backgroundColor: '#ffe19c',
-      // [theme.breakpoints.down('md')]: {
-      //   width: '40%',
-      // },
-      // [theme.breakpoints.down('sm')]: {
-      //   width: '100%',
-      // },
-      // [theme.breakpoints.between(700, 900)]: {
-      //   width: '100%',
-      // },
+      [theme.breakpoints.down('md')]: {
+        width: '48%',
+      },
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+      },
+      [theme.breakpoints.up('md')]: {
+        width: '48%',
+        color: 'green',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: '32%',
+        color: 'blue',
+      },
     },
     boxContentChild: {
       display: 'flex',

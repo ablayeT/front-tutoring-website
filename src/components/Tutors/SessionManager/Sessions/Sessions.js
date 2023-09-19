@@ -4,23 +4,15 @@ import { Box, Stack, Typography } from '@mui/material';
 import TutorSessionCard from '../../../Cards/TutorSessionCard/TutorSessionsCard';
 import { NavLink } from 'react-router-dom';
 import Button from '../../../Buttons/Button';
-import instanceAxios from '../../../../services/api/index.js';
 import api from '../../../../services/api';
 
-function Sessions() {
-  const [tutorSessions, setTutorSessions] = useState([]);
+function Sessions({ sessionData }) {
+  const [tutorSessions, setTutorSessions] = useState(sessionData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchTutorSessions = async () => {
       try {
-        const response = await instanceAxios.get('tutors/sessions', {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        setTutorSessions(response.data.sessions);
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -28,7 +20,7 @@ function Sessions() {
     };
 
     fetchTutorSessions();
-  }, []);
+  }, [sessionData]);
 
   console.log('tutorSessions:', tutorSessions);
 

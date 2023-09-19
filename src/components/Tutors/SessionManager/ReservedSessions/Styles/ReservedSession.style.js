@@ -2,15 +2,15 @@ import { makeStyles } from 'tss-react/mui';
 
 export const useStyles = makeStyles()((theme) => {
   return {
-    MySessionContainer: {
-      width: '100%',
+    reservedSession: {
       display: 'flex',
+      flexDirection: 'column',
       flexWrap: 'wrap',
+      padding: '1.5rem',
+      borderRadius: '5px',
       gap: '1rem',
-      padding: '10px',
-      justifyContent: 'center',
-    },
-    MySessionCard: {
+      boxShadow: '1px 1px 5px #FFA500',
+
       [theme.breakpoints.down('md')]: {
         width: '48%',
       },

@@ -75,6 +75,7 @@ function AllSessionCard({ session, buttonText = 'Réserver' }) {
         <Box
           sx={{
             display: 'flex',
+            flexWrap: 'wrap',
             flexDirection: 'column',
             gap: '1rem',
             marginTop: '1.5rem',

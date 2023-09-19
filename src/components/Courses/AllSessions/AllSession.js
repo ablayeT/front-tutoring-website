@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../services/api';
-import { Box, Stack } from '@mui/material';
+import { Box } from '@mui/material';
 import AllSessionCard from '../AllSessionCard/AllSessionCard';
 import { useStyles } from './Styles/AllSession.styles';
 
@@ -43,18 +43,11 @@ function TutorSessionsWithTutors() {
       {isLoading ? (
         <p>Chargement en cours...</p>
       ) : (
-        <Stack
-          display="flex"
-          flexDirection="row"
-          flexWrap="wrap"
-          justifyContent="center"
-          padding="1rem"
-          gap="20px"
-        >
+        <Box className={classes.AllSessionCard}>
           {sessionsWithTutors.map((session) => {
             return <AllSessionCard key={session.id} session={session} />;
           })}
-        </Stack>
+        </Box>
       )}
     </Box>
   );

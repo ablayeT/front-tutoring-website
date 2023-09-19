@@ -1,2 +1,2 @@
-import ReservedSessions from './ReservedSessions';
-export default ReservedSessions;
+import useStyles from './Styles/ReservedSession.style';
+export default useStyles;
