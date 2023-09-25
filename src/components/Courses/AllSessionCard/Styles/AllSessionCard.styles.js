@@ -20,11 +20,9 @@ export const useStyles = makeStyles()((theme) => {
       },
       [theme.breakpoints.up('md')]: {
         width: '48%',
-        color: 'green',
       },
       [theme.breakpoints.up('lg')]: {
         width: '32%',
-        color: 'blue',
       },
     },
     boxContentChild: {

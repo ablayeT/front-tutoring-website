@@ -1,14 +1,9 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
-// import TutorSessionsCard from '../../../Cards/TutorSessionCard/TutorSessionsCard';
-import ReservedSessionCard from '../../../Cards/ReservedSessionCard';
-import { useStyles } from './Styles/ReservedSession.style';
+import TutorReservedSessionCard from '../../../Cards/TutorReservedSessionCard';
 
 function ReservedSessions({ sessionData }) {
-  const { classes } = useStyles();
   console.log('sesssionData : ', sessionData);
-  console.log('sesssionData.students:', sessionData.students);
-
   return (
     <Box minHeight="100vh" paddingTop={15}>
       <Typography variant="body1">
@@ -18,22 +13,51 @@ function ReservedSessions({ sessionData }) {
         {sessionData.map((session, sessionIndex) => (
           <Box
             key={sessionIndex}
-            // display="flex"
-            // flexDirection="column"
-            // padding="1.5rem"
-            // borderRadius="5px"
-            // boxShadow="1px 1px 5px #FFA500"
-            className={classes.reservedSession}
+            display="flex"
+            flexDirection="column"
+            padding="1.5rem"
+            borderRadius="5px"
+            boxShadow="1px 1px 5px #FFA500"
           >
-            <ReservedSessionCard session={session} />
-
+            <TutorReservedSessionCard session={session} />
             {session.students && session.students.length > 0 ? (
               <Stack paddingLeft="1.6rem">
                 <Typography variant="h6">Étudiants inscrits :</Typography>
                 {session.students.map((student, studentIndex) => (
-                  <Typography key={studentIndex}>
-                    {student.first_name} {student.last_name}
-                  </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexDirection: 'row',
+                      marginBottom: '10px',
+                      marginRight: '20px',
+                      padding: '10px',
+                      textAlign: 'center',
+                      borderRadius: '15px',
+                      boxShadow: '1px 1px 3px #FFA500',
+                    }}
+                  >
+                    <Box display="flex" alignItems="center">
+                      <Typography key={studentIndex} bord>
+                        {student.first_name} {student.last_name}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: 'block',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        backgroundImage: `url(http://localhost:3000/images/${student.imageUrl})`,
+                        backgroundSize: '100%',
+                        backgroundRepeat: 'no-repeat',
+                        width: '24%',
+                        height: '80px',
+                        borderRadius: '50%',
+                        pl: 1,
+                        pb: 1,
+                      }}
+                    ></Box>
+                  </Box>
                 ))}
               </Stack>
             ) : (
@@ -49,21 +73,3 @@ function ReservedSessions({ sessionData }) {
 }
 
 export default ReservedSessions;
-
-// <li key={session.id}>
-//   <h2>{session.name}</h2>
-//   <p>Description : {session.description}</p>
-//   <p>Date : {session.date}</p>
-//   <p>Heure de début : {session.start_time}</p>
-//   <p>Heure de fin : {session.end_time}</p>
-//   <p>Lieu : {session.location}</p>
-//   <p>Prix : {session.price}</p>
-//   <h3>Étudiants inscrits :</h3>
-//   <ul>
-//     {session.students.map((student, index) => (
-//       <li key={index}>
-//         {student.first_name} {student.last_name}
-//       </li>
-//     ))}
-//   </ul>
-// </li>;

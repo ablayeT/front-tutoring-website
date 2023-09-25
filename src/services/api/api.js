@@ -7,7 +7,7 @@ api.defaults.baseURL =
 
 api.interceptors.request.use(
   (config) => {
-    console.log(api.interceptors.request);
+    // console.log(api.interceptors.request);
     const token = localStorage.getItem('token');
 
     console.log(token);

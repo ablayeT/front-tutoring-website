@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { useAuth } from '../Auth/AuthContext/AuthContext';
 import { Link } from 'react-router-dom';
+import logoImg from '../Assets/logoTutorat.png';
 import {
   AppBar,
   Box,
@@ -32,7 +33,15 @@ function Header() {
       <CssBaseline />
       <Toolbar>
         <Typography variant="h4" className={classes.logo}>
-          Logo
+          <Box
+            textAlign="center"
+            srcSet={logoImg}
+            alt="photoLogo"
+            width="300px"
+            height="140px"
+            component="img"
+            marginBottom="1rem"
+          ></Box>
         </Typography>
         <Box className={classes.navlinks}>
           {newButtonsData.map(

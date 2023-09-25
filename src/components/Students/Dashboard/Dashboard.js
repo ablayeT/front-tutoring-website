@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes, NavLink, useNavigate } from 'react-router-dom';
 import Profile from '../profileManager/ProfileManager';
 import CssBaseline from '@mui/material/CssBaseline';
 import Sessions from '../SessionManager/MySessions';
@@ -21,6 +21,7 @@ import Image from '../../Assets/Image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import api from '../../../services/api';
+import SearchResults from '../SearchResults/Searchresults';
 import {
   Main,
   Search,
@@ -42,6 +43,8 @@ function Dashboard() {
   const [userInfos, setUserInfos] = useState();
   const [open, setOpen] = useState(false);
   const [showMain, setShowMain] = useState(true);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -93,13 +96,25 @@ function Dashboard() {
   function handleMain() {
     setShowMain(false);
   }
+  const handleSearch = () => {
+    if (searchQuery.trim() !== '') {
+      // Redirigez l'utilisateur vers la page de recherche avec le terme de recherche en tant que paramètre
+      navigate(`/search/${searchQuery}`);
+    }
+  };
 
+  console.log(searchQuery);
   return (
-    <Box display="flex" minHeight="100vh" sx={{ marginTop: '80px' }}>
+    <Box display="flex" minHeight="100vh" sx={{ marginTop: '3rem' }}>
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ marginTop: '4rem', backgroundColor: '#ffe19c', color: '#4a4a49' }}
+        sx={{
+          height: '5rem',
+          top: '4rem',
+          backgroundColor: '#ffe19c',
+          color: '#4a4a49',
+        }}
         open={open}
       >
         <Toolbar>
@@ -126,6 +141,13 @@ function Dashboard() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    handleSearch();
+                  }
+                }}
               />
             </Search>
             {userInfos && profileInfos && (
@@ -246,7 +268,7 @@ function Dashboard() {
               }
             />
             <Route path="sessions" element={<Sessions />} />
-            {/* <Route path="/student-dashboard/create-session" element={<CreateSession />} /> */}
+            <Route path="/search/:query" element={<SearchResults />} />
           </Routes>
         ) : (
           <Box>

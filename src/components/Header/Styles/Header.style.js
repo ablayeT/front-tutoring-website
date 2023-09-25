@@ -14,8 +14,8 @@ export const useStyles = makeStyles()((theme) => {
       },
     },
     header: {
-      color: 'black',
-      background: '#FFA500',
+      color: 'white',
+      background: 'black',
       height: '5rem',
     },
     logo: {
@@ -24,13 +24,13 @@ export const useStyles = makeStyles()((theme) => {
     },
     link: {
       textDecoration: 'none',
-      color: 'black',
+      color: 'white',
       fontSize: '20px',
       margingLeft: theme.spacing(20),
       '&:hover': {
         color: 'white',
         borderBottom: '1px solid brown',
-        background: 'black',
+        background: '#FFA500',
       },
     },
     drawer: {
@@ -45,7 +45,7 @@ export const useStyles = makeStyles()((theme) => {
     drawerPaper: {
       width: drawerWidth,
       height: '300px',
-      background: 'FEFE00',
+      background: 'black',
     },
     menuButton: {
       marginRight: theme.spacing(2),

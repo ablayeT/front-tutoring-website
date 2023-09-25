@@ -1,10 +1,10 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import React from 'react';
 import Button from '../../Buttons/Button';
 import useStyles from './Styles';
 import api from '../../../services/api';
 
-function ReservedSessionCard({
+function TutorReservedSessionCard({
   session,
   buttonText = 'Annuler',
   onCancelClick,
@@ -38,21 +38,6 @@ function ReservedSessionCard({
   console.log('session :', session);
   return (
     <Box className={classes.boxContent}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          backgroundImage: `url(http://localhost:3000/images/${session.imageUrl})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          width: '100%',
-          height: '250px',
-          pl: 1,
-          pb: 1,
-        }}
-      ></Box>
       <Box>
         <Box
           sx={{
@@ -79,6 +64,7 @@ function ReservedSessionCard({
             marginTop: '1rem',
           }}
         >
+          <Typography>Sujet : {session.name}</Typography>
           <Typography>Date : {session.date}</Typography>
           <Typography>Début : {session.start_time}</Typography>
           <Typography>Fin :{session.end_time}</Typography>
@@ -91,10 +77,11 @@ function ReservedSessionCard({
         </Typography>
         <Typography component="div">{session.subject_description}</Typography>
       </Box>
-
+      <Divider />
       <Box
         display="flex"
         justifyContent="space-between"
+        flexDirection="row"
         width="100%"
         margin="1rem"
       >
@@ -110,4 +97,4 @@ function ReservedSessionCard({
   );
 }
 
-export default ReservedSessionCard;
+export default TutorReservedSessionCard;
