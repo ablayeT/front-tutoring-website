@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import Button from '../../Buttons/Button';
 import useStyles from './Styles';
-import api from '../../../services/api';
+// import api from '../../../services/api';
 
 function ReservedSessionCard({
   session,
@@ -11,29 +11,6 @@ function ReservedSessionCard({
 }) {
   const { classes } = useStyles();
 
-  const handleCancelClick = async () => {
-    const sessionId = session.id;
-    console.log('sesionId :', sessionId);
-    try {
-      console.log(sessionId);
-      const response = await api.post(
-        '/students/cancel-session',
-        {
-          sessionId: sessionId,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        },
-      );
-      console.log(response.data);
-      alert('Sessions supprimé avec succès');
-      window.location.reload();
-    } catch (error) {
-      console.error("Erreur lors de l'annulation de session :", error);
-    }
-  };
   console.log(session.imageUrl);
   console.log('session :', session);
   return (
@@ -100,7 +77,7 @@ function ReservedSessionCard({
       >
         {/* <Button onClick={handleCancelClick}>Annuler</Button> */}
 
-        <Button onClick={handleCancelClick}>{buttonText}</Button>
+        <Button onClick={onCancelClick}>{buttonText}</Button>
 
         <Typography component="div" variant="h5" color="green">
           ${session.price}

@@ -33,6 +33,7 @@ function MySessions() {
   // const isReserved = reservedSessions.status !== 'Pending';
 
   const handleCancelSession = async (sessionId) => {
+    console.log('ID de session à annuler :', sessionId);
     try {
       const response = await api.post(
         '/students/cancel-session',
@@ -46,16 +47,25 @@ function MySessions() {
         },
       );
       console.log("réponse du serveur pour l'annulation :", response.data);
+      setReservedSessions(
+        reservedSessions.filter(
+          (session) => session.tutoring_session_id !== sessionId,
+        ),
+      );
     } catch (error) {
       console.error("Erreur lors de l'anulation de la session :", error);
     }
   };
+  useEffect(() => {
+    console.log('Reserved Sessions Updated:', reservedSessions);
+  }, [reservedSessions]);
 
   const generateUniqueKey = (session) => {
     return session.tutoring_session_id + Date.now();
   };
 
   console.log('reserved sessions:', reservedSessions);
+
   return (
     <Box width="100%" border="1px soslid red">
       <Typography> Mes Sessions</Typography>
@@ -66,9 +76,6 @@ function MySessions() {
               <ReservedSessionCard
                 key={generateUniqueKey(session)}
                 session={session}
-                buttonText={
-                  session.status === 'Pending' ? 'Annuler' : 'Session annulée'
-                }
                 onCancelClick={() => handleCancelSession(session.id)}
               />
             </Box>

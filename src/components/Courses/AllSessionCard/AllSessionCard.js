@@ -1,13 +1,14 @@
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../Buttons/Button';
 import { useStyles } from './Styles/AllSessionCard.styles';
 import api from '../../../services/api';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
-function AllSessionCard({ session, buttonText = 'Réserver' }) {
-  const navigate = useNavigate();
+function AllSessionCard({ session }) {
+  // const navigate = useNavigate();
   const { classes } = useStyles();
+  const [buttonText, setButtonText] = useState('Réserver');
 
   const handleReservationClick = async () => {
     try {
@@ -31,10 +32,42 @@ function AllSessionCard({ session, buttonText = 'Réserver' }) {
           },
         },
       );
+
+      localStorage.setItem(
+        'reservationId',
+        response.data.session.totoring_session_id,
+      );
+
+      console.log(
+        'tutoring_sessionId : ',
+        response.data.session.tutoring_session_id,
+      );
+      setButtonText('Annuler');
+      // Après avoir effectué la réservation avec succès
       console.log('Reponse du serveur :', response.data);
-      navigate('/student-dashboard/sessions');
     } catch (error) {
       console.error('Error lors de la réservation :', error);
+    }
+  };
+
+  const handleCancelClick = async (sessionId) => {
+    console.log('ID de session à annuler :', sessionId);
+    try {
+      const response = await api.post(
+        '/students/cancel-session',
+        {
+          sessionId: session.tutoring_session_id,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
+      console.log("réponse du serveur pour l'annulation :", response.data);
+      setButtonText('Réserver');
+    } catch (error) {
+      console.error("Erreur lors de l'anulation de la session :", error);
     }
   };
 
@@ -101,7 +134,15 @@ function AllSessionCard({ session, buttonText = 'Réserver' }) {
       >
         {/* <Button onClick={handleCancelClick}>Annuler</Button> */}
 
-        <Button onClick={handleReservationClick}>{buttonText}</Button>
+        <Button
+          onClick={() =>
+            buttonText === 'Réserver'
+              ? handleReservationClick()
+              : handleCancelClick()
+          }
+        >
+          {buttonText}
+        </Button>
 
         <Typography component="div" variant="h5" color="green">
           ${session.price}
