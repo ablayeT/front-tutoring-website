@@ -11,8 +11,8 @@ function ReservedSessionCard({
 }) {
   const { classes } = useStyles();
 
-  console.log(session.imageUrl);
-  console.log('session :', session);
+  // console.log(session.imageUrl);
+  // console.log('session :', session);
   return (
     <Box className={classes.boxContent}>
       <Box

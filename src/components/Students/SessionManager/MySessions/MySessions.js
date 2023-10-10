@@ -8,6 +8,7 @@ import useStyles from './Styles';
 function MySessions() {
   const { classes } = useStyles();
   const [reservedSessions, setReservedSessions] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchStudentSessions = async () => {
@@ -29,11 +30,11 @@ function MySessions() {
     };
 
     fetchStudentSessions();
-  }, []);
+  }, [refresh]);
   // const isReserved = reservedSessions.status !== 'Pending';
 
   const handleCancelSession = async (sessionId) => {
-    console.log('ID de session à annuler :', sessionId);
+    // console.log('ID de session à annuler :', sessionId);
     try {
       const response = await api.post(
         '/students/cancel-session',
@@ -47,24 +48,25 @@ function MySessions() {
         },
       );
       console.log("réponse du serveur pour l'annulation :", response.data);
-      setReservedSessions(
-        reservedSessions.filter(
+      setReservedSessions((prevSessions) =>
+        prevSessions.filter(
           (session) => session.tutoring_session_id !== sessionId,
         ),
       );
+      setRefresh((prevRefresh) => !prevRefresh);
     } catch (error) {
       console.error("Erreur lors de l'anulation de la session :", error);
     }
   };
-  useEffect(() => {
-    console.log('Reserved Sessions Updated:', reservedSessions);
-  }, [reservedSessions]);
+  // useEffect(() => {
+  //   console.log('Reserved Sessions Updated:', reservedSessions);
+  // }, [reservedSessions]);
 
   const generateUniqueKey = (session) => {
     return session.tutoring_session_id + Date.now();
   };
 
-  console.log('reserved sessions:', reservedSessions);
+  // console.log('reserved sessions:', reservedSessions);
 
   return (
     <Box width="100%" border="1px soslid red">

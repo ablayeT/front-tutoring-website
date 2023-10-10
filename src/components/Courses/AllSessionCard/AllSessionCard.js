@@ -5,7 +5,7 @@ import { useStyles } from './Styles/AllSessionCard.styles';
 import api from '../../../services/api';
 // import { useNavigate } from 'react-router-dom';
 
-function AllSessionCard({ session }) {
+function AllSessionCard({ session, onCancelClick, sessionId }) {
   // const navigate = useNavigate();
   const { classes } = useStyles();
   const [buttonText, setButtonText] = useState('Réserver');
@@ -50,26 +50,27 @@ function AllSessionCard({ session }) {
     }
   };
 
-  const handleCancelClick = async (sessionId) => {
-    console.log('ID de session à annuler :', sessionId);
-    try {
-      const response = await api.post(
-        '/students/cancel-session',
-        {
-          sessionId: session.tutoring_session_id,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        },
-      );
-      console.log("réponse du serveur pour l'annulation :", response.data);
-      setButtonText('Réserver');
-    } catch (error) {
-      console.error("Erreur lors de l'anulation de la session :", error);
-    }
-  };
+  // const handleCancelClick = async (sessionId) => {
+  //   console.log('ID de session à annuler :', sessionId);
+  //   try {
+  //     const response = await api.post(
+  //       '/students/cancel-session',
+  //       {
+  //         sessionId: session.tutoring_session_id,
+  //       },
+  //       {
+  //         headers: {
+  //           authorization: `Bearer ${localStorage.getItem('token')}`,
+  //         },
+  //       },
+  //     );
+  //     console.log("réponse du serveur pour l'annulation :", response.data);
+  //     setButtonText('Réserver');
+  //   } catch (error) {
+  //     console.error("Erreur lors de l'anulation de la session :", error);
+  //   }
+  // };
+  console.log('sessionid:', sessionId);
 
   return (
     <Box className={classes.boxContent}>
@@ -138,7 +139,7 @@ function AllSessionCard({ session }) {
           onClick={() =>
             buttonText === 'Réserver'
               ? handleReservationClick()
-              : handleCancelClick()
+              : onCancelClick(sessionId)
           }
         >
           {buttonText}
