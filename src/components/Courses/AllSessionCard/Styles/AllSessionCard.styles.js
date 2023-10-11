@@ -64,5 +64,19 @@ export const useStyles = makeStyles()((theme) => {
       width: '100%',
       margin: '1rem',
     },
+
+    confirmationMessage: {
+      paddingBottom: theme.spacing(2),
+      paddingTop: theme.spacing(1.5),
+      textAlign: 'center',
+      backgroundColor: '#4caf50',
+      color: 'white',
+      borderRadius: theme.spacing(1),
+      fontSize: theme.spacing(3),
+      width: '60%',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+    },
   };
 });

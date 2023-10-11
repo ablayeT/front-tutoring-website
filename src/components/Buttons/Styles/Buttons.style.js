@@ -3,12 +3,12 @@ import { makeStyles } from 'tss-react/mui';
 export const useStyles = makeStyles()((theme) => {
   return {
     button: {
-      backgroundColor: '#FFA500',
-      color: 'black',
+      backgroundColor: 'black',
+      color: 'white',
       fontWeight: 'bold',
       '&:hover': {
-        backgroundColor: 'black',
-        color: 'white',
+        backgroundColor: '#FFA500',
+        color: 'black',
       },
     },
   };

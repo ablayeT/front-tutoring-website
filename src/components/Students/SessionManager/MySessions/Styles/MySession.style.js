@@ -26,5 +26,19 @@ export const useStyles = makeStyles()((theme) => {
         color: 'blue',
       },
     },
+
+    confirmationMessage: {
+      marginTop: theme.spacing(0),
+      paddingBottom: theme.spacing(4),
+      paddingTop: theme.spacing(1.5),
+      textAlign: 'center',
+      backgroundColor: '#4caf50',
+      color: 'white',
+      borderRadius: theme.spacing(1),
+      fontSize: theme.spacing(3),
+      width: '30%',
+      position: 'absolute',
+      inset: '50%',
+    },
   };
 });

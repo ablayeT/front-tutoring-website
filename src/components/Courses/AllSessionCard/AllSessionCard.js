@@ -5,10 +5,11 @@ import { useStyles } from './Styles/AllSessionCard.styles';
 import api from '../../../services/api';
 // import { useNavigate } from 'react-router-dom';
 
-function AllSessionCard({ session, onCancelClick, sessionId }) {
+function AllSessionCard({ session }) {
   // const navigate = useNavigate();
   const { classes } = useStyles();
   const [buttonText, setButtonText] = useState('Réserver');
+  const [confirmationMessage, setConfirmationMessage] = useState('');
 
   const handleReservationClick = async () => {
     try {
@@ -32,45 +33,43 @@ function AllSessionCard({ session, onCancelClick, sessionId }) {
           },
         },
       );
+      localStorage.setItem('reservationId', session.id);
 
-      localStorage.setItem(
-        'reservationId',
-        response.data.session.totoring_session_id,
-      );
-
-      console.log(
-        'tutoring_sessionId : ',
-        response.data.session.tutoring_session_id,
-      );
       setButtonText('Annuler');
-      // Après avoir effectué la réservation avec succès
+      // message de succès
+      setConfirmationMessage('Séssion réservée avec succès !');
+      setTimeout(() => {
+        setConfirmationMessage('');
+      }, 2000);
       console.log('Reponse du serveur :', response.data);
     } catch (error) {
       console.error('Error lors de la réservation :', error);
     }
   };
 
-  // const handleCancelClick = async (sessionId) => {
-  //   console.log('ID de session à annuler :', sessionId);
-  //   try {
-  //     const response = await api.post(
-  //       '/students/cancel-session',
-  //       {
-  //         sessionId: session.tutoring_session_id,
-  //       },
-  //       {
-  //         headers: {
-  //           authorization: `Bearer ${localStorage.getItem('token')}`,
-  //         },
-  //       },
-  //     );
-  //     console.log("réponse du serveur pour l'annulation :", response.data);
-  //     setButtonText('Réserver');
-  //   } catch (error) {
-  //     console.error("Erreur lors de l'anulation de la session :", error);
-  //   }
-  // };
-  console.log('sessionid:', sessionId);
+  const handleCancelSession = async (sessionId) => {
+    try {
+      const response = await api.post(
+        '/students/cancel-reserved-session',
+        {
+          sessionId: sessionId,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
+      console.log("réponse du serveur pour l'annulation :", response.data);
+      setButtonText('Réserver');
+      setConfirmationMessage('Réservation annulée avec succès !');
+      setTimeout(() => {
+        setConfirmationMessage('');
+      }, 2000);
+    } catch (error) {
+      console.error("Erreur lors de l'anulation de la session :", error);
+    }
+  };
 
   return (
     <Box className={classes.boxContent}>
@@ -139,7 +138,7 @@ function AllSessionCard({ session, onCancelClick, sessionId }) {
           onClick={() =>
             buttonText === 'Réserver'
               ? handleReservationClick()
-              : onCancelClick(sessionId)
+              : handleCancelSession(session.id)
           }
         >
           {buttonText}
@@ -149,6 +148,12 @@ function AllSessionCard({ session, onCancelClick, sessionId }) {
           ${session.price}
         </Typography>
       </Box>
+      {/* Affichage du message de confirmation */}
+      {confirmationMessage && (
+        <Box className={classes.confirmationMessage}>
+          <Typography variant="body1">{confirmationMessage}</Typography>
+        </Box>
+      )}
     </Box>
   );
 }

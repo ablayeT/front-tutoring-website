@@ -125,7 +125,6 @@ function Dashboard() {
     <Box display="flex">
       <CssBaseline />
       <AppBar
-        position="fixed"
         sx={{
           height: '5rem',
           top: '4rem',
@@ -178,8 +177,83 @@ function Dashboard() {
             )}
           </Box>
         </Toolbar>
+        <Box display="flex" marginTop="2rem" justifyContent="center">
+          <List>
+            <ListItem
+              sx={{
+                display: 'flex',
+                listStyle: 'none',
+              }}
+            >
+              <ListItemButton
+                onClick={handleMain}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon>
+                  <AccountCircleIcon />
+                </ListItemIcon>
+                <NavLink to="profile" display="flex">
+                  <ListItemText primary="Profil" sx={{ listStyle: 'none' }} />
+                </NavLink>
+              </ListItemButton>
+              <ListItemButton
+                onClick={handleMain}
+                sx={{
+                  display: 'flex',
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon>
+                  <CastForEducationIcon />
+                </ListItemIcon>
+                <NavLink to="sessions" display="flex">
+                  <ListItemText primary="Sessions de tutorat" />
+                </NavLink>
+              </ListItemButton>
+              <ListItemButton
+                onClick={handleMain}
+                sx={{
+                  display: 'flex',
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon>
+                  <CreateNewFolderIcon />
+                </ListItemIcon>
+                <NavLink to="create-session" display="flex">
+                  <ListItemText primary="Créer une session" />
+                </NavLink>
+              </ListItemButton>
+              <ListItemButton
+                onClick={handleMain}
+                sx={{
+                  display: 'flex',
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon>
+                  <SchoolIcon />
+                </ListItemIcon>
+                <NavLink to="reserved-sessions" display="flex">
+                  <ListItemText primary="Sessions réservées" />
+                </NavLink>
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
       </AppBar>
-      <Drawer
+
+      {/* <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -204,82 +278,9 @@ function Dashboard() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          <ListItem
-            sx={{
-              display: 'block',
-              listStyle: 'none',
-              flexDirection: 'column',
-            }}
-            disablePadding
-          >
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <NavLink to="profile" display="flex">
-                <ListItemText primary="Profil" sx={{ listStyle: 'none' }} />
-              </NavLink>
-            </ListItemButton>
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                display: 'flex',
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon>
-                <CastForEducationIcon />
-              </ListItemIcon>
-              <NavLink to="sessions" display="flex">
-                <ListItemText primary="Sessions de tutorat" />
-              </NavLink>
-            </ListItemButton>
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                display: 'flex',
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon>
-                <CreateNewFolderIcon />
-              </ListItemIcon>
-              <NavLink to="create-session" display="flex">
-                <ListItemText primary="Créer une session" />
-              </NavLink>
-            </ListItemButton>
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                display: 'flex',
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon>
-                <SchoolIcon />
-              </ListItemIcon>
-              <NavLink to="reserved-sessions" display="flex">
-                <ListItemText primary="Sessions réservées" />
-              </NavLink>
-            </ListItemButton>
-          </ListItem>
-        </List>
+
         <Divider />
-      </Drawer>
+      </Drawer> */}
       <Main flex="1" padding="20px" open={open}>
         {!showMain ? (
           <Routes>

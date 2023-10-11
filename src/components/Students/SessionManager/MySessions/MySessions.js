@@ -9,6 +9,7 @@ function MySessions() {
   const { classes } = useStyles();
   const [reservedSessions, setReservedSessions] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
 
   useEffect(() => {
     const fetchStudentSessions = async () => {
@@ -19,7 +20,6 @@ function MySessions() {
           },
         });
 
-        // const studentSessions = response.data;
         setReservedSessions(response.data);
       } catch (error) {
         console.error(
@@ -31,52 +31,56 @@ function MySessions() {
 
     fetchStudentSessions();
   }, [refresh]);
-  // const isReserved = reservedSessions.status !== 'Pending';
 
   const handleCancelSession = async (sessionId) => {
-    // console.log('ID de session à annuler :', sessionId);
-    try {
-      const response = await api.post(
-        '/students/cancel-session',
-        {
-          sessionId: sessionId,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
+    const isConfirmed = window.confirm(
+      'Voulez-vous vraiment annuler cette session ?',
+    );
+
+    if (isConfirmed) {
+      try {
+        const response = await api.post(
+          '/students/cancel-reserved-session',
+          {
+            sessionId: sessionId,
           },
-        },
-      );
-      console.log("réponse du serveur pour l'annulation :", response.data);
-      setReservedSessions((prevSessions) =>
-        prevSessions.filter(
-          (session) => session.tutoring_session_id !== sessionId,
-        ),
-      );
-      setRefresh((prevRefresh) => !prevRefresh);
-    } catch (error) {
-      console.error("Erreur lors de l'anulation de la session :", error);
+          {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          },
+        );
+        console.log("réponse du serveur pour l'annulation :", response.data);
+        setReservedSessions((prevSessions) =>
+          prevSessions.filter(
+            (session) => session.tutoring_session_id !== sessionId,
+          ),
+        );
+        setRefresh((prevRefresh) => !prevRefresh);
+        setConfirmationMessage('Session annulée avec succès');
+        // Effacez le message de confirmation après 2 secondes
+        setTimeout(() => {
+          setConfirmationMessage('');
+        }, 2000);
+      } catch (error) {
+        console.error("Erreur lors de l'anulation de la session :", error);
+      }
     }
   };
-  // useEffect(() => {
-  //   console.log('Reserved Sessions Updated:', reservedSessions);
-  // }, [reservedSessions]);
 
   const generateUniqueKey = (session) => {
     return session.tutoring_session_id + Date.now();
   };
 
-  // console.log('reserved sessions:', reservedSessions);
-
   return (
-    <Box width="100%" border="1px soslid red">
+    <Box width="100%" border="1px soslid red" position="relative">
       <Typography> Mes Sessions</Typography>
       <Box className={classes.MySessionContainer}>
         {reservedSessions.map((session) => {
           return (
             <Box className={classes.MySessionCard}>
               <ReservedSessionCard
-                key={generateUniqueKey(session)}
+                key={generateUniqueKey(session.id)}
                 session={session}
                 onCancelClick={() => handleCancelSession(session.id)}
               />
@@ -84,6 +88,14 @@ function MySessions() {
           );
         })}
       </Box>
+      {/* Affichage du message de confirmation */}
+      {confirmationMessage && (
+        <Box
+          className={`${classes.confirmationMessage} ${classes.confirmationMessageVisible}  `}
+        >
+          <Typography variant="body1">{confirmationMessage}</Typography>
+        </Box>
+      )}
     </Box>
   );
 }
