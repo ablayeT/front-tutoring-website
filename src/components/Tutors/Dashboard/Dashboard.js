@@ -6,12 +6,12 @@ import Sessions from '../SessionManager/Sessions/Sessions';
 import EditProfile from '../ProfileManager/EditProfile/EditProfile';
 import Toolbar from '@mui/material/Toolbar';
 import ListItemButton from '@mui/material/ListItemButton';
-import Divider from '@mui/material/Divider';
+// import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
+// import Drawer from '@mui/material/Drawer';
 import SchoolIcon from '@mui/icons-material/School';
 import {
   Box,
@@ -23,19 +23,19 @@ import {
   Typography,
 } from '@mui/material';
 import Image from '../../Assets/Image';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import api from '../../../services/api';
-import { Main, AppBar, DrawerHeader } from './Styles';
+import { Main, AppBar } from './Styles';
 import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
 
-const drawerWidth = 220;
+// const drawerWidth = 220;
 
 function Dashboard() {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -48,9 +48,9 @@ function Dashboard() {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  // const handleDrawerClose = () => {
+  //   setOpen(false);
+  // };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -126,162 +126,114 @@ function Dashboard() {
       <CssBaseline />
       <AppBar
         sx={{
-          height: '5rem',
-          top: '4rem',
+          height: '8rem',
+          top: '5rem',
           backgroundColor: '#ffe19c',
           color: '#4a4a49',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
         }}
         open={open}
       >
-        <Toolbar>
-          <IconButton
+        <Typography variant="h5">Tableau de bord</Typography>
+        <Box sx={{ border: '1px solid red', display: 'flex', width: '50%' }}>
+          <ListItem sx={{ border: '1px solid blue' }}>
+            <ListItemButton
+              onClick={handleMain}
+              sx={{
+                display: 'flex',
+              }}
+            >
+              <ListItemIcon>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <NavLink to="profile">
+                <ListItemText primary="Profil" sx={{ listStyle: 'none' }} />
+              </NavLink>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              onClick={handleMain}
+              sx={{
+                display: 'flex',
+              }}
+            >
+              <ListItemIcon>
+                <CastForEducationIcon />
+              </ListItemIcon>
+              <NavLink to="sessions" display="flex">
+                <ListItemText primary="Sessions de tutorat" />
+              </NavLink>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              onClick={handleMain}
+              sx={{
+                display: 'flex',
+              }}
+            >
+              <ListItemIcon>
+                <CreateNewFolderIcon />
+              </ListItemIcon>
+              <NavLink to="create-session" display="flex">
+                <ListItemText primary="Créer une session" />
+              </NavLink>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              onClick={handleMain}
+              sx={{
+                display: 'flex',
+              }}
+            >
+              <ListItemIcon>
+                <SchoolIcon />
+              </ListItemIcon>
+              <NavLink to="reserved-sessions" display="flex">
+                <ListItemText primary="Sessions réservées" />
+              </NavLink>
+            </ListItemButton>
+          </ListItem>
+        </Box>
+
+        {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
-          </IconButton>
-
+          </IconButton> */}
+        {userData && profileData && (
           <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              width: '100%',
-            }}
+            display="flex"
+            justifyContent="space-between"
+            gap="10px"
+            flexWrap="wrap"
           >
-            <Typography variant="h5">Tableau de bord</Typography>
-            {userData && profileData && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                gap="10px"
-                flexWrap="wrap"
-              >
-                <Typography>
-                  Bienvenue, <br />
-                  {userData.user.first_name}{' '}
-                </Typography>
-                <Stack>
-                  <Image
-                    imageUrl={profileData.profile.imageUrl}
-                    alt="ProfileImage"
-                    width="50px"
-                    height="50px"
-                    object-fit="fill"
-                    borderRadius="50px"
-                  />
-                </Stack>
-              </Box>
-            )}
+            <Typography>
+              Bienvenue, <br />
+              {userData.user.first_name}{' '}
+            </Typography>
+            <Stack>
+              <Image
+                imageUrl={profileData.profile.imageUrl}
+                alt="ProfileImage"
+                width="50px"
+                height="50px"
+                object-fit="fill"
+                borderRadius="50px"
+              />
+            </Stack>
           </Box>
-        </Toolbar>
-        <Box display="flex" marginTop="2rem" justifyContent="center">
-          <List>
-            <ListItem
-              sx={{
-                display: 'flex',
-                listStyle: 'none',
-              }}
-            >
-              <ListItemButton
-                onClick={handleMain}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon>
-                  <AccountCircleIcon />
-                </ListItemIcon>
-                <NavLink to="profile" display="flex">
-                  <ListItemText primary="Profil" sx={{ listStyle: 'none' }} />
-                </NavLink>
-              </ListItemButton>
-              <ListItemButton
-                onClick={handleMain}
-                sx={{
-                  display: 'flex',
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon>
-                  <CastForEducationIcon />
-                </ListItemIcon>
-                <NavLink to="sessions" display="flex">
-                  <ListItemText primary="Sessions de tutorat" />
-                </NavLink>
-              </ListItemButton>
-              <ListItemButton
-                onClick={handleMain}
-                sx={{
-                  display: 'flex',
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon>
-                  <CreateNewFolderIcon />
-                </ListItemIcon>
-                <NavLink to="create-session" display="flex">
-                  <ListItemText primary="Créer une session" />
-                </NavLink>
-              </ListItemButton>
-              <ListItemButton
-                onClick={handleMain}
-                sx={{
-                  display: 'flex',
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <NavLink to="reserved-sessions" display="flex">
-                  <ListItemText primary="Sessions réservées" />
-                </NavLink>
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
+        )}
       </AppBar>
 
-      {/* <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            top: '4rem',
-            backgroundColor: '#ffe19c',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader sx={{ background: 'white' }}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon color="white" />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-
-        <Divider />
-      </Drawer> */}
-      <Main flex="1" padding="20px" open={open}>
+      <Main flex="1" padding="20px" open={open} border="1px solid red">
         {!showMain ? (
           <Routes>
             <Route
@@ -345,3 +297,34 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+{
+  /* <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            top: '4rem',
+            backgroundColor: '#ffe19c',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader sx={{ background: 'white' }}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon color="white" />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+
+        <Divider />
+      </Drawer> */
+}

@@ -42,7 +42,7 @@ function TutorSessionsWithTutors() {
   return (
     <Box className={classes.container}>
       <Box display="flex" justifyContent="left" width="100%" marginTop>
-        {/* Ajoutez un bouton de retour */}
+        {/* bouton de retour */}
         <BackButton label="Retourner à la page précédente" />
       </Box>
       {isLoading ? (

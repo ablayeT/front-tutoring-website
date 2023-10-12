@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const login = async (email, password) => {
@@ -15,14 +16,46 @@ export const AuthProvider = ({ children }) => {
         password,
       });
       const token = response.data.token;
-      console.log('toKen :', token);
       const userId = response.data.userId;
-      console.log('userId :', userId);
       const userType = response.data.userType;
-      console.log('userType :', userType);
+      const userFirstName = response.data.userFirstName;
+      const userLastName = response.data.userLastName;
+
+      // Convertissez la première lettre de userType en minuscule pour l'URL de la requête
+      const userTypeLowercase =
+        userType.charAt(0).toLowerCase() + userType.slice(1);
+
+      console.log('userTypeToLowerCase :', userTypeLowercase);
+
+      const profileResponse = await api.get(
+        `/${userTypeLowercase}s/profile/${userId}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const userImage = profileResponse.data.profile.imageUrl;
+      console.log('userPhoto :', userImage);
+
+      const userData = {
+        id: userId,
+        type: userType,
+        first_name: userFirstName,
+        last_name: userLastName,
+        imageUrl: userImage,
+      };
+      console.log('userData in auth: ', userData);
+
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
       localStorage.setItem('userType', userType);
+      localStorage.setItem('userFirstName', userFirstName);
+      localStorage.setItem('userLastName', userLastName);
+      localStorage.setItem('userImage', userImage);
+
+      setUser(userData);
       setIsLoggedIn(true);
       return response.data;
     } catch (error) {
@@ -72,9 +105,11 @@ export const AuthProvider = ({ children }) => {
       navigate('/auth');
     }
   };
-
+  console.log('user in auth:', user);
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, verifyLogin }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, login, user, logout, verifyLogin }}
+    >
       {children}
     </AuthContext.Provider>
   );

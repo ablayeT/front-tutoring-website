@@ -21,7 +21,7 @@ function SignupForm() {
     last_name: '',
     email: '',
     password: '',
-    user_type: 'Tutor',
+    user_type: 'tutor',
   });
 
   const handleChange = (e) => {
@@ -79,8 +79,8 @@ function SignupForm() {
           value={formData.user_type}
           onChange={handleChange}
         >
-          <MenuItem value="Student">Étudiant</MenuItem>
-          <MenuItem value="Tutor">Tuteur</MenuItem>
+          <MenuItem value="student">Étudiant</MenuItem>
+          <MenuItem value="tutor">Tuteur</MenuItem>
         </Select>
       </Stack>
       <Stack>

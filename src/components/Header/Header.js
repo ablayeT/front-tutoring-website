@@ -18,8 +18,10 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import useStyles from './Styles';
 import buttonsData from './ButtonsData.schema';
+import Image from '../Assets/Image';
+
 function Header() {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, user } = useAuth();
   const { classes } = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -28,6 +30,7 @@ function Header() {
   };
   const userType = localStorage.getItem('userType');
   const newButtonsData = buttonsData(isLoggedIn, userType);
+  console.log('user.image:', user.imageUrl);
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />
@@ -57,6 +60,24 @@ function Header() {
                   <ListItemText primary={button.label} />
                 </Button>
               ),
+          )}
+        </Box>
+        <Box className={classes.userInfo}>
+          {isLoggedIn && (
+            <Box display="flex" alignItems="center">
+              <Typography variant="body1" className={classes.userName}>
+                {`Bienvenue, ${user.first_name}`}
+              </Typography>
+              <Image
+                imageUrl={user.imageUrl}
+                className={classes.avatar}
+                alt="ProfileImage"
+                width="50px"
+                height="50px"
+                object-fit="fill"
+                borderRadius="50px"
+              />
+            </Box>
           )}
         </Box>
         <IconButton
