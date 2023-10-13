@@ -4,53 +4,30 @@ import Profile from '../ProfileManager/ProfileManager';
 import CreateSession from '../SessionManager/CreateSession/CreateSession';
 import Sessions from '../SessionManager/Sessions/Sessions';
 import EditProfile from '../ProfileManager/EditProfile/EditProfile';
-import Toolbar from '@mui/material/Toolbar';
 import ListItemButton from '@mui/material/ListItemButton';
-// import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MenuIcon from '@mui/icons-material/Menu';
-// import Drawer from '@mui/material/Drawer';
-import SchoolIcon from '@mui/icons-material/School';
 import {
   Box,
-  Stack,
-  List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Typography,
+  Divider,
+  Stack,
 } from '@mui/material';
-import Image from '../../Assets/Image';
-// import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import CastForEducationIcon from '@mui/icons-material/CastForEducation';
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import api from '../../../services/api';
-import { Main, AppBar } from './Styles';
-import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
 
-// const drawerWidth = 220;
+import api from '../../../services/api';
+import { Main, AppBar, useStyles } from './Styles';
+import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
+import Button from '../../Buttons/Button';
 
 function Dashboard() {
-  // const theme = useTheme();
-
+  const { classes } = useStyles();
   const [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
   const [sessionData, setSessionData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [showMain, setShowMain] = useState(true);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -120,120 +97,43 @@ function Dashboard() {
     setShowMain(false);
   }
 
-  console.log(sessionData);
   return (
-    <Box display="flex">
+    <Box>
       <CssBaseline />
-      <AppBar
-        sx={{
-          height: '8rem',
-          top: '5rem',
-          backgroundColor: '#ffe19c',
-          color: '#4a4a49',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-        open={open}
-      >
-        <Typography variant="h5">Tableau de bord</Typography>
-        <Box sx={{ border: '1px solid red', display: 'flex', width: '50%' }}>
-          <ListItem sx={{ border: '1px solid blue' }}>
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                display: 'flex',
-              }}
-            >
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
+      <AppBar className={classes.appBar} open={open}>
+        <Divider sx={{ color: '#4a4a49' }} />
+        <Typography variant="h5" color="white" textAlign="left">
+          Tableau de bord
+        </Typography>
+        <Box className={classes.appBarDashboard}>
+          <Box className={classes.appBarDashboardChildren}>
+            <Stack onClick={handleMain}>
               <NavLink to="profile">
-                <ListItemText primary="Profil" sx={{ listStyle: 'none' }} />
+                <Button>Profil </Button>
               </NavLink>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                display: 'flex',
-              }}
-            >
-              <ListItemIcon>
-                <CastForEducationIcon />
-              </ListItemIcon>
+            </Stack>
+            <Stack onClick={handleMain}>
               <NavLink to="sessions" display="flex">
-                <ListItemText primary="Sessions de tutorat" />
+                <Button>Sessions</Button>
               </NavLink>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                display: 'flex',
-              }}
-            >
-              <ListItemIcon>
-                <CreateNewFolderIcon />
-              </ListItemIcon>
-              <NavLink to="create-session" display="flex">
-                <ListItemText primary="Créer une session" />
-              </NavLink>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton
-              onClick={handleMain}
-              sx={{
-                display: 'flex',
-              }}
-            >
-              <ListItemIcon>
-                <SchoolIcon />
-              </ListItemIcon>
-              <NavLink to="reserved-sessions" display="flex">
-                <ListItemText primary="Sessions réservées" />
-              </NavLink>
-            </ListItemButton>
-          </ListItem>
-        </Box>
-
-        {/* <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-        {userData && profileData && (
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            gap="10px"
-            flexWrap="wrap"
-          >
-            <Typography>
-              Bienvenue, <br />
-              {userData.user.first_name}{' '}
-            </Typography>
-            <Stack>
-              <Image
-                imageUrl={profileData.profile.imageUrl}
-                alt="ProfileImage"
-                width="50px"
-                height="50px"
-                object-fit="fill"
-                borderRadius="50px"
-              />
             </Stack>
           </Box>
-        )}
+          <Box className={classes.appBarDashboardChildren}>
+            <Stack onClick={handleMain}>
+              <NavLink to="create-session" display="flex">
+                <Button>Créer Session</Button>
+              </NavLink>
+            </Stack>
+            <Stack onClick={handleMain}>
+              <NavLink to="reserved-sessions" display="flex">
+                <Button>Réserver une Session</Button>
+              </NavLink>
+            </Stack>
+          </Box>
+        </Box>
       </AppBar>
 
-      <Main flex="1" padding="20px" open={open} border="1px solid red">
+      <Main open={open}>
         {!showMain ? (
           <Routes>
             <Route
@@ -242,10 +142,10 @@ function Dashboard() {
                 <Profile profileData={profileData} userData={userData} />
               }
             />
-            <Route
+            {/* <Route
               path="profile/edit"
               element={<EditProfile profileData={profileData} />}
-            />
+            /> */}
             <Route
               path="sessions"
               element={<Sessions sessionData={sessionData} />}
@@ -327,4 +227,40 @@ export default Dashboard;
 
         <Divider />
       </Drawer> */
+}
+
+{
+  /* <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon />
+          </IconButton> */
+}
+{
+  /* {userData && profileData && (
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            gap="10px"
+            flexWrap="wrap"
+          >
+            <Typography>
+              Bienvenue, <br />
+              {userData.user.first_name}{' '}
+            </Typography>
+            <Stack>
+              <Image
+                imageUrl={profileData.profile.imageUrl}
+                alt="ProfileImage"
+                width="50px"
+                height="50px"
+                object-fit="fill"
+                borderRadius="50px"
+              />
+            </Stack>
+          </Box>
+        )} */
 }

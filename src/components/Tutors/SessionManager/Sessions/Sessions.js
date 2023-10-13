@@ -5,8 +5,10 @@ import TutorSessionCard from '../../../Cards/TutorSessionCard/TutorSessionsCard'
 import { NavLink } from 'react-router-dom';
 import Button from '../../../Buttons/Button';
 import api from '../../../../services/api';
+import useStyles from '../../../Cards/TutorSessionCard/style';
 
 function Sessions({ sessionData }) {
+  const { classes } = useStyles();
   const [tutorSessions, setTutorSessions] = useState(sessionData);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,8 +23,6 @@ function Sessions({ sessionData }) {
 
     fetchTutorSessions();
   }, [sessionData]);
-
-  console.log('tutorSessions:', tutorSessions);
 
   const handleDeleteSession = async (sessionId) => {
     try {
@@ -45,9 +45,9 @@ function Sessions({ sessionData }) {
   }
 
   return (
-    <Box paddingTop="10rem" paddingBottom="5rem">
+    <Box className={classes.cardContainer}>
       {tutorSessions.length === 0 ? (
-        <Box display="flex" justifyContent="center" marginTop={5} gap="1rem">
+        <Box display="flex" justifyContent="center">
           <Typography variant="h5" textAlign="center">
             Vous n'avez pas encore de Séssion,
           </Typography>
@@ -55,19 +55,17 @@ function Sessions({ sessionData }) {
             <Button>Créer une session</Button>
           </NavLink>
         </Box>
-      ) : (
-        <Typography variant="h5" marginBottom="1rem">
-          Mes sessions de tutorat
-        </Typography>
-      )}
+      ) : // <Typography variant="h5" marginBottom="1rem">
+      //   Mes sessions de tutorat
+      // </Typography>
+      null}
       {tutorSessions.map((session) => (
-        <Stack key={session.id}>
-          <TutorSessionCard
-            session={session}
-            sessionId={session.id}
-            onDelete={handleDeleteSession}
-          />
-        </Stack>
+        <TutorSessionCard
+          session={session}
+          sessionId={session.id}
+          onDelete={handleDeleteSession}
+          setTutorSessions={setTutorSessions}
+        />
       ))}
     </Box>
   );

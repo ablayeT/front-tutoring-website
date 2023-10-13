@@ -21,11 +21,9 @@ export const AuthProvider = ({ children }) => {
       const userFirstName = response.data.userFirstName;
       const userLastName = response.data.userLastName;
 
-      // Convertissez la première lettre de userType en minuscule pour l'URL de la requête
+      // Convertir la première lettre de userType en minuscule pour l'URL de la requête
       const userTypeLowercase =
         userType.charAt(0).toLowerCase() + userType.slice(1);
-
-      console.log('userTypeToLowerCase :', userTypeLowercase);
 
       const profileResponse = await api.get(
         `/${userTypeLowercase}s/profile/${userId}`,
@@ -36,8 +34,16 @@ export const AuthProvider = ({ children }) => {
         },
       );
 
-      const userImage = profileResponse.data.profile.imageUrl;
-      console.log('userPhoto :', userImage);
+      let userImage;
+
+      if (userType === 'Tutor') {
+        userImage = profileResponse.data.profile.imageUrl;
+      } else if (userType === 'Student') {
+        userImage = profileResponse.data.imageUrl;
+      } else {
+        // Gérez le cas par défaut ici si nécessaire
+        userImage = ''; // ou null ou une autre valeur par défaut
+      }
 
       const userData = {
         id: userId,
@@ -46,7 +52,6 @@ export const AuthProvider = ({ children }) => {
         last_name: userLastName,
         imageUrl: userImage,
       };
-      console.log('userData in auth: ', userData);
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
@@ -105,7 +110,6 @@ export const AuthProvider = ({ children }) => {
       navigate('/auth');
     }
   };
-  console.log('user in auth:', user);
   return (
     <AuthContext.Provider
       value={{ isLoggedIn, login, user, logout, verifyLogin }}

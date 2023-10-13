@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useAuth } from '../Auth/AuthContext/AuthContext';
 import { Link } from 'react-router-dom';
 import logoImg from '../Assets/logoTutorat.png';
@@ -24,28 +24,32 @@ function Header() {
   const { isLoggedIn, logout, user } = useAuth();
   const { classes } = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setUserData(user);
+    } else {
+      setUserData(null);
+    }
+  }, [isLoggedIn, user]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const userType = localStorage.getItem('userType');
   const newButtonsData = buttonsData(isLoggedIn, userType);
-  console.log('user.image:', user.imageUrl);
+
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />
-      <Toolbar>
-        <Typography variant="h4" className={classes.logo}>
-          <Box
-            textAlign="center"
-            srcSet={logoImg}
-            alt="photoLogo"
-            width="300px"
-            height="140px"
-            component="img"
-            marginBottom="1rem"
-          ></Box>
-        </Typography>
+      <Box
+        className={classes.logo}
+        component="img"
+        srcSet={logoImg}
+        alt="Logo"
+      ></Box>
+      <Toolbar className={classes.Toolbar}>
         <Box className={classes.navlinks}>
           {newButtonsData.map(
             (button, index) =>
@@ -62,24 +66,24 @@ function Header() {
               ),
           )}
         </Box>
-        <Box className={classes.userInfo}>
-          {isLoggedIn && (
-            <Box display="flex" alignItems="center">
-              <Typography variant="body1" className={classes.userName}>
-                {`Bienvenue, ${user.first_name}`}
-              </Typography>
-              <Image
-                imageUrl={user.imageUrl}
-                className={classes.avatar}
-                alt="ProfileImage"
-                width="50px"
-                height="50px"
-                object-fit="fill"
-                borderRadius="50px"
-              />
-            </Box>
-          )}
-        </Box>
+
+        {isLoggedIn && userData && (
+          <Box className={classes.userInfoChild}>
+            <Image
+              imageUrl={userData.imageUrl}
+              className={classes.avatar}
+              alt="ProfileImage"
+              width="50%"
+              height="50px"
+              object-fit="fill"
+              borderRadius="50%"
+            />
+            <Typography className={classes.userName}>
+              Bienvenue, <br /> {userData.first_name}
+            </Typography>
+          </Box>
+        )}
+
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -87,7 +91,7 @@ function Header() {
           onClick={handleDrawerToggle}
           className={classes.menuButton}
         >
-          <MenuIcon />
+          <MenuIcon className={classes.menuIcon} />
         </IconButton>
       </Toolbar>
 

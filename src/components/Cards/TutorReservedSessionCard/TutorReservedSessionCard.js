@@ -13,7 +13,7 @@ function TutorReservedSessionCard({
 
   const handleCancelClick = async () => {
     const sessionId = session.id;
-    console.log('sesionId :', sessionId);
+    // console.log('sesionId :', sessionId);
     try {
       console.log(sessionId);
       const response = await api.post(
@@ -28,14 +28,14 @@ function TutorReservedSessionCard({
         },
       );
       console.log(response.data);
-      alert('Sessions supprimé avec succès');
+      // alert('Sessions supprimé avec succès');
       window.location.reload();
     } catch (error) {
       console.error("Erreur lors de l'annulation de session :", error);
     }
   };
-  console.log(session.imageUrl);
-  console.log('session :', session);
+  // console.log(session.imageUrl);
+  // console.log('session :', session);
   return (
     <Box className={classes.boxContent}>
       <Box>

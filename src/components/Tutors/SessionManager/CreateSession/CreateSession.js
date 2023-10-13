@@ -13,7 +13,10 @@ import {
 import Button from '../../../Buttons/Button';
 import tutoringSessionFields from './CreateSessionForm.schema/CreateSessionsForm.schema';
 
+import useStyles from './style';
+
 function TutoringSessionForm({ mode, sessionToEdit }) {
+  const { classes } = useStyles();
   const [formData, setFormData] = useState({
     tutor_id: localStorage.getItem('userId'),
     subject_id: '',
@@ -102,13 +105,7 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      paddingTop="8rem"
-      paddingBottom="8rem"
-    >
+    <Box className={classes.createSessionContainer}>
       <Typography variant="h4" marginBottom="15px">
         Créer une session
       </Typography>

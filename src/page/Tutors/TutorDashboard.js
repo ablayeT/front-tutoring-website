@@ -4,8 +4,13 @@ import Dashboard from '../../components/Tutors/Dashboard/Dashboard';
 
 function TutorDashboard() {
   return (
-    <Box minHeight="100vh">
-      <Typography variant="body2">Tutor Dashboard</Typography>
+    <Box
+      minHeight="100vh"
+      width="90%"
+      margin="auto"
+      marginTop="17rem"
+      border="1px solid purple"
+    >
       <Dashboard />
     </Box>
   );

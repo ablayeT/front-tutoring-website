@@ -111,7 +111,7 @@ function Dashboard() {
         position="fixed"
         sx={{
           height: '5rem',
-          top: '4rem',
+          top: '5rem',
           backgroundColor: '#ffe19c',
           color: '#4a4a49',
         }}
@@ -150,7 +150,7 @@ function Dashboard() {
                 }}
               />
             </Search>
-            {userInfos && profileInfos && (
+            {/* {userInfos && profileInfos && (
               <Box display="flex" gap="10px">
                 <Typography>
                   Bienvenue, <br />
@@ -167,7 +167,7 @@ function Dashboard() {
                   />
                 </Stack>
               </Box>
-            )}
+            )} */}
           </Box>
         </Toolbar>
       </AppBar>

@@ -1,2 +1,5 @@
-import { Main, DrawerHeader, AppBar } from './Dashboard.style';
-export { Main, DrawerHeader, AppBar };
+import { Main, AppBar, useStyles } from './Dashboard.style';
+export { Main, AppBar, useStyles };
+
+// import { useStyles } from './Dashboard.style';
+// export default useStyles;

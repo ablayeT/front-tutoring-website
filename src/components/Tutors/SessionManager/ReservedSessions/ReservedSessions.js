@@ -3,7 +3,7 @@ import React from 'react';
 import TutorReservedSessionCard from '../../../Cards/TutorReservedSessionCard';
 
 function ReservedSessions({ sessionData }) {
-  console.log('sesssionData : ', sessionData);
+  // console.log('sesssionData : ', sessionData);
   return (
     <Box minHeight="100vh" paddingTop={15}>
       <Typography variant="body1">

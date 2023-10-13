@@ -8,28 +8,52 @@ export const useStyles = makeStyles()((theme) => {
       margingLeft: theme.spacing(2),
       display: 'flex',
       flexWrap: 'wrap',
-      gap: '15px',
+      justifyContent: 'center',
+      gap: '20px',
       [theme.breakpoints.down('md')]: {
         display: 'none',
       },
     },
     header: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       color: 'white',
       background: 'black',
-      height: '5rem',
+      height: '8rem',
+    },
+
+    Toolbar: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    userInfoChild: {
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '1rem',
+      alignItems: 'center',
+      height: '100%',
+      gap: '10px',
+    },
+    userName: {
+      fontSize: '15px',
     },
     logo: {
-      flexGrow: 1,
       cursor: 'pointer',
+      width: '30%',
+      objectFit: 'cover',
+      padding: '15px',
+    },
+    menuIcon: {
+      height: '4rem',
+      width: '2.5rem',
     },
     link: {
-      textDecoration: 'none',
       color: 'white',
-      fontSize: '20px',
-      margingLeft: theme.spacing(20),
       '&:hover': {
         color: 'white',
-        borderBottom: '1px solid brown',
+        borderBottom: '2px solid brown',
         background: '#FFA500',
       },
     },
@@ -39,7 +63,7 @@ export const useStyles = makeStyles()((theme) => {
         background: '#FFA500',
       },
       width: drawerWidth,
-      height: '100px',
+      height: '150px',
       flexShrink: 0,
     },
     drawerPaper: {

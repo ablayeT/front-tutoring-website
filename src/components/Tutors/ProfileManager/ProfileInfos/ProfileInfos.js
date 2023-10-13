@@ -5,7 +5,10 @@ import MuiButton from '../../../Buttons/Button';
 import profileFields from './ProfileInfo.schema';
 import userFields from '../userInfos.schema';
 
+import useStyles from './style';
+
 function ProfileInfos({ userInfos, profileInfos }) {
+  const { classes } = useStyles();
   const [userData, setUserData] = useState(userInfos);
   const [profileData, setProfileData] = useState(profileInfos);
   const [isEditing, setIsEditing] = useState(false);
@@ -24,7 +27,7 @@ function ProfileInfos({ userInfos, profileInfos }) {
       }
     };
     fetchUserData();
-  });
+  }, [userData]);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -72,18 +75,10 @@ function ProfileInfos({ userInfos, profileInfos }) {
     }
   };
 
-  console.log('userData ine profileinfos: ', userData);
   return (
-    <Box
-      display="flex"
-      alignSelf="center"
-      justifyContent="center"
-      flexDirection="column"
-      minHeight="100vh"
-      paddingTop="2rem"
-    >
+    <Box className={classes.profileContainer}>
       {!isEditing && (
-        <Box display="flex" gap="20px" margin="20px" flexDirection="column">
+        <Box className={classes.profileContainerNotEditing}>
           <Typography>Mes inormations de profil</Typography>
 
           {userFields.map((field) => (
@@ -115,27 +110,20 @@ function ProfileInfos({ userInfos, profileInfos }) {
               />
             </Stack>
           ))}
-          <Stack display="flex" justifyContent="center">
+          <Stack className={classes.updateButton}>
             <MuiButton
               variant="outlined"
-              sx={{ background: '#FFA500', width: '3rem' }}
+              sx={{ background: '#FFA500' }}
               onClick={handleEditClick}
             >
-              Mise à jour du profil
+              Mettre à jour le profil
             </MuiButton>
           </Stack>
         </Box>
       )}
 
       {isEditing && (
-        <Box
-          display="flex"
-          flexDirection="column"
-          width="50%"
-          margin="auto"
-          gap="20px"
-          padding="15px"
-        >
+        <Box className={classes.editProfileContainer}>
           <Typography> Mise à jour du profil</Typography>
           {profileFields.map((field) => (
             <Stack key={field.key}>
@@ -157,18 +145,11 @@ function ProfileInfos({ userInfos, profileInfos }) {
               />
             </Stack>
           ))}
-          <Stack display="flex" justifyContent="center">
-            <MuiButton
-              variant="outlined"
-              sx={{
-                alignSelf: 'center',
-                background: '#FFA500',
-                color: 'black',
-              }}
-              onClick={handleUpdateProfile}
-            >
-              Enregistrer les Modifications
+          <Stack className={classes.updateButton}>
+            <MuiButton variant="outlined" onClick={handleUpdateProfile}>
+              Enregistrer
             </MuiButton>
+            <MuiButton onClick={() => setIsEditing(false)}>Annuler</MuiButton>
           </Stack>
         </Box>
       )}
