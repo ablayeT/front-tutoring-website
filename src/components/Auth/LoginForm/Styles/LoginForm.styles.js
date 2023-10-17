@@ -7,6 +7,7 @@ export const useStyles = makeStyles()((theme) => {
       flexDirection: 'column',
       gap: '3rem',
       margin: 'auto',
+
       width: '40%',
       padding: '2rem',
       borderRadius: '10px',

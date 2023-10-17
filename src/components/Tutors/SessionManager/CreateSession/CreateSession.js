@@ -15,7 +15,7 @@ import tutoringSessionFields from './CreateSessionForm.schema/CreateSessionsForm
 
 import useStyles from './style';
 
-function TutoringSessionForm({ mode, sessionToEdit }) {
+function Cretate({ mode, sessionToEdit }) {
   const { classes } = useStyles();
   const [formData, setFormData] = useState({
     tutor_id: localStorage.getItem('userId'),
@@ -91,10 +91,6 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
         method: httpMethod,
         url: apiEndPoint,
         data: formDataToSend,
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
       })
       .then((response) => {
         console.log(response.data);
@@ -160,4 +156,4 @@ function TutoringSessionForm({ mode, sessionToEdit }) {
   );
 }
 
-export default TutoringSessionForm;
+export default Cretate;

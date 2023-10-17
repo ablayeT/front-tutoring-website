@@ -58,11 +58,7 @@ function Dashboard() {
     const fetchUserInfos = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const userResponse = await api.get(`/users/profiles/${userId}`, {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const userResponse = await api.get(`/users/profiles/${userId}`);
 
         setUserInfos(userResponse.data);
       } catch (error) {
@@ -79,11 +75,7 @@ function Dashboard() {
         const userId = localStorage.getItem('userId');
         console.log('userId in Dashboard:', userId);
 
-        const response = await api.get(`/students/profile/${userId}`, {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await api.get(`/students/profile/${userId}`);
 
         setProfileInfos(response.data);
       } catch (error) {

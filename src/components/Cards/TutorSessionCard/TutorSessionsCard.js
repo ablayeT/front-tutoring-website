@@ -31,6 +31,31 @@ function TutorSessionsCard({ session, sessionId, onDelete, setTutorSessions }) {
     });
   };
 
+  // const handleDeleteSession = async (sessionId) => {
+  //   try {
+  //     // Vérifier ici si des étudiants sont inscrits à la session, si oui, mettez à jour le statut à "Annuler" au lieu de supprimer la session.
+
+  //     // Mise à jour du statut à "Annuler" si des étudiants sont inscrits
+  //     if (/* vérification si des étudiants sont inscrits */) {
+  //       // Effectuez une requête pour mettre à jour le statut de la session à "Annuler"
+
+  //       // Mettez à jour l'état tutorSessions localement
+  //       setTutorSessions((prevSessions) =>
+  //         prevSessions.map((s) =>
+  //           s.id === sessionId ? { ...s, status: 'Annuler' } : s
+  //         )
+  //       );
+
+  //       return;
+  //     }
+
+  //     // Si aucun étudiant inscrit, supprimez la session en appelant la fonction onDelete passée en tant que prop
+  //     onDelete(sessionId);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const handleSaveClick = async (event) => {
     event.preventDefault();
     setEditMode(false);

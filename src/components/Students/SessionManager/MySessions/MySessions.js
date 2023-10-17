@@ -14,11 +14,7 @@ function MySessions() {
   useEffect(() => {
     const fetchStudentSessions = async () => {
       try {
-        const response = await api.get('/students/sessions', {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await api.get('/students/sessions');
 
         setReservedSessions(response.data);
       } catch (error) {
@@ -39,17 +35,9 @@ function MySessions() {
 
     if (isConfirmed) {
       try {
-        const response = await api.post(
-          '/students/cancel-reserved-session',
-          {
-            sessionId: sessionId,
-          },
-          {
-            headers: {
-              authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        );
+        const response = await api.post('/students/cancel-reserved-session', {
+          sessionId: sessionId,
+        });
         console.log("réponse du serveur pour l'annulation :", response.data);
         setReservedSessions((prevSessions) =>
           prevSessions.filter(

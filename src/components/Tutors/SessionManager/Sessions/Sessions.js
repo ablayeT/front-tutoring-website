@@ -11,6 +11,7 @@ function Sessions({ sessionData }) {
   const { classes } = useStyles();
   const [tutorSessions, setTutorSessions] = useState(sessionData);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCreating, setIsCreating] = useState(false);
 
   useEffect(() => {
     const fetchTutorSessions = async () => {
@@ -26,11 +27,7 @@ function Sessions({ sessionData }) {
 
   const handleDeleteSession = async (sessionId) => {
     try {
-      await api.delete(`tutors/sessions/${sessionId}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      await api.delete(`tutors/sessions/${sessionId}`);
 
       setTutorSessions(
         tutorSessions.filter((session) => session.id !== sessionId),
@@ -40,32 +37,55 @@ function Sessions({ sessionData }) {
     }
   };
 
+  const handleCreateSession = () => {
+    setIsCreating(true);
+  };
+
+  const handleCancelCreate = () => {
+    setIsCreating(false);
+  };
+
   if (isLoading) {
     return <Typography>Loading</Typography>;
   }
 
   return (
     <Box className={classes.cardContainer}>
-      {tutorSessions.length === 0 ? (
-        <Box display="flex" justifyContent="center">
-          <Typography variant="h5" textAlign="center">
-            Vous n'avez pas encore de Séssion,
-          </Typography>
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap="1rem"
+        width="100%"
+        textAlign="center"
+        padding="10px"
+      >
+        {isCreating ? (
+          <CreateSession onCancel={handleCancelCreate} />
+        ) : tutorSessions.length === 0 ? (
+          <Box display="flex" justifyContent="center">
+            <Typography variant="h5" textAlign="center">
+              Vous n'avez pas encore de session.
+            </Typography>
+            <NavLink to="/tutor-dashboard/create-session">
+              <Button>Créer une session</Button>
+            </NavLink>
+          </Box>
+        ) : (
           <NavLink to="/tutor-dashboard/create-session">
-            <Button>Créer une session</Button>
+            <Button>Novelle session</Button>
           </NavLink>
-        </Box>
-      ) : // <Typography variant="h5" marginBottom="1rem">
-      //   Mes sessions de tutorat
-      // </Typography>
-      null}
+        )}
+      </Box>
+
       {tutorSessions.map((session) => (
-        <TutorSessionCard
-          session={session}
-          sessionId={session.id}
-          onDelete={handleDeleteSession}
-          setTutorSessions={setTutorSessions}
-        />
+        <Box padding="10px">
+          <TutorSessionCard
+            session={session}
+            sessionId={session.id}
+            onDelete={handleDeleteSession}
+            setTutorSessions={setTutorSessions}
+          />
+        </Box>
       ))}
     </Box>
   );

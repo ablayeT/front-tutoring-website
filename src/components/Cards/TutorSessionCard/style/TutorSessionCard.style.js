@@ -16,19 +16,19 @@ export const useStyles = makeStyles()((theme) => {
       boxShadow: '1px 1px 3px #FFA500',
       padding: '16px',
       marginBottom: '16px',
-      width: '40%',
-      [theme.breakpoints.down('md')]: {
-        width: '46%',
-      },
-      [theme.breakpoints.down('sm')]: {
-        width: '100%',
-      },
-      [theme.breakpoints.up('md')]: {
-        width: '46%',
-      },
-      [theme.breakpoints.up('lg')]: {
-        width: '35%',
-      },
+      width: '100%',
+      // [theme.breakpoints.down('md')]: {
+      //   width: '46%',
+      // },
+      // [theme.breakpoints.down('sm')]: {
+      //   width: '100%',
+      // },
+      // [theme.breakpoints.up('md')]: {
+      //   width: '46%',
+      // },
+      // [theme.breakpoints.up('lg')]: {
+      //   width: '100%',
+      // },
     },
     title: {
       fontSize: '1.2rem',

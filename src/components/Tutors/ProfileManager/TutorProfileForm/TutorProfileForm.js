@@ -51,7 +51,6 @@ function TutorProfileForm() {
         formDataToSend,
         {
           headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'multipart/form-data', // ajouter le Content-Type correct pour les envois multipart
           },
         },

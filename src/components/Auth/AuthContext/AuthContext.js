@@ -16,10 +16,21 @@ export const AuthProvider = ({ children }) => {
         password,
       });
       const token = response.data.token;
+      console.log('token :', token);
       const userId = response.data.userId;
+      console.log('userId :', userId);
       const userType = response.data.userType;
+      console.log('userType :', userType);
       const userFirstName = response.data.userFirstName;
+      console.log('userFirstName :', userFirstName);
       const userLastName = response.data.userLastName;
+      console.log('userLastName :', userLastName);
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
+      localStorage.setItem('userType', userType);
+      localStorage.setItem('userFirstName', userFirstName);
+      localStorage.setItem('userLastName', userLastName);
 
       // Convertir la première lettre de userType en minuscule pour l'URL de la requête
       const userTypeLowercase =
@@ -27,11 +38,6 @@ export const AuthProvider = ({ children }) => {
 
       const profileResponse = await api.get(
         `/${userTypeLowercase}s/profile/${userId}`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        },
       );
 
       let userImage;
@@ -45,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         userImage = ''; // ou null ou une autre valeur par défaut
       }
 
+      localStorage.setItem('userImage', userImage);
       const userData = {
         id: userId,
         type: userType,
@@ -52,13 +59,6 @@ export const AuthProvider = ({ children }) => {
         last_name: userLastName,
         imageUrl: userImage,
       };
-
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', userId);
-      localStorage.setItem('userType', userType);
-      localStorage.setItem('userFirstName', userFirstName);
-      localStorage.setItem('userLastName', userLastName);
-      localStorage.setItem('userImage', userImage);
 
       setUser(userData);
       setIsLoggedIn(true);
@@ -75,11 +75,11 @@ export const AuthProvider = ({ children }) => {
       await api.post(
         '/auth/logout',
         {},
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        },
+        // {
+        //   headers: {
+        //     authorization: `Bearer ${localStorage.getItem('token')}`,
+        //   },
+        // },
       );
 
       // Supprimez le token de l'utilisateur du stockage local
@@ -93,11 +93,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyLogin = async () => {
     try {
-      const response = await api.get('/auth/current', {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const response = await api.get('/auth/current');
       if (response.data.isLoggedIn) {
         setIsLoggedIn(true);
       } else {

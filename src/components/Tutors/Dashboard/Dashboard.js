@@ -33,11 +33,7 @@ function Dashboard() {
     const fetchUserData = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const userResponse = await api.get(`/users/profiles/${userId}`, {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const userResponse = await api.get(`/users/profiles/${userId}`);
 
         setUserData(userResponse.data);
       } catch (error) {
@@ -48,11 +44,7 @@ function Dashboard() {
     const fetchProfileData = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const profileResponse = await api.get(`/tutors/profile/${userId}`, {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const profileResponse = await api.get(`/tutors/profile/${userId}`);
         if (profileResponse === null) {
         }
         setProfileData(profileResponse.data);
@@ -73,11 +65,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchTutorSessions = async () => {
       try {
-        const response = await api.get('tutors/sessions', {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await api.get('tutors/sessions');
 
         setSessionData(response.data.sessions);
         setIsLoading(false);
@@ -126,7 +114,7 @@ function Dashboard() {
             </Stack>
             <Stack onClick={handleMain}>
               <NavLink to="reserved-sessions" display="flex">
-                <Button>Réserver une Session</Button>
+                <Button>Sessions réservées</Button>
               </NavLink>
             </Stack>
           </Box>

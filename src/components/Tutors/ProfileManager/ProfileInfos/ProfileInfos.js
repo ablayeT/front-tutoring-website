@@ -53,20 +53,11 @@ function ProfileInfos({ userInfos, profileInfos }) {
   const handleUpdateProfile = async () => {
     try {
       // Envoyer les données mise à jour au seveur
-      await api.put(`/tutors/profile/${userData.user.id}`, editedProfileData, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      await api.put(`/tutors/profile/${userData.user.id}`, editedProfileData);
 
       // Mettre à jour les donnees
       const updatedProfileResponse = await api.get(
         `/tutors/profile/${userData.user.id}`,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        },
       );
       setProfileData(updatedProfileResponse.data);
       setIsEditing(false);

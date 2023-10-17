@@ -16,14 +16,7 @@ function SearchResults() {
     // Effectuer une requête API avec le terme de recaherche
     const fetchSearchResults = async () => {
       try {
-        const response = await api.get(
-          `/search/sessions?query=${searchQuery}`,
-          {
-            headers: {
-              authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        );
+        const response = await api.get(`/search/sessions?query=${searchQuery}`);
         setSearchResults(response.data.sessions);
       } catch (error) {
         console.error('Erreur lors de la recherche :', error);

@@ -12,8 +12,15 @@ function Index() {
   };
 
   return (
-    <Box paddingTop="6rem" margin="1rem" minHeight="100vh">
-      <Box textAlign="center" width="100%">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      margin="1rem"
+      minHeight="100vh"
+      border="1px solid green"
+    >
+      <Box textAlign="center" width="100%" border="1px solid red">
         {isLoginForm ? <SignupForm /> : <LoginForm />}
         <Button onClick={toggleForm} className={classes.button}>
           {isLoginForm
