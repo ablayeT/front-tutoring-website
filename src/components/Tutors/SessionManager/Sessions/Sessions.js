@@ -14,13 +14,20 @@ function Sessions({ sessionData }) {
   const [tutorSessions, setTutorSessions] = useState(sessionData);
   const [isLoading, setIsLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
-  const [registeredStudents, setRegisteredStudents] = useState([]);
+  const [studentList, setstudentList] = useState([]);
   const [confirmationMessage, setConfirmationMessage] = useState();
 
   useEffect(() => {
-    const fetchTutorSessions = async () => {
+    const fetchTutorSessions = async (sessionId) => {
       try {
         setIsLoading(false);
+
+        // Récupérer les étudiants inscrits à la session spécifique
+        const response = await api.get(
+          `/tutors/sessions/${sessionId}/students`,
+        );
+        console.log('response.data in session:', response.data);
+        setstudentList(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -29,14 +36,12 @@ function Sessions({ sessionData }) {
     fetchTutorSessions();
   }, [sessionData]);
 
+  console.log('studentLis in session :', studentList);
+
   const handleDeleteSession = async (sessionId) => {
     try {
-      // Récupérer les étudiants inscrits à la session spécifique
-      const response = await api.get(`/tutors/sessions/${sessionId}/students`);
-      setRegisteredStudents(response.data);
-
       // Si des étudiants sont inscrits, mettre à jour le statut à "Annuler"
-      if (response.data.length > 0) {
+      if (studentList.length > 0) {
         // Mettre en place la logique pour gérer les étudiants inscrits ici, par exemple, ou afficher un message à l'utilisateur.
         console.log(
           'Des étudiants sont inscrits à cette session. La session ne peut pas être supprimée.',
@@ -50,16 +55,16 @@ function Sessions({ sessionData }) {
       } else {
         // Si aucun étudiant inscrit, supprimer la session en appelant l'API DELETE
         await api.delete(`/tutors/sessions/${sessionId}`);
-
-        setConfirmationMessage('Session supprimé avec succès !');
-        setTimeout(() => {
-          setConfirmationMessage('');
-        }, 3000);
-        // Mettre à jour l'état tutorSessions localement
-        setTutorSessions(
-          tutorSessions.filter((session) => session.id !== sessionId),
-        );
       }
+
+      setConfirmationMessage('Session supprimé avec succès !');
+      setTimeout(() => {
+        setConfirmationMessage('');
+      }, 3000);
+      // Mettre à jour l'état tutorSessions localement
+      setTutorSessions(
+        tutorSessions.filter((session) => session.id !== sessionId),
+      );
     } catch (error) {
       console.error(error);
     }
@@ -100,7 +105,7 @@ function Sessions({ sessionData }) {
           </Box>
         ) : (
           <NavLink to="/tutor-dashboard/create-session">
-            <Button onClick={handleCreateSession}>Novelle session</Button>
+            <Button onClick={handleCreateSession}>Nouvelle session</Button>
           </NavLink>
         )}
       </Box>
@@ -112,7 +117,7 @@ function Sessions({ sessionData }) {
             sessionId={session.id}
             onDelete={handleDeleteSession}
             setTutorSessions={setTutorSessions}
-            registeredStudents={registeredStudents}
+            studentList={studentList}
           />
         </Box>
       ))}

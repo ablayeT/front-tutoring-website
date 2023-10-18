@@ -2,11 +2,16 @@ import React from 'react';
 import MuiButton from '@mui/material/Button';
 import useStyles from './Styles';
 
-function Button({ children, onClick }) {
+function Button({ children, onClick, disabled }) {
   const { classes } = useStyles();
 
   return (
-    <MuiButton type="submit" className={classes.button} onClick={onClick}>
+    <MuiButton
+      type="submit"
+      disabled={disabled}
+      className={disabled ? classes.buttonDisabled : classes.button}
+      onClick={onClick}
+    >
       {children}
     </MuiButton>
   );

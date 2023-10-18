@@ -7,44 +7,49 @@ import {
   TextField,
   Stack,
   Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { React, useState, useEffect } from 'react';
 import MuiButton from '../../Buttons/Button';
 import api from '../../../services/api/index.js';
 import sessionCardFields from './SessionCardFields';
 import useStyles from './style';
 
-function TutorSessionsCard({
-  session,
-  sessionId,
-  onDelete,
-  setTutorSessions,
-  registeredStudents,
-}) {
+function TutorSessionsCard({ session, sessionId, onDelete }) {
   const { classes } = useStyles();
   const [editMode, setEditMode] = useState(false);
   const [editedSession, setEditedSession] = useState(session);
-  const [studentList, setStudentList] = useState();
+  const [studentList, setStudentList] = useState([]);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
 
   useEffect(() => {
     setEditedSession(session); // Mettre à jour editedSession lorsque session change
   }, [session]); // Utiliser un effet pour surveiller les changements dans la session
 
   useEffect(() => {
-    const fetchTutorSessions = async (sessionId) => {
+    // Récupérer les étudiants inscrits à la session spécifique lors du chargement initial
+    const fetchRegisteredStudents = async () => {
       try {
         const response = await api.get(
           `/tutors/sessions/${sessionId}/students`,
         );
-        console.log('response.data: ', response.data);
         setStudentList(response.data);
       } catch (error) {
-        console.error(error);
+        console.error(
+          'Erreur lors de la récupération des étudiants inscrits :',
+          error,
+        );
       }
     };
 
-    fetchTutorSessions();
-  }, []);
+    fetchRegisteredStudents();
+  }, [sessionId]);
+
+  console.log('studentList :', studentList);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -53,34 +58,6 @@ function TutorSessionsCard({
       [name]: value,
     });
   };
-
-  // const handleDeleteSession = async (sessionId) => {
-  //   try {
-  //     // Récupérer les étudiants inscrits à la session spécifique
-  //     const response = await api.get(`tutors/sessions/${sessionId}/students`);
-
-  //     // Si des étudiants sont inscrits, mettre à jour le statut à "Annuler"
-  //     if (response.data.length > 0) {
-  //       await api.put(`tutors/sessions/${sessionId}/status`, {
-  //         status: 'Annuler',
-  //       });
-
-  //       // Mettez à jour l'état tutorSessions localement
-  //       setTutorSessions((prevSessions) =>
-  //         prevSessions.map((session) =>
-  //           session.id === sessionId
-  // ? { ...session, status: 'Annuler' }
-  //             : session,
-  //         ),
-  //       );
-  //     } else {
-  //       // Si aucun étudiant inscrit, supprimez la session en appelant la fonction onDelete passée en tant que prop
-  //       onDelete(sessionId);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const handleSaveClick = async (event) => {
     event.preventDefault();
@@ -94,12 +71,7 @@ function TutorSessionsCard({
         date: formattedDate, // Mettez à jour la propriété date avec la date formatée
       };
       // Envoie de la requête pour la mise à jour de la session
-      await api.put(`/tutors/sessions/${sessionId}`, updatedSession, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-type': 'application/json',
-        },
-      });
+      await api.put(`/tutors/sessions/${sessionId}`, updatedSession);
       console.log('Session mise à jour avec succès');
 
       // Mettre à jour l'état `tutorSessions` dans le composant `Sessions`
@@ -113,7 +85,14 @@ function TutorSessionsCard({
     }
   };
 
-  console.log('registeredStudents :', registeredStudents);
+  const handleConfirmatonMessage = () => {
+    setConfirmationMessage(
+      'Suppréssion impossible, des étudiants sont inscrits à cette session',
+    );
+    setTimeout(() => {
+      setConfirmationMessage('');
+    }, 3000);
+  };
 
   return (
     <Card className={classes.card}>
@@ -157,7 +136,7 @@ function TutorSessionsCard({
                 {/* Afficher les étudiants inscrits */}
                 <Typography variant="h6">Étudiants inscrits :</Typography>
                 <ul>
-                  {registeredStudents.map((student) => (
+                  {studentList.map((student) => (
                     <li key={student.id}>{student.first_name}</li>
                   ))}
                 </ul>
@@ -185,15 +164,77 @@ function TutorSessionsCard({
             ))}
             <Box display="flex" gap="20px">
               <MuiButton onClick={() => setEditMode(true)}>Modifier</MuiButton>
-              <MuiButton onClick={() => onDelete(session.id)}>
-                Supprimer
-              </MuiButton>
+              {studentList.length > 0 ? (
+                // Le bouton "Supprimer" est désactivé si la liste des étudiants n'est pas vide
+                <MuiButton disabled sx={{ background: 'red' }}>
+                  Supprimer
+                </MuiButton>
+              ) : (
+                // Le bouton "Supprimer" est activé si la liste des étudiants est vide
+                <MuiButton onClick={() => onDelete(session.id)}>
+                  Supprimer
+                </MuiButton>
+              )}
             </Box>
           </Box>
-        )}
+        )}{' '}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="student-list-content"
+            id="student-list-header"
+          >
+            <Typography variant="h6">Étudiants inscrits</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {studentList.length > 0 ? (
+              <ul>
+                {studentList.map((student) => (
+                  <li key={student.id}>{student.first_name}</li>
+                ))}
+              </ul>
+            ) : (
+              <Typography>Aucun étudiant inscrit.</Typography>
+            )}
+          </AccordionDetails>
+        </Accordion>
       </CardContent>
+      {/* Affichage du message de confirmation */}
+      {confirmationMessage && (
+        <Box className={classes.confirmationMessage}>
+          <Typography variant="body1">{confirmationMessage}</Typography>
+        </Box>
+      )}
     </Card>
   );
 }
 
 export default TutorSessionsCard;
+
+// const handleDeleteSession = async (sessionId) => {
+//   try {
+//     // Récupérer les étudiants inscrits à la session spécifique
+//     const response = await api.get(`tutors/sessions/${sessionId}/students`);
+
+//     // Si des étudiants sont inscrits, mettre à jour le statut à "Annuler"
+//     if (response.data.length > 0) {
+//       await api.put(`tutors/sessions/${sessionId}/status`, {
+//         status: 'Annuler',
+//       });
+
+//       // Mettez à jour l'état tutorSessions localement
+//       setTutorSessions((prevSessions) =>
+//         prevSessions.map((session) =>
+//           session.id === sessionId
+// ? { ...session, status: 'Annuler' }
+//             : session,
+//         ),
+//       );
+//     } else {
+//       // Si aucun étudiant inscrit, supprimez la session en appelant la fonction onDelete passée en tant que prop
+//       onDelete(sessionId);
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
