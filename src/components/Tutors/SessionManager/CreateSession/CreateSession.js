@@ -12,20 +12,22 @@ import {
 } from '@mui/material';
 import Button from '../../../Buttons/Button';
 import tutoringSessionFields from './CreateSessionForm.schema/CreateSessionsForm.schema';
-
 import useStyles from './style';
+import { useNavigate } from 'react-router-dom';
 
-function Cretate({ mode, sessionToEdit }) {
+function CreateSession({ mode, sessionToEdit, updateSessions, onCancel }) {
+  const navigate = useNavigate();
   const { classes } = useStyles();
+  const tutorId = localStorage.getItem('userId');
+
   const [formData, setFormData] = useState({
-    tutor_id: localStorage.getItem('userId'),
+    tutor_id: tutorId,
     subject_id: '',
     date: '',
     start_time: '',
     end_time: '',
     location: '',
     price: '',
-    description: '',
   });
 
   const [subjects, setSubjects] = useState([]);
@@ -69,16 +71,6 @@ function Cretate({ mode, sessionToEdit }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append('tutor_id', formData.tutor_id);
-    formDataToSend.append('subject_id', formData.subject_id);
-    formDataToSend.append('date', formData.date);
-    formDataToSend.append('start_time', formData.start_time);
-    formDataToSend.append('end_time', formData.end_time);
-    formDataToSend.append('location', formData.location);
-    formDataToSend.append('price', formData.price);
-    formDataToSend.append('description', formData.description);
-
     const apiEndPoint =
       mode === 'edit'
         ? `/tutors/sessions/${sessionToEdit.id}`
@@ -90,16 +82,21 @@ function Cretate({ mode, sessionToEdit }) {
       .request({
         method: httpMethod,
         url: apiEndPoint,
-        data: formDataToSend,
+        data: formData,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log('response.data.session :', response.data.session);
+        updateSessions(response.data.session);
+
+        navigate('/tutor-dashboard/sessions');
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
+  const handleCancel = () => {
+    onCancel();
+  };
   return (
     <Box className={classes.createSessionContainer}>
       <Typography variant="h4" marginBottom="15px">
@@ -148,6 +145,7 @@ function Cretate({ mode, sessionToEdit }) {
           </Stack>
         ))}
         <Box display="flex" justifyContent="center" marginTop="2rem">
+          <Button onClick={handleCancel}>Annuler</Button>
           <Button>Créer la session</Button>
         </Box>
         {/* </form> */}
@@ -156,4 +154,4 @@ function Cretate({ mode, sessionToEdit }) {
   );
 }
 
-export default Cretate;
+export default CreateSession;

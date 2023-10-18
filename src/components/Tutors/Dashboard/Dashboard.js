@@ -3,8 +3,7 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import Profile from '../ProfileManager/ProfileManager';
 import CreateSession from '../SessionManager/CreateSession/CreateSession';
 import Sessions from '../SessionManager/Sessions/Sessions';
-import EditProfile from '../ProfileManager/EditProfile/EditProfile';
-import ListItemButton from '@mui/material/ListItemButton';
+
 import {
   Box,
   ListItem,
@@ -28,6 +27,7 @@ function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [showMain, setShowMain] = useState(true);
+  const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -77,12 +77,15 @@ function Dashboard() {
     fetchTutorSessions();
   }, []);
 
-  if (isLoading) {
-    return <Typography>Loading</Typography>;
-  }
+  const updateSessions = (newSession) => {
+    setSessions([...sessions, newSession]);
+  };
 
   function handleMain() {
     setShowMain(false);
+  }
+  if (isLoading) {
+    return <Typography>Loading</Typography>;
   }
 
   return (
@@ -107,16 +110,16 @@ function Dashboard() {
             </Stack>
           </Box>
           <Box className={classes.appBarDashboardChildren}>
-            <Stack onClick={handleMain}>
+            {/* <Stack onClick={handleMain}>
               <NavLink to="create-session" display="flex">
                 <Button>Créer Session</Button>
               </NavLink>
-            </Stack>
-            <Stack onClick={handleMain}>
+            </Stack> */}
+            {/* <Stack onClick={handleMain}>
               <NavLink to="reserved-sessions" display="flex">
                 <Button>Sessions réservées</Button>
               </NavLink>
-            </Stack>
+            </Stack> */}
           </Box>
         </Box>
       </AppBar>
@@ -138,10 +141,13 @@ function Dashboard() {
               path="sessions"
               element={<Sessions sessionData={sessionData} />}
             />
-            <Route path="create-session" element={<CreateSession />} />
+            <Route
+              path="create-session"
+              element={<CreateSession updateSessions={updateSessions} />}
+            />
             <Route
               path="reserved-sessions"
-              element={<ReservedSessions sessionData={sessionData} />}
+              element={<ReservedSessions sessionData={sessions} />}
             />
           </Routes>
         ) : (

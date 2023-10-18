@@ -24,10 +24,27 @@ function TutorSessionsCard({
   const { classes } = useStyles();
   const [editMode, setEditMode] = useState(false);
   const [editedSession, setEditedSession] = useState(session);
+  const [studentList, setStudentList] = useState();
 
   useEffect(() => {
     setEditedSession(session); // Mettre à jour editedSession lorsque session change
   }, [session]); // Utiliser un effet pour surveiller les changements dans la session
+
+  useEffect(() => {
+    const fetchTutorSessions = async (sessionId) => {
+      try {
+        const response = await api.get(
+          `/tutors/sessions/${sessionId}/students`,
+        );
+        console.log('response.data: ', response.data);
+        setStudentList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTutorSessions();
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -37,33 +54,33 @@ function TutorSessionsCard({
     });
   };
 
-  const handleDeleteSession = async (sessionId) => {
-    try {
-      // Récupérer les étudiants inscrits à la session spécifique
-      const response = await api.get(`tutors/sessions/${sessionId}/students`);
+  // const handleDeleteSession = async (sessionId) => {
+  //   try {
+  //     // Récupérer les étudiants inscrits à la session spécifique
+  //     const response = await api.get(`tutors/sessions/${sessionId}/students`);
 
-      // Si des étudiants sont inscrits, mettre à jour le statut à "Annuler"
-      if (response.data.length > 0) {
-        await api.put(`tutors/sessions/${sessionId}/status`, {
-          status: 'Annuler',
-        });
+  //     // Si des étudiants sont inscrits, mettre à jour le statut à "Annuler"
+  //     if (response.data.length > 0) {
+  //       await api.put(`tutors/sessions/${sessionId}/status`, {
+  //         status: 'Annuler',
+  //       });
 
-        // Mettez à jour l'état tutorSessions localement
-        setTutorSessions((prevSessions) =>
-          prevSessions.map((session) =>
-            session.id === sessionId
-              ? { ...session, status: 'Annuler' }
-              : session,
-          ),
-        );
-      } else {
-        // Si aucun étudiant inscrit, supprimez la session en appelant la fonction onDelete passée en tant que prop
-        onDelete(sessionId);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //       // Mettez à jour l'état tutorSessions localement
+  //       setTutorSessions((prevSessions) =>
+  //         prevSessions.map((session) =>
+  //           session.id === sessionId
+  // ? { ...session, status: 'Annuler' }
+  //             : session,
+  //         ),
+  //       );
+  //     } else {
+  //       // Si aucun étudiant inscrit, supprimez la session en appelant la fonction onDelete passée en tant que prop
+  //       onDelete(sessionId);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleSaveClick = async (event) => {
     event.preventDefault();

@@ -42,12 +42,6 @@ const tutoringSessionFields = [
     type: 'Number',
     required: true,
   },
-  {
-    key: 'description',
-    label: 'Description',
-    type: 'text',
-    required: true,
-  },
 ];
 
 export default tutoringSessionFields;

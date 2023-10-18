@@ -7,6 +7,7 @@ import Button from '../../../Buttons/Button';
 import api from '../../../../services/api';
 // import useStyles from '../../../Cards/TutorSessionCard/style';
 import useStyles from './style';
+import CreateSession from '../CreateSession/CreateSession';
 
 function Sessions({ sessionData }) {
   const { classes } = useStyles();
@@ -14,8 +15,8 @@ function Sessions({ sessionData }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
   const [registeredStudents, setRegisteredStudents] = useState([]);
-
   const [confirmationMessage, setConfirmationMessage] = useState();
+
   useEffect(() => {
     const fetchTutorSessions = async () => {
       try {
@@ -99,7 +100,7 @@ function Sessions({ sessionData }) {
           </Box>
         ) : (
           <NavLink to="/tutor-dashboard/create-session">
-            <Button>Novelle session</Button>
+            <Button onClick={handleCreateSession}>Novelle session</Button>
           </NavLink>
         )}
       </Box>
