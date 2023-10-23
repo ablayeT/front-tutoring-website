@@ -1,6 +1,12 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { React, useState, useEffect } from 'react';
+import MuiButton from '../../Buttons/Button';
+import api from '../../../services/api/index.js';
+import sessionCardFields from './SessionCardFields';
 import {
-  Box,
   Card,
+  Box,
   CardContent,
   FormControl,
   FormLabel,
@@ -11,12 +17,6 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { React, useState, useEffect } from 'react';
-import MuiButton from '../../Buttons/Button';
-import api from '../../../services/api/index.js';
-import sessionCardFields from './SessionCardFields';
 import useStyles from './style';
 
 function TutorSessionsCard({ session, sessionId, onDelete }) {
@@ -165,14 +165,12 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
             <Box display="flex" gap="20px">
               <MuiButton onClick={() => setEditMode(true)}>Modifier</MuiButton>
               {studentList.length > 0 ? (
-                // Le bouton "Supprimer" est désactivé si la liste des étudiants n'est pas vide
-                <MuiButton disabled sx={{ background: 'red' }}>
+                <MuiButton onClick={() => onDelete(session.id)}>
                   Supprimer
                 </MuiButton>
               ) : (
-                // Le bouton "Supprimer" est activé si la liste des étudiants est vide
                 <MuiButton onClick={() => onDelete(session.id)}>
-                  Supprimer
+                  Annuler
                 </MuiButton>
               )}
             </Box>
