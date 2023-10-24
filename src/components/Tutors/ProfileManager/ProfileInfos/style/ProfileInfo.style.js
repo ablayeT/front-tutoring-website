@@ -41,7 +41,6 @@ export const useStyles = makeStyles()((theme) => {
       margin: 'auto',
       gap: '20px',
       padding: '15px',
-      border: '1px solid red',
     },
   };
 });

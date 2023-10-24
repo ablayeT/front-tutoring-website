@@ -13,7 +13,7 @@ const profileFields = [
   },
   {
     key: 'availability',
-    label: 'Disponiibilités',
+    label: 'Disponibilités',
   },
 ];
 

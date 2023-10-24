@@ -4,6 +4,7 @@ import api from '../../../../services/api';
 import MuiButton from '../../../Buttons/Button';
 import profileFields from './ProfileInfo.schema';
 import userFields from '../userInfos.schema';
+import ProfileField from './ProfileField';
 
 import useStyles from './style';
 
@@ -73,33 +74,21 @@ function ProfileInfos({ userInfos, profileInfos }) {
           <Typography>Mes inormations de profil</Typography>
 
           {userFields.map((field) => (
-            <Stack key={field.key}>
-              <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>
-                {field.label}
-              </FormLabel>
-              <TextField
-                type="text"
-                border="1px solid #FFA500"
-                padding="10px"
-                width="50%"
-                value={userData.user[field.key]}
-              />
-            </Stack>
+            <ProfileField
+              key={field.key}
+              label={field.label}
+              value={userData.user[field.key]}
+              onUpdate={(newValue) => updateUserField(field.key, newValue)}
+            />
           ))}
 
           {profileFields.map((field) => (
-            <Stack key={field.key}>
-              <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>
-                {field.label}
-              </FormLabel>
-              <TextField
-                type="text"
-                border="1px solid #FFA500"
-                padding="10px"
-                width="50%"
-                value={profileData.profile[field.key]}
-              />
-            </Stack>
+            <ProfileField
+              key={field.key}
+              label={field.label}
+              value={profileData.profile[field.key]}
+              onUpdate={(newValue) => updateProfileField(field.key, newValue)}
+            />
           ))}
           <Stack className={classes.updateButton}>
             <MuiButton

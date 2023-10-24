@@ -40,7 +40,12 @@ function Index() {
     }
   };
   return (
-    <Box paddingTop="5rem" width="90%" marginTop="50px" position="relative">
+    <Box
+      width="100%"
+      padding="4rem 0 3rem 0"
+      border="1px solid yellow"
+      position="relative"
+    >
       <form className={classes.form} component="form" onSubmit={handleSubmit}>
         <Box display="flex" flexDirection="column" gap="3rem">
           <Typography variant="h6" gutterBottom>
@@ -72,15 +77,7 @@ function Index() {
       </form>
 
       {confirmationMessage && (
-        <Box
-          // marginTop="20px"
-          // textAlign="center"
-          // position="absolute"
-          // display="flex"
-          // flexDirection="row"
-          // sx={{ inset: '50%' }}
-          className={classes.confirmationMessage}
-        >
+        <Box className={classes.confirmationMessage}>
           <Typography variant="body1">{confirmationMessage}</Typography>
         </Box>
       )}

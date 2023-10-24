@@ -3,21 +3,14 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import Profile from '../ProfileManager/ProfileManager';
 import CreateSession from '../SessionManager/CreateSession/CreateSession';
 import Sessions from '../SessionManager/Sessions/Sessions';
+import dashboardItems from './DashboardItems';
 
-import {
-  Box,
-  ListItem,
-  ListItemText,
-  Typography,
-  Divider,
-  Stack,
-} from '@mui/material';
+import { Box, Button, Typography, Divider, Stack } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import api from '../../../services/api';
 import { Main, AppBar, useStyles } from './Styles';
 import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
-import Button from '../../Buttons/Button';
 
 function Dashboard() {
   const { classes } = useStyles();
@@ -92,34 +85,23 @@ function Dashboard() {
     <Box>
       <CssBaseline />
       <AppBar className={classes.appBar} open={open}>
-        <Divider sx={{ color: '#4a4a49' }} />
-        <Typography variant="h5" color="white" textAlign="left">
+        {/* <Typography variant="h5" color="white" textAlign="left">
           Tableau de bord
-        </Typography>
+        </Typography> */}
         <Box className={classes.appBarDashboard}>
           <Box className={classes.appBarDashboardChildren}>
-            <Stack onClick={handleMain}>
-              <NavLink to="profile">
-                <Button>Profil </Button>
-              </NavLink>
-            </Stack>
-            <Stack onClick={handleMain}>
-              <NavLink to="sessions" display="flex">
-                <Button>Sessions</Button>
-              </NavLink>
-            </Stack>
-          </Box>
-          <Box className={classes.appBarDashboardChildren}>
-            {/* <Stack onClick={handleMain}>
-              <NavLink to="create-session" display="flex">
-                <Button>Créer Session</Button>
-              </NavLink>
-            </Stack> */}
-            {/* <Stack onClick={handleMain}>
-              <NavLink to="reserved-sessions" display="flex">
-                <Button>Sessions réservées</Button>
-              </NavLink>
-            </Stack> */}
+            {dashboardItems.map((item, index) => (
+              <Stack
+                key={index}
+                onClick={handleMain}
+                height="100%"
+                className={classes.navStack}
+              >
+                <NavLink to={item.path} className={classes.NavLink}>
+                  <Button className={classes.button}>{item.label}</Button>
+                </NavLink>
+              </Stack>
+            ))}
           </Box>
         </Box>
       </AppBar>
@@ -133,10 +115,7 @@ function Dashboard() {
                 <Profile profileData={profileData} userData={userData} />
               }
             />
-            {/* <Route
-              path="profile/edit"
-              element={<EditProfile profileData={profileData} />}
-            /> */}
+
             <Route
               path="sessions"
               element={<Sessions sessionData={sessionData} />}
@@ -191,70 +170,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-{
-  /* <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            top: '4rem',
-            backgroundColor: '#ffe19c',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader sx={{ background: 'white' }}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon color="white" />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-
-        <Divider />
-      </Drawer> */
-}
-
-{
-  /* <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton> */
-}
-{
-  /* {userData && profileData && (
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            gap="10px"
-            flexWrap="wrap"
-          >
-            <Typography>
-              Bienvenue, <br />
-              {userData.user.first_name}{' '}
-            </Typography>
-            <Stack>
-              <Image
-                imageUrl={profileData.profile.imageUrl}
-                alt="ProfileImage"
-                width="50px"
-                height="50px"
-                object-fit="fill"
-                borderRadius="50px"
-              />
-            </Stack>
-          </Box>
-        )} */
-}

@@ -68,7 +68,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
         .split('T')[0];
       const updatedSession = {
         ...editedSession,
-        date: formattedDate, // Mettez à jour la propriété date avec la date formatée
+        date: formattedDate, // Mettre à jour la propriété date avec la date formatée
       };
       // Envoie de la requête pour la mise à jour de la session
       await api.put(`/tutors/sessions/${sessionId}`, updatedSession);
@@ -166,16 +166,16 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
               <MuiButton onClick={() => setEditMode(true)}>Modifier</MuiButton>
               {studentList.length > 0 ? (
                 <MuiButton onClick={() => onDelete(session.id)}>
-                  Supprimer
+                  Annuler
                 </MuiButton>
               ) : (
                 <MuiButton onClick={() => onDelete(session.id)}>
-                  Annuler
+                  Supprimer
                 </MuiButton>
               )}
             </Box>
           </Box>
-        )}{' '}
+        )}
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -186,7 +186,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
           </AccordionSummary>
           <AccordionDetails>
             {studentList.length > 0 ? (
-              <ul>
+              <ul className={classes.studentList}>
                 {studentList.map((student) => (
                   <li key={student.id}>{student.first_name}</li>
                 ))}

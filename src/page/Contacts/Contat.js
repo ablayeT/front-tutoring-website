@@ -5,11 +5,12 @@ import Contact from '../../components/Contacts/Contact';
 function Index() {
   return (
     <Box
-      minHeight="100vh"
       display="flex"
       alignItems="center"
       justifyContent="center"
-      marginBottom="3rem"
+      width="80%"
+      margin="auto"
+      paddingTop="6rem"
     >
       <Contact />
     </Box>

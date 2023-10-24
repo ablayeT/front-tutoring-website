@@ -6,14 +6,14 @@ export const useStyles = makeStyles()((theme) => {
       display: 'flex',
       flexDirection: 'column',
       gap: '3rem',
-      width: '40%',
+      width: '100%',
       margin: 'auto',
-      padding: '2rem',
+      padding: '1rem',
       borderRadius: '10px',
       backgroundColor: theme.palette,
       boxShadow: theme.shadows[5],
-      [theme.breakpoints.down('md')]: {
-        width: '90%',
+      [theme.breakpoints.up('md')]: {
+        width: '70%',
       },
     },
     confirmationMessage: {

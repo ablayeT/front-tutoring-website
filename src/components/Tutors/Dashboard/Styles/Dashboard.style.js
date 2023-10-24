@@ -2,29 +2,25 @@ import { styled } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import { makeStyles } from 'tss-react/mui';
 
-const drawerWidth = 220;
-
 export const useStyles = makeStyles()((theme) => {
   return {
     appBar: {
-      height: '8rem',
-      top: '8rem',
+      height: '2rem',
+      top: '6rem',
       backgroundColor: 'black',
       color: '#4a4a49',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      borderTop: '3px solid white',
     },
     appBarDashboard: {
       display: 'flex',
       width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '300px',
+      height: '150px',
       flexWrap: 'wrap',
-      borderRadius: '40px 40px 0 0',
-      backgroundColor: '#ffe19c',
+      backgroundColor: 'orange',
       gap: '1rem',
       [theme.breakpoints.down('md')]: {
         display: 'flex',
@@ -34,7 +30,21 @@ export const useStyles = makeStyles()((theme) => {
     },
     appBarDashboardChildren: {
       display: 'flex',
-      gap: '1rem',
+      gap: '2rem',
+      height: '100%',
+    },
+    button: {
+      color: 'black',
+      borderRadius: '0',
+      height: '100%',
+      '&:hover': {
+        color: 'white',
+        borderBottom: '2px solid brown',
+        background: 'black',
+      },
+    },
+    navStack: {
+      height: '100%',
     },
   };
 });

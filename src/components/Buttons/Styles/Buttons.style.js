@@ -6,6 +6,7 @@ export const useStyles = makeStyles()((theme) => {
       backgroundColor: 'black',
       color: 'white',
       fontWeight: 'bold',
+      borderRadius: '10px',
       '&:hover': {
         backgroundColor: '#FFA500',
         color: 'black',
