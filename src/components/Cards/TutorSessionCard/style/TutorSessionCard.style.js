@@ -1,3 +1,4 @@
+import { orange } from '@mui/material/colors';
 import { makeStyles } from 'tss-react/mui';
 
 export const useStyles = makeStyles()((theme) => {
@@ -34,19 +35,48 @@ export const useStyles = makeStyles()((theme) => {
       marginBottom: '8px',
     },
     accordion: {
-      width: '50%',
+      width: '55%',
       marginTop: '1rem',
+      cursor: 'pointer',
+      '&:hover': {
+        boxShadow: '3px 3px 5px orange',
+      },
       [theme.breakpoints.down('md')]: {
         width: '100%',
       },
     },
-    span: {
-      borde: '1px solid red',
+    accordionDetails: {
+      display: 'flex',
+      gap: '10px',
+      [theme.breakpoints.down('md')]: {
+        justifyContent: 'space-around',
+        alignItems: 'center',
+      },
     },
-    accordionSummary: {
-      // [theme.breakpoints.down('md')]: {
-      //   fontSize: '10px',
-      // },
+    greenSpan: {
+      backgroundColor: 'green',
+      borderRadius: '50%',
+      width: '21px',
+      height: '22px',
+      textAlign: 'center',
+      color: 'white',
+      [theme.breakpoints.down('md')]: {
+        width: '21px',
+        height: '22px',
+        textAlign: 'center',
+      },
+    },
+    orangeSpan: {
+      backgroundColor: 'orange',
+      borderRadius: '50%',
+      width: '21px',
+      height: '22px',
+      textAlign: 'center',
+      [theme.breakpoints.down('md')]: {
+        width: '21px',
+        height: '22px',
+        textAlign: 'center',
+      },
     },
     studentList: {
       backgroundColor: ' gray',

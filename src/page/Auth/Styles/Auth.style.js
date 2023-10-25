@@ -16,6 +16,9 @@ export const useStyles = makeStyles()((theme) => {
     },
     button: {
       fontWeight: 'bold',
+      border: '1px solid red',
+      display: 'flex',
+      alignSelf: '0 auto',
       '&:hover': {
         backgroundColor: '#FF8C00',
       },

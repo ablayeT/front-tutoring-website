@@ -26,9 +26,15 @@ function Index() {
       width="90%"
       c
     >
-      <Box textAlign="center" width="80%" margin="auto">
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap="1rem"
+        width="80%"
+        margin="auto"
+      >
         {isLoginForm ? <SignupForm /> : <LoginForm />}
-        <Button onClick={toggleForm} className={classes.button}>
+        <Button onClick={toggleForm}>
           {isLoginForm
             ? 'Avez vous déjà un compte ? Se connecter'
             : "Vous n'avez pas de compte ? S'inscrire"}

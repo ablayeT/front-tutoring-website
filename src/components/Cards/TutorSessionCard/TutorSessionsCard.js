@@ -200,10 +200,15 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
             aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={handleClick}
+            className={classes.accordionDetails}
           >
-            <Typography>
-              Étudiants inscrits :{' '}
-              <span className={classes.span}>{studentList.length}</span>
+            <Typography>Étudiants inscrits :</Typography>
+            <Typography
+              className={
+                studentList.length > 0 ? classes.greenSpan : classes.orangeSpan
+              }
+            >
+              {studentList.length}
             </Typography>
           </AccordionDetails>
           {studentList.length > 0 ? (
