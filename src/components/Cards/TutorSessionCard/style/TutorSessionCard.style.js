@@ -31,12 +31,17 @@ export const useStyles = makeStyles()((theme) => {
       marginBottom: '8px',
     },
     studentList: {
-      position: ' absolute',
-
-      backgroundColor: ' #fff',
+      backgroundColor: ' gray',
       zIndex: '1',
       padding: '10px',
-      border: '1px solid #ccc,',
+      border: '1px solid red,',
+    },
+    studentListAccordion: {
+      position: 'absolute',
+      border: '1px solid red',
+      top: '50%',
+      left: 0,
+      width: '100%',
     },
   };
 });

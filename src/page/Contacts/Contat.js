@@ -10,6 +10,7 @@ function Index() {
       justifyContent="center"
       width="80%"
       margin="auto"
+      minheight="100vh"
       paddingTop="6rem"
     >
       <Contact />

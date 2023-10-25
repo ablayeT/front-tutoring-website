@@ -156,12 +156,34 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
             </form>
           </Box>
         ) : (
-          <Box>
+          <Box position="relative">
             {sessionCardFields.map((field) => (
               <Typography key={field.name} className={classes.text}>
                 {field.label}: {session[field.name]}
               </Typography>
             ))}
+            <Accordion
+              sx={{
+                border: '1px solid blue',
+                position: 'absolute',
+                top: '50%',
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography>Étudiants inscrits</Typography>
+              </AccordionSummary>
+              <AccordionDetails className={classes.studentListAccordion}>
+                {studentList.length > 0 ? (
+                  <ul className={classes.studentList}>
+                    {studentList.map((student) => (
+                      <li key={student.id}>{student.first_name}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <Typography>Aucun étudiant inscrit.</Typography>
+                )}
+              </AccordionDetails>
+            </Accordion>
             <Box display="flex" gap="20px">
               <MuiButton onClick={() => setEditMode(true)}>Modifier</MuiButton>
               {studentList.length > 0 ? (
@@ -176,26 +198,6 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
             </Box>
           </Box>
         )}
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="student-list-content"
-            id="student-list-header"
-          >
-            <Typography variant="h6">Étudiants inscrits</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {studentList.length > 0 ? (
-              <ul className={classes.studentList}>
-                {studentList.map((student) => (
-                  <li key={student.id}>{student.first_name}</li>
-                ))}
-              </ul>
-            ) : (
-              <Typography>Aucun étudiant inscrit.</Typography>
-            )}
-          </AccordionDetails>
-        </Accordion>
       </CardContent>
       {/* Affichage du message de confirmation */}
       {confirmationMessage && (

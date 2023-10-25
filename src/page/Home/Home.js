@@ -5,12 +5,22 @@ function Home() {
   return (
     <Box
       minHeight="100vh"
+      border="1px solid lightgray"
+      width="90%"
+      margin="auto"
+      padding="0"
+      position="relative"
+      top="8rem"
       display="flex"
-      flexDirection="column"
-      padding="50px"
-      gap="25px"
     >
-      <h1> default Home</h1>
+      <Box border="1px solid red" top="8rem" position="relative">
+        <h1> default Home</h1>
+        <h1> default Home</h1>
+        <h1> default Home</h1>
+        <h1> default Home</h1>
+        <h1> default Home</h1>
+        <h1> default Home</h1>
+      </Box>
     </Box>
   );
 }

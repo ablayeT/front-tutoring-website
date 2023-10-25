@@ -85,9 +85,6 @@ function Dashboard() {
     <Box>
       <CssBaseline />
       <AppBar className={classes.appBar} open={open}>
-        {/* <Typography variant="h5" color="white" textAlign="left">
-          Tableau de bord
-        </Typography> */}
         <Box className={classes.appBarDashboard}>
           <Box className={classes.appBarDashboardChildren}>
             {dashboardItems.map((item, index) => (

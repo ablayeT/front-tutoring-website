@@ -9,6 +9,7 @@ export const useStyles = makeStyles()((theme) => {
       color: '#FFFFFF',
       fontSize: '19px',
       height: '4rem',
+      position: 'fixed',
       bottom: '0',
       width: '100%',
       padding: '10px',
