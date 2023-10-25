@@ -4,6 +4,7 @@ import { Box, Stack, TextField, Typography } from '@mui/material';
 import MuiButton from '../../Buttons/Button';
 import { useAuth } from '../AuthContext/AuthContext';
 import { useStyles } from './Styles/LoginForm.styles';
+import OrangeBar from '../../Assets/OrangeBar';
 
 function LoginForm() {
   const { classes } = useStyles();
@@ -43,15 +44,11 @@ function LoginForm() {
   };
 
   return (
-    <Box className={classes.container}>
+    <Box>
       <form onSubmit={handleFormSubmit} className={classes.form}>
         <Typography variant="h4">Se Connecter</Typography>
-        <Stack
-          display="flex"
-          gap="15px"
-          flexDirection="column"
-          justifyContent="center"
-        >
+        <Stack display="flex" flexDirection="column" justifyContent="center">
+          <OrangeBar />
           <TextField
             type="email"
             label="Email"
@@ -61,9 +58,11 @@ function LoginForm() {
             onChange={handleInputChange}
             required
           />
+          <OrangeBar />
         </Stack>
 
         <Stack display="flex" flexDirection="column" justifyContent="center">
+          <OrangeBar />
           <TextField
             type="password"
             label="Mot de passe"
@@ -73,6 +72,7 @@ function LoginForm() {
             onChange={handleInputChange}
             required
           />
+          <OrangeBar />
         </Stack>
         <Box>
           <Stack>

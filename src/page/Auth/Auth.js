@@ -17,11 +17,16 @@ function Index() {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      border="1px solid green"
-      marginTop="3rem"
-      padding="2rem"
+      borderRight="1px solid lightgray"
+      borderLeft="1px solid lightgray"
+      margin="0 auto"
+      box-shadow=" 10px 5px 5px red"
+      paddingTop="8rem"
+      paddingBottom="8rem"
+      width="90%"
+      c
     >
-      <Box textAlign="center" width="80%" margin="auto" border="1px solid red">
+      <Box textAlign="center" width="80%" margin="auto">
         {isLoginForm ? <SignupForm /> : <LoginForm />}
         <Button onClick={toggleForm} className={classes.button}>
           {isLoginForm

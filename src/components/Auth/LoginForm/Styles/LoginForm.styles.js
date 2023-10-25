@@ -7,7 +7,6 @@ export const useStyles = makeStyles()((theme) => {
       flexDirection: 'column',
       gap: '3rem',
       margin: 'auto',
-
       width: '40%',
       padding: '2rem',
       borderRadius: '10px',
@@ -15,7 +14,6 @@ export const useStyles = makeStyles()((theme) => {
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
         width: 'auto',
-        marginTop: '5rem',
       },
     },
     button: {

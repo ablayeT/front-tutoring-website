@@ -2,19 +2,17 @@ import { makeStyles } from 'tss-react/mui';
 
 export const useStyles = makeStyles()((theme) => {
   return {
-    form: {
+    authContainer: {
       display: 'flex',
-      flexDirection: 'column',
-      gap: '3rem',
-      margin: 'auto',
-      width: '50%',
-      padding: '2rem',
-      borderRadius: '10px',
-      backgroundColor: theme.palette,
-      boxShadow: theme.shadows[5],
-      [theme.breakpoints.down('md')]: {
-        width: '100%',
-      },
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh',
+      borderRight: '1px solid red',
+      borderLeft: '1px solid lightgray',
+      margin: '0 auto',
+      boxShadow: ' 10px 5px 5px red',
+      paddingTop: '8rem',
+      paddingBottom: '8rem',
     },
     button: {
       fontWeight: 'bold',

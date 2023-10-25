@@ -12,6 +12,7 @@ import instanceAxios from '../../../services/api/index.js';
 import MuiButton from '../../Buttons/Button';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from './Styles/SignupForm.style';
+import OrangeBar from '../../Assets/OrangeBar';
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function SignupForm() {
     >
       <Typography variant="h4">S'inscrire</Typography>
       <Stack>
+        <OrangeBar />
         <TextField
           type="text"
           id="last_name"
@@ -58,8 +60,10 @@ function SignupForm() {
           value={formData.last_name}
           onChange={handleChange}
         />
+        <OrangeBar />
       </Stack>
       <Stack>
+        <OrangeBar />
         <TextField
           type="text"
           id="first_name"
@@ -69,6 +73,7 @@ function SignupForm() {
           value={formData.first_name}
           onChange={handleChange}
         />
+        <OrangeBar />
       </Stack>
       <Stack>
         <Select
@@ -83,27 +88,29 @@ function SignupForm() {
           <MenuItem value="tutor">Tuteur</MenuItem>
         </Select>
       </Stack>
-      <Stack>
+      <Stack display="flex">
+        <OrangeBar />
         <TextField
           type="email"
           label="Email"
-          margin="dense"
           placeholder="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
         />
+        <OrangeBar />
       </Stack>
       <Stack>
+        <OrangeBar />
         <TextField
           type="password"
           label="Mot de passe"
-          margin="normal"
           placeholder="..........."
           name="password"
           value={formData.password}
           onChange={handleChange}
         />
+        <OrangeBar />
       </Stack>
 
       <Box>

@@ -1,6 +1,6 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import MuiButton from '../../Buttons/Button';
 import api from '../../../services/api/index.js';
 import sessionCardFields from './SessionCardFields';
@@ -16,6 +16,9 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  MenuItem,
+  Menu,
+  Button,
 } from '@mui/material';
 import useStyles from './style';
 
@@ -25,7 +28,19 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
   const [editedSession, setEditedSession] = useState(session);
   const [studentList, setStudentList] = useState([]);
   const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [anchorElement, setAnchorElement] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const anchorRef = useRef(null);
+
+  const handleClick = () => {
+    setAnchorElement(event.currentTarget);
+    setIsMenuOpen(true);
+  };
+  const handleClose = () => {
+    setAnchorElement(null);
+    setIsMenuOpen(false);
+  };
   useEffect(() => {
     setEditedSession(session); // Mettre à jour editedSession lorsque session change
   }, [session]); // Utiliser un effet pour surveiller les changements dans la session
@@ -96,7 +111,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
 
   return (
     <Card className={classes.card}>
-      <CardContent>
+      <CardContent className={classes.cardContent}>
         {editMode ? (
           <Box
             display="flex"
@@ -162,28 +177,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
                 {field.label}: {session[field.name]}
               </Typography>
             ))}
-            <Accordion
-              sx={{
-                border: '1px solid blue',
-                position: 'absolute',
-                top: '50%',
-              }}
-            >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>Étudiants inscrits</Typography>
-              </AccordionSummary>
-              <AccordionDetails className={classes.studentListAccordion}>
-                {studentList.length > 0 ? (
-                  <ul className={classes.studentList}>
-                    {studentList.map((student) => (
-                      <li key={student.id}>{student.first_name}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <Typography>Aucun étudiant inscrit.</Typography>
-                )}
-              </AccordionDetails>
-            </Accordion>
+
             <Box display="flex" gap="20px">
               <MuiButton onClick={() => setEditMode(true)}>Modifier</MuiButton>
               {studentList.length > 0 ? (
@@ -198,6 +192,37 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
             </Box>
           </Box>
         )}
+
+        <Accordion className={classes.accordion}>
+          {/* <Button>Open Menu</Button> */}
+          <AccordionDetails
+            ref={anchorRef}
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+          >
+            <Typography>
+              Étudiants inscrits :{' '}
+              <span className={classes.span}>{studentList.length}</span>
+            </Typography>
+          </AccordionDetails>
+          {studentList.length > 0 ? (
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorRef.current}
+              open={isMenuOpen}
+              onClose={handleClose}
+            >
+              {studentList.map((student) => (
+                <MenuItem key={student.id} onClick={handleClose}>
+                  {student.first_name}
+                </MenuItem>
+              ))}
+            </Menu>
+          ) : (
+            <Typography>Aucun étudiant inscrit.</Typography>
+          )}
+        </Accordion>
       </CardContent>
       {/* Affichage du message de confirmation */}
       {confirmationMessage && (
@@ -238,3 +263,29 @@ export default TutorSessionsCard;
 //     console.error(error);
 //   }
 // };
+
+{
+  /* <Accordion
+          sx={{
+            position: 'absolute',
+            bottom: '0',
+            right: '0',
+            border: '1px solid green',
+          }}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>Étudiants inscrits</Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.studentListAccordion}>
+            {studentList.length > 0 ? (
+              <ul className={classes.studentList}>
+                {studentList.map((student) => (
+                  <li key={student.id}>{student.first_name}</li>
+                ))}
+              </ul>
+            ) : (
+              <Typography>Aucun étudiant inscrit.</Typography>
+            )}
+          </AccordionDetails>
+        </Accordion> */
+}

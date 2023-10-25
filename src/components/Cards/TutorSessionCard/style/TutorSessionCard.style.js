@@ -22,6 +22,9 @@ export const useStyles = makeStyles()((theme) => {
       //   width: '100%',
       // },
     },
+    cardContent: {
+      position: 'relative',
+    },
     title: {
       fontSize: '1.2rem',
       fontWeight: 'bold',
@@ -30,11 +33,27 @@ export const useStyles = makeStyles()((theme) => {
     text: {
       marginBottom: '8px',
     },
+    accordion: {
+      width: '50%',
+      marginTop: '1rem',
+      [theme.breakpoints.down('md')]: {
+        width: '100%',
+      },
+    },
+    span: {
+      borde: '1px solid red',
+    },
+    accordionSummary: {
+      // [theme.breakpoints.down('md')]: {
+      //   fontSize: '10px',
+      // },
+    },
     studentList: {
       backgroundColor: ' gray',
       zIndex: '1',
       padding: '10px',
       border: '1px solid red,',
+      position: 'relative',
     },
     studentListAccordion: {
       position: 'absolute',

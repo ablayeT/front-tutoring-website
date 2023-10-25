@@ -14,7 +14,6 @@ export const useStyles = makeStyles()((theme) => {
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
         width: 'auto',
-        marginTop: '5rem',
       },
     },
     input: {
