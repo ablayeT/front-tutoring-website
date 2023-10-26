@@ -3,14 +3,15 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import Profile from '../ProfileManager/ProfileManager';
 import CreateSession from '../SessionManager/CreateSession/CreateSession';
 import Sessions from '../SessionManager/Sessions/Sessions';
-import dashboardItems from './DashboardItems';
+// import dashboardItems from './DashboardItems';
 
-import { Box, Button, Typography, Divider, Stack } from '@mui/material';
+import { Box, Typography, Divider, Stack } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import api from '../../../services/api';
-import { Main, AppBar, useStyles } from './Styles';
+import { Main, useStyles } from './Styles';
 import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
+import AppBarDashboard from '../../AppBarDashboard';
 
 function Dashboard() {
   const { classes } = useStyles();
@@ -84,24 +85,7 @@ function Dashboard() {
   return (
     <Box>
       <CssBaseline />
-      <AppBar className={classes.appBar} open={open}>
-        <Box className={classes.appBarDashboard}>
-          <Box className={classes.appBarDashboardChildren}>
-            {dashboardItems.map((item, index) => (
-              <Stack
-                key={index}
-                onClick={handleMain}
-                height="100%"
-                className={classes.navStack}
-              >
-                <NavLink to={item.path} className={classes.NavLink}>
-                  <Button className={classes.button}>{item.label}</Button>
-                </NavLink>
-              </Stack>
-            ))}
-          </Box>
-        </Box>
-      </AppBar>
+      <AppBarDashboard handleMain={handleMain} />
 
       <Main open={open}>
         {!showMain ? (

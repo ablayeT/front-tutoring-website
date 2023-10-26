@@ -93,12 +93,22 @@ function ProfileInfos({ profileData, userData }) {
   return (
     <Box
       display="flex"
-      alignSelf="center"
       justifyContent="center"
+      alignItems="center"
       flexDirection="column"
+      border="1px solid red"
+      width="80%"
+      margin="auto"
     >
       {!isEditing && (
-        <Box display="flex" gap="20px" margin="20px" flexDirection="column">
+        <Box
+          display="flex"
+          width="80%"
+          gap="20px"
+          margin="auto"
+          border="1px solid blue"
+          flexDirection="column"
+        >
           <Typography>Mes inoformations de profil</Typography>
           {userFields.map((field) => (
             <Stack key={field.key}>
@@ -145,10 +155,11 @@ function ProfileInfos({ profileData, userData }) {
         <Box
           display="flex"
           flexDirection="column"
-          width="50%"
+          width="100%"
           margin="auto"
           gap="20px"
           padding="15px"
+          border="1px solid blue"
         >
           <Typography>Modification du profil</Typography>
           {profileFields.map((field) => (

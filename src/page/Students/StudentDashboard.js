@@ -1,13 +1,20 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import Dashboard from '../../components/Students/Dashboard/Dashboard';
 
 function StudentDashboard() {
   return (
-    <Box minHeight="100vh">
+    <Container
+      sx={{
+        minHeight: '100vh',
+        marginTop: '8rem',
+        border: '1px solid gray',
+        flexDirection: 'column',
+      }}
+    >
       <Typography variant="body2">Student Dashboard</Typography>
       <Dashboard />
-    </Box>
+    </Container>
   );
 }
 
