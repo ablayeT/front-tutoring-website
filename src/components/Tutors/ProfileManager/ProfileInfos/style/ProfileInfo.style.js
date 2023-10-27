@@ -7,18 +7,18 @@ export const useStyles = makeStyles()((theme) => {
       flexDirection: 'column',
       width: '80%',
       margin: 'auto',
-      border: '1px solid blue',
-      borderRadius: 'px',
+      border: '1px solid lightgray',
+      borderRadius: '10px',
       padding: '10px',
       backgroundColor: '#fafafa',
+      [theme.breakpoints.down('md')]: {
+        width: '100%',
+      },
     },
     profileContainerNotEditing: {
       display: 'flex',
-      gap: '20px',
-      margin: '5px',
       flexDirection: 'column',
-      borde: '1px solid red',
-      width: 'auto',
+      gap: '20px',
     },
     updateButton: {
       display: 'flex',
@@ -38,9 +38,11 @@ export const useStyles = makeStyles()((theme) => {
     editProfileContainer: {
       display: 'flex',
       flexDirection: 'column',
+      alignSelf: 'center',
       width: '100%',
       margin: 'auto',
       gap: '20px',
+      textAlign: 'left',
       padding: '15px',
     },
   };

@@ -1,15 +1,14 @@
 import { React, useEffect, useState } from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
-import Profile from '../ProfileManager/ProfileManager';
+import ProfileManager from '../ProfileManager/ProfileManager';
 import CreateSession from '../SessionManager/CreateSession/CreateSession';
 import Sessions from '../SessionManager/Sessions/Sessions';
-// import dashboardItems from './DashboardItems';
 
-import { Box, Typography, Divider, Stack } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import api from '../../../services/api';
-import { Main, useStyles } from './Styles';
+import { useStyles } from './Styles';
 import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
 import AppBarDashboard from '../../AppBarDashboard';
 
@@ -83,23 +82,17 @@ function Dashboard() {
   }
 
   return (
-    <Box
-      border="1px solid orange"
-      display="flex"
-      minHeight="100vh"
-      justifyContent="center"
-      borderRadius="10px"
-    >
+    <Box className={classes.dashboard}>
       <CssBaseline />
       <AppBarDashboard handleMain={handleMain} />
 
-      <Box open={open}>
+      <Box open={open} width="100%">
         {!showMain ? (
           <Routes>
             <Route
               path="profile"
               element={
-                <Profile profileData={profileData} userData={userData} />
+                <ProfileManager profileData={profileData} userData={userData} />
               }
             />
 
@@ -125,13 +118,6 @@ function Dashboard() {
               Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
               gravida rutrum quisque non tellus. Convallis convallis tellus id
               interdum velit laoreet id donec ultrices. Odio morbi quis commodo
-              odio aenean sed adipiscing. Amet nisl suscipit adipiscing bibendum
-              est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-              Metus vulputate eu scelerisque felis imperdiet proin fermentum
-              leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt
-              lobortis feugiat vivamus at augue. At augue eget arcu dictum
-              varius duis at consectetur lorem. Velit sed ullamcorper morbi
-              tincidunt. Lorem donec massa sapien faucibus et molestie ac.
             </Typography>
 
             <Typography paragraph>
@@ -141,13 +127,7 @@ function Dashboard() {
               suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
               volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
               Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-              ornare massa eget egestas purus viverra accumsan in. In hendrerit
-              gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-              aliquam sem et tortor. Habitant morbi tristique senectus et.
-              Adipiscing elit duis tristique sollicitudin nibh sit. Ornare
-              aenean euismod elementum nisi quis eleifend. Commodo viverra
-              maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
-              aliquam ultrices sagittis orci a.
+              ornare
             </Typography>
           </Box>
         )}

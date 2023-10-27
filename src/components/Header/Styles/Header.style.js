@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui';
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 export const useStyles = makeStyles()((theme) => {
   return {
@@ -52,7 +52,15 @@ export const useStyles = makeStyles()((theme) => {
     link: {
       color: 'white',
       '&:hover': {
-        color: 'white',
+        color: '#222',
+        borderBottom: '2px solid brown',
+        background: '#FFA500',
+      },
+    },
+    menuToggleLink: {
+      color: '#222',
+      '&:hover': {
+        color: '#222',
         borderBottom: '2px solid brown',
         background: '#FFA500',
       },
@@ -68,8 +76,10 @@ export const useStyles = makeStyles()((theme) => {
     },
     drawerPaper: {
       width: drawerWidth,
-      height: '300px',
-      background: 'black',
+      height: '200px',
+      background: 'white',
+      borderRadius: '10px ',
+      margin: '10px',
     },
     menuButton: {
       marginRight: theme.spacing(2),

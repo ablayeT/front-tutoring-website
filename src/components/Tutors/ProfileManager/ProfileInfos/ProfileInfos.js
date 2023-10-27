@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Stack, Typography, TextField, FormLabel } from '@mui/material';
+import {
+  Box,
+  Stack,
+  Typography,
+  TextField,
+  FormLabel,
+  Container,
+} from '@mui/material';
 import api from '../../../../services/api';
 import MuiButton from '../../../Buttons/Button';
 import profileFields from './ProfileInfo.schema';
 import userFields from '../userInfos.schema';
 import ProfileField from './ProfileField';
+import OrangeBar from '../../../Assets/OrangeBar';
 
 import useStyles from './style';
 
@@ -71,24 +79,33 @@ function ProfileInfos({ userInfos, profileInfos }) {
     <Box className={classes.profileContainer}>
       {!isEditing && (
         <Box className={classes.profileContainerNotEditing}>
-          <Typography>Mes inormations de profil</Typography>
+          <Typography variant="h6" textAlign="center">
+            Mes inormations de profil
+          </Typography>
 
           {userFields.map((field) => (
-            <ProfileField
-              key={field.key}
-              label={field.label}
-              value={userData.user[field.key]}
-              onUpdate={(newValue) => updateUserField(field.key, newValue)}
-            />
+            <Container>
+              <ProfileField
+                key={field.key}
+                label={field.label}
+                value={userData.user[field.key]}
+                onUpdate={(newValue) => updateUserField(field.key, newValue)}
+              />
+
+              <OrangeBar />
+            </Container>
           ))}
 
           {profileFields.map((field) => (
-            <ProfileField
-              key={field.key}
-              label={field.label}
-              value={profileData.profile[field.key]}
-              onUpdate={(newValue) => updateProfileField(field.key, newValue)}
-            />
+            <Container>
+              <ProfileField
+                key={field.key}
+                label={field.label}
+                value={profileData.profile[field.key]}
+                onUpdate={(newValue) => updateProfileField(field.key, newValue)}
+              />
+              <OrangeBar />
+            </Container>
           ))}
           <Stack className={classes.updateButton}>
             <MuiButton
@@ -104,7 +121,7 @@ function ProfileInfos({ userInfos, profileInfos }) {
 
       {isEditing && (
         <Box className={classes.editProfileContainer}>
-          <Typography> Mise à jour du profil</Typography>
+          <Typography variant="h6"> Mise à jour du profil</Typography>
           {profileFields.map((field) => (
             <Stack key={field.key}>
               <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>
@@ -112,9 +129,6 @@ function ProfileInfos({ userInfos, profileInfos }) {
               </FormLabel>
               <TextField
                 type="text"
-                border="1px solid #FFA500"
-                padding="10px"
-                width="50%"
                 value={editedProfileData[field.key]}
                 onChange={(e) =>
                   setEditedProfileData({
@@ -123,6 +137,7 @@ function ProfileInfos({ userInfos, profileInfos }) {
                   })
                 }
               />
+              <OrangeBar />
             </Stack>
           ))}
           <Stack className={classes.updateButton}>

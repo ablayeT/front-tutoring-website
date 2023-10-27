@@ -4,7 +4,7 @@ import MuiAppBar from '@mui/material/AppBar';
 
 export const useStyles = makeStyles()((theme) => {
   return {
-    appBar: {
+    appBarStudent: {
       height: '2.4rem',
       top: '5rem',
       backgroundColor: 'orange',
@@ -13,35 +13,64 @@ export const useStyles = makeStyles()((theme) => {
       flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
+      [theme.breakpoints.down('md')]: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+      },
+    },
+
+    appBarTutor: {
+      height: '2.4rem',
+      top: '5rem',
+      backgroundColor: 'orange',
+      color: '#4a4a49',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      [theme.breakpoints.down('md')]: {
+        display: 'flex',
+        justifyContent: 'center',
+      },
     },
     appBarTutorDashboard: {
       display: 'flex',
       width: '200px',
-      justifyContent: 'center',
-      textAlign: 'center',
+
       padding: '0',
       height: '100%',
       flexWrap: 'wrap',
       gap: '1rem',
       [theme.breakpoints.down('md')]: {
         display: 'flex',
-        flexWrap: 'wrap',
+        justifyContent: 'center',
+        textAlign: 'center',
       },
     },
     appBarStudentDashboard: {
       display: 'flex',
       width: '200px',
-
       justifyContent: 'center',
       textAlign: 'center',
-      border: '1px solid blue',
+
       padding: '0',
       height: '100%',
       flexWrap: 'wrap',
       gap: '1rem',
       [theme.breakpoints.down('md')]: {
         display: 'flex',
-        flexWrap: 'wrap',
+        border: '1px solid white',
+        justifyContent: 'center',
+        paddingRight: '10px',
+        background: '#222',
+        width: '2rem',
+        '&:hover': {
+          color: '#222',
+          background: 'white',
+          borderRadius: '0',
+          border: '1px solid #222',
+        },
       },
     },
     buttonBox: {
@@ -52,7 +81,6 @@ export const useStyles = makeStyles()((theme) => {
       margin: '0',
       [theme.breakpoints.down('md')]: {
         display: 'none',
-        flexWrap: 'wrap',
       },
     },
     button: {
@@ -64,18 +92,65 @@ export const useStyles = makeStyles()((theme) => {
         background: 'black',
       },
     },
-    drawer: {
-      backgroundColor: 'red',
-      [theme.breakpoints.up('md')]: {
-        display: 'none',
-        background: '#FFA500',
+    toggleButton: {
+      color: 'black',
+      borderRadius: '0',
+      height: '100%',
+
+      '&:hover': {
+        color: 'white',
+        background: 'black',
+        borderRadius: '10px',
       },
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
+
+    tutorMenuButton: {
+      display: 'block',
+      color: '#222',
+      '&:hover': {
+        color: 'white',
+        background: '#222',
+      },
+      [theme.breakpoints.down('md')]: {
+        display: 'flex',
+        textAlign: 'center',
+        alignSelf: 'center',
+        color: '#222',
+        '&:hover': {
+          color: '#222',
+          background: 'white',
+        },
+      },
       [theme.breakpoints.up('md')]: {
         display: 'none',
       },
+    },
+
+    studentMenuButton: {
+      display: 'flex',
+      justifyContent: 'center',
+      color: '#222',
+
+      [theme.breakpoints.down('md')]: {
+        color: 'white',
+        '&:hover': {
+          color: '#222',
+        },
+      },
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
+      },
+    },
+    mobileMenuOpen: {
+      position: 'fixed',
+      backgroundColor: 'white',
+      borderRadius: '10px',
+      padding: '10px',
+      flexDirection: 'column',
+      textAlign: 'center',
+      display: 'flex',
+      width: '120px',
+      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Ombre du pop-up
     },
   };
 });

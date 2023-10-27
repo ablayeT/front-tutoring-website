@@ -4,47 +4,19 @@ import { makeStyles } from 'tss-react/mui';
 
 export const useStyles = makeStyles()((theme) => {
   return {
-    appBar: {
-      height: '2rem',
-      top: '6rem',
-      backgroundColor: 'black',
-      color: '#4a4a49',
+    dashboard: {
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    appBarDashboard: {
-      display: 'flex',
-      width: '100%',
+
       justifyContent: 'center',
       alignItems: 'center',
-      height: '150px',
-      flexWrap: 'wrap',
-      backgroundColor: 'orange',
-      gap: '1rem',
-      [theme.breakpoints.down('md')]: {
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-      },
-    },
-    appBarDashboardChildren: {
-      display: 'flex',
-      gap: '2rem',
-      height: '100%',
-    },
-    button: {
-      color: 'black',
-      borderRadius: '0',
-      height: '100%',
-      '&:hover': {
-        color: 'white',
-        borderBottom: '2px solid brown',
-        background: 'black',
-      },
-    },
-    navStack: {
-      height: '100%',
+      textAlign: 'center',
+      borderRadius: '10px',
+      marginBottom: '4rem',
+      // [theme.breakpoints.down('md')]: {
+      //   display: 'flex',
+      //   flexDirection: 'column',
+      //   flexWrap: 'wrap',
+      // },
     },
   };
 });

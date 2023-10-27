@@ -113,7 +113,7 @@ function Header() {
                   <Button
                     to={button.path}
                     component={Link}
-                    className={classes.link}
+                    className={classes.menuToggleLink}
                     onClick={
                       button.label === 'Déconnexion' ? logout : undefined
                     }
