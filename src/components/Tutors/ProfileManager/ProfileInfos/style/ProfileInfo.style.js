@@ -7,7 +7,7 @@ export const useStyles = makeStyles()((theme) => {
       flexDirection: 'column',
       width: '80%',
       margin: 'auto',
-      border: '1px solid lightgray',
+      border: '1px solid blue',
       borderRadius: 'px',
       padding: '10px',
       backgroundColor: '#fafafa',
@@ -17,6 +17,7 @@ export const useStyles = makeStyles()((theme) => {
       gap: '20px',
       margin: '5px',
       flexDirection: 'column',
+      borde: '1px solid red',
       width: 'auto',
     },
     updateButton: {

@@ -19,7 +19,7 @@ export const useStyles = makeStyles()((theme) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       color: 'white',
-      background: 'black',
+      background: '#222',
       height: '5rem',
     },
 

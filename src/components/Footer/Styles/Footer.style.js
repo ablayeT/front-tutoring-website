@@ -5,7 +5,7 @@ export const useStyles = makeStyles()((theme) => {
     footer: {
       display: 'flex',
       justifyContent: 'center',
-      background: 'black',
+      background: '#222',
       color: '#FFFFFF',
       fontSize: '19px',
       height: '4rem',

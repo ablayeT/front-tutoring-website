@@ -4,6 +4,8 @@ import { Box, Stack, Typography, TextField, FormLabel } from '@mui/material';
 import profileFields from './ProfileInfo.schema';
 import MuiButton from '../../../Buttons/Button';
 import userFields from './userInfo.schema';
+import { orange } from '@mui/material/colors';
+import Orangebar from '../../../Assets/OrangeBar';
 
 function ProfileInfos({ profileData, userData }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -96,17 +98,16 @@ function ProfileInfos({ profileData, userData }) {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      border="1px solid red"
-      width="80%"
-      margin="auto"
     >
       {!isEditing && (
         <Box
           display="flex"
-          width="80%"
+          width="100%"
           gap="20px"
           margin="auto"
-          border="1px solid blue"
+          border="1px solid lightgray"
+          padding="10px"
+          borderRadius="10px"
           flexDirection="column"
         >
           <Typography>Mes inoformations de profil</Typography>
@@ -122,6 +123,7 @@ function ProfileInfos({ profileData, userData }) {
                 width="50%"
                 value={userData.user[field.key]}
               />
+              <Orangebar />
             </Stack>
           ))}
           {profileFields.map((field) => (
@@ -136,6 +138,7 @@ function ProfileInfos({ profileData, userData }) {
                 width="50%"
                 value={profileData[field.key]}
               />
+              <Orangebar />
             </Stack>
           ))}
 
@@ -154,21 +157,17 @@ function ProfileInfos({ profileData, userData }) {
       {isEditing && (
         <Box
           display="flex"
-          flexDirection="column"
           width="100%"
-          margin="auto"
           gap="20px"
-          padding="15px"
-          border="1px solid blue"
+          margin="auto"
+          border="1px solid lightgray"
+          padding="10px"
+          borderRadius="10px"
+          flexDirection="column"
         >
           <Typography>Modification du profil</Typography>
           {profileFields.map((field) => (
-            <Stack
-              key={field.key}
-              display="flex"
-              flexDirection="column"
-              gap="10px"
-            >
+            <Stack key={field.key} display="flex" flexDirection="column">
               <FormLabel sx={{ fontSize: '19px', fontWeight: 'bold' }}>
                 {field.label}
               </FormLabel>
@@ -181,6 +180,7 @@ function ProfileInfos({ profileData, userData }) {
                   })
                 }
               />
+              <Orangebar />
             </Stack>
           ))}
           <Stack display="flex" justifyContent="center">

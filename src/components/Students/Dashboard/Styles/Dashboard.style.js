@@ -1,27 +1,54 @@
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import MuiAppBar from '@mui/material/AppBar';
-
+import { makeStyles } from 'tss-react/mui';
 export const drawerWidth = 220;
 
-export const Main = styled('main', {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: `-${drawerWidth}px`,
-  ...(open && {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  }),
-}));
+export const useStyles = makeStyles()((theme) => {
+  return {
+    studentDashboardPage: {
+      minHeight: '100vh',
+      marginTop: '8rem',
+      display: 'flex',
+      margin: '8rem',
+      padding: '10px',
+      flexDirection: 'column',
+      [theme.breakpoints.down('md')]: {
+        width: '100%',
+        position: 'relative',
+        margin: '8rem 0.5rem 8rem 0.5rem',
+        padding: '0',
+      },
+    },
+  };
+});
+
+// export const Main = styled('main', {
+//   shouldForwardProp: (prop) => prop !== 'open',
+// })(({ theme, open }) => ({
+//   // flexGrow: 1,
+//   // padding: theme.spacing(3),
+//   width: '80%',
+//   textAlign: 'center',
+//   border: '1px solid blue',
+//   alignSelf: 'center',
+//   alignItems: 'center',
+//   width: '100%',
+//   justifyContent: 'center',
+//   minHeight: '100vh',
+//   transition: theme.transitions.create('margin', {
+//     // easing: theme.transitions.easing.sharp,
+//     // duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   marginLeft: `-${drawerWidth}px`,
+//   ...(open && {
+//     transition: theme.transitions.create('margin', {
+//       easing: theme.transitions.easing.easeOut,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//     // marginLeft: 0,
+//   }),
+// }));
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',

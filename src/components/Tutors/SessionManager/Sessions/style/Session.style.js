@@ -9,6 +9,7 @@ export const useStyles = makeStyles()((theme) => {
       justifyContent: ' center',
       flexWrap: 'wrap',
       gap: '1rem',
+      border: '1px solid red',
     },
     confirmationMessage: {
       [theme.breakpoints.down('sm')]: {

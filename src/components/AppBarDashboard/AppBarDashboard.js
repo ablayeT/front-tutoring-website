@@ -10,6 +10,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 function AppBarDashboard({ handleMain }) {
   const { classes } = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const userType = localStorage.getItem('userType');
+  console.log('userType in appBar:', userType);
 
   const handleNewMain = () => {
     handleMain();
@@ -19,7 +21,13 @@ function AppBarDashboard({ handleMain }) {
   };
   return (
     <AppBar className={classes.appBar} open={open}>
-      <Box className={classes.appBarDashboard}>
+      <Box
+        className={
+          userType === 'Tutor'
+            ? classes.appBarTutorDashboard
+            : classes.appBarStudentDashboard
+        }
+      >
         {AppBarDashboardSchema.map((item, index) => (
           <>
             <Box
@@ -59,9 +67,11 @@ function AppBarDashboard({ handleMain }) {
           <MoreVertIcon className={classes.menuIcon} />
         </IconButton>
       </Box>
-      <Box textAlign="center" border="1px solid yellow">
-        <SearchComponent />
-      </Box>
+      {userType === 'Student' ? (
+        <Box textAlign="center" width="70%" border="1px solid yellow">
+          <SearchComponent />
+        </Box>
+      ) : null}
     </AppBar>
   );
 }

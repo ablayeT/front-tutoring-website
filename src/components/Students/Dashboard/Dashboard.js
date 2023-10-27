@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Profile from '../profileManager/ProfileManager';
 import CssBaseline from '@mui/material/CssBaseline';
 import Sessions from '../SessionManager/MySessions';
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 import api from '../../../services/api';
 import SearchResults from '../SearchResults/Searchresults';
@@ -55,17 +55,12 @@ function Dashboard() {
   }
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      border="1px solid yellow"
-      minHeight="100vh"
-    >
+    <Box display="flex" minHeight="100vh">
       <CssBaseline />
 
       <AppBarDashboard handleMain={handleMain} />
 
-      <Main flex="1" padding="20px">
+      <Container sx={{ textAlign: 'left' }}>
         {!showMain ? (
           <Routes>
             <Route
@@ -112,7 +107,7 @@ function Dashboard() {
             </Typography>
           </Box>
         )}
-      </Main>
+      </Container>
     </Box>
   );
 }

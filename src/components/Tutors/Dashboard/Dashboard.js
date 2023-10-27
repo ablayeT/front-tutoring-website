@@ -83,11 +83,17 @@ function Dashboard() {
   }
 
   return (
-    <Box>
+    <Box
+      border="1px solid orange"
+      display="flex"
+      minHeight="100vh"
+      justifyContent="center"
+      borderRadius="10px"
+    >
       <CssBaseline />
       <AppBarDashboard handleMain={handleMain} />
 
-      <Main open={open}>
+      <Box open={open}>
         {!showMain ? (
           <Routes>
             <Route
@@ -145,7 +151,7 @@ function Dashboard() {
             </Typography>
           </Box>
         )}
-      </Main>
+      </Box>
     </Box>
   );
 }

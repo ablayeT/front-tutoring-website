@@ -1,20 +1,14 @@
 import React from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import Dashboard from '../../components/Students/Dashboard/Dashboard';
+import useStyles from '../../components/Students/Dashboard/Styles';
 
 function StudentDashboard() {
+  const { classes } = useStyles();
   return (
-    <Container
-      sx={{
-        minHeight: '100vh',
-        marginTop: '8rem',
-        border: '1px solid gray',
-        flexDirection: 'column',
-      }}
-    >
-      <Typography variant="body2">Student Dashboard</Typography>
+    <Box sx={{}} className={classes.studentDashboardPage}>
       <Dashboard />
-    </Container>
+    </Box>
   );
 }
 

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Search, SearchIconWrapper, StyledInputBase, useStyles } from './style';
 import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
 
 function SearchComponent() {
+  const navigate = useNavigate();
   const { classes } = useStyles();
   const [searchQuery, setSearchQuery] = useState('');
 

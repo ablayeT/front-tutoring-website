@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui';
 export const useStyles = makeStyles()((theme) => {
   return {
     button: {
-      backgroundColor: 'black',
+      backgroundColor: '#222',
       color: 'white',
       fontWeight: 'bold',
       borderRadius: '10px',
