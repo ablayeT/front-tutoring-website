@@ -10,7 +10,6 @@ export const useStyles = makeStyles()((theme) => {
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-
   backgroundColor: alpha(theme.palette.common.white, 1),
   border: `2px solid rgba(255, 187, 51, 1)`,
   borderRadius: '0.6rem',
@@ -40,7 +39,6 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',

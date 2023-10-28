@@ -7,13 +7,10 @@ import { Box, Container, Typography } from '@mui/material';
 
 import api from '../../../services/api';
 import SearchResults from '../SearchResults/Searchresults';
-import { Main } from './Styles';
 import AppBarDashboard from '../../AppBarDashboard';
-import SearchComponent from '../../Search';
-import Toolbar from '@mui/material/Toolbar';
-import AppBar from '@mui/material/AppBar';
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [profileInfos, setProfileInfos] = useState();
   const [userInfos, setUserInfos] = useState();
   const [showMain, setShowMain] = useState(true);
@@ -70,7 +67,7 @@ function Dashboard() {
               }
             />
             <Route path="sessions" element={<Sessions />} />
-            <Route path="/search/:query" element={<SearchResults />} />
+            <Route path="search/:query" element={<SearchResults />} />
           </Routes>
         ) : (
           <Box>
@@ -113,117 +110,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-{
-  /* <AppBar
-        position="fixed"
-        sx={{
-          height: '5rem',
-          top: '5rem',
-          backgroundColor: '#ffe19c',
-          color: '#4a4a49',
-        }}
-        open={open}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-         
-        </Toolbar>
-      </AppBar> */
-}
-/** */
-
-{
-  /* <Drawer
-sx={{
-  width: drawerWidth,
-  flexShrink: 0,
-  '& .MuiDrawer-paper': {
-    width: drawerWidth,
-    boxSizing: 'border-box',
-    marginTop: '5rem',
-    backgroundColor: '#ffe19c',
-  },
-}}
-variant="persistent"
-anchor="left"
-open={open}
->
-<DrawerHeader sx={{ background: 'white' }}>
-  <IconButton onClick={handleDrawerClose}>
-    {theme.direction === 'ltr' ? (
-      <ChevronLeftIcon color="white" />
-    ) : (
-      <ChevronRightIcon />
-    )}
-  </IconButton>
-</DrawerHeader>
-<Divider />
-<List>
-  <ListItem
-    sx={{
-      display: 'block',
-      listStyle: 'none',
-      flexDirection: 'column',
-    }}
-    disablePadding
-  >
-    <ListItemButton
-      onClick={handleMain}
-      sx={{
-        minHeight: 48,
-        justifyContent: open ? 'initial' : 'center',
-        px: 2.5,
-      }}
-    >
-      <ListItemIcon>
-        <AccountCircleIcon />
-      </ListItemIcon>
-      <NavLink to="profile" display="flex">
-        <ListItemText primary="Profil" sx={{ listStyle: 'none' }} />
-      </NavLink>
-    </ListItemButton>
-    <ListItemButton
-      onClick={handleMain}
-      sx={{
-        display: 'flex',
-        minHeight: 48,
-        justifyContent: open ? 'initial' : 'center',
-        px: 2.5,
-      }}
-    >
-      <ListItemIcon>
-        <CastForEducationIcon />
-      </ListItemIcon>
-      <NavLink to="sessions" display="flex">
-        <ListItemText primary="Sessions" />
-      </NavLink>
-    </ListItemButton>
-    <ListItemButton
-      onClick={handleMain}
-      sx={{
-        display: 'flex',
-        minHeight: 48,
-        justifyContent: open ? 'initial' : 'center',
-        px: 2.5,
-      }}
-    >
-      <ListItemIcon>
-        <CastForEducationIcon />
-      </ListItemIcon>
-      <NavLink to="sessions" display="flex">
-        <ListItemText primary="Mes tuteurs" />
-      </NavLink>
-    </ListItemButton>
-  </ListItem>
-</List>
-<Divider />
-</Drawer> */
-}

@@ -6,8 +6,8 @@ import api from '../../../services/api';
 function SearchResults() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  console.log(searchParams);
   const searchQuery = searchParams.get('query');
-
   console.log('seachQuery2: ', searchQuery);
 
   const [searchResults, setSearchResults] = useState([]);
@@ -17,6 +17,7 @@ function SearchResults() {
     const fetchSearchResults = async () => {
       try {
         const response = await api.get(`/search/sessions?query=${searchQuery}`);
+        console.log("Réponse de l'API :", response.data);
         setSearchResults(response.data.sessions);
       } catch (error) {
         console.error('Erreur lors de la recherche :', error);

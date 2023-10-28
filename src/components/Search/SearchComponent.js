@@ -12,9 +12,10 @@ function SearchComponent() {
   const handleSearch = () => {
     if (searchQuery.trim() !== '') {
       // Redirigez l'utilisateur vers la page de recherche avec le terme de recherche en tant que paramètre
-      navigate(`/search/${searchQuery}`);
+      navigate(`search/${searchQuery}`);
     }
   };
+  console.log(searchQuery);
   return (
     <Box
       sx={{

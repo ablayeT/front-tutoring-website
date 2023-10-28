@@ -53,20 +53,20 @@ export const useStyles = makeStyles()((theme) => {
       width: '200px',
       justifyContent: 'center',
       textAlign: 'center',
-
       padding: '0',
       height: '100%',
       flexWrap: 'wrap',
       gap: '1rem',
       [theme.breakpoints.down('md')]: {
         display: 'flex',
-        border: '1px solid white',
+
         justifyContent: 'center',
+        textAlign: 'center',
         paddingRight: '10px',
         background: '#222',
         width: '2rem',
         '&:hover': {
-          color: '#222',
+          color: 'red',
           background: 'white',
           borderRadius: '0',
           border: '1px solid #222',
@@ -129,6 +129,7 @@ export const useStyles = makeStyles()((theme) => {
     studentMenuButton: {
       display: 'flex',
       justifyContent: 'center',
+      textAlign: 'center',
       color: '#222',
 
       [theme.breakpoints.down('md')]: {

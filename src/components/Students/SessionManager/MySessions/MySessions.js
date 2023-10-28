@@ -66,9 +66,12 @@ function MySessions() {
       <Box className={classes.MySessionContainer}>
         {reservedSessions.map((session) => {
           return (
-            <Box className={classes.MySessionCard}>
+            <Box
+              key={session.tutoring_session_id}
+              className={classes.MySessionCard}
+            >
               <ReservedSessionCard
-                key={generateUniqueKey(session.id)}
+                key={session.tutoring_session_id}
                 session={session}
                 onCancelClick={() => handleCancelSession(session.id)}
               />
