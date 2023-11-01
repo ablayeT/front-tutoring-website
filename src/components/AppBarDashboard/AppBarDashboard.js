@@ -7,16 +7,16 @@ import SearchComponent from '../Search';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-function AppBarDashboard({ handleMain }) {
+function AppBarDashboard() {
   const { classes } = useStyles();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const userType = localStorage.getItem('userType');
   const menuButtonRef = useRef(null);
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 });
 
-  const handleNewMain = () => {
-    handleMain();
-  };
+  // const handleNewMain = () => {
+  //   handleMain();
+  // };
 
   const handlePopupToggle = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -68,7 +68,7 @@ function AppBarDashboard({ handleMain }) {
         {AppBarDashboardSchema.map((item, index) => (
           <Box
             key={index}
-            onClick={handleNewMain}
+            // onClick={handleNewMain}
             className={classes.buttonBox}
           >
             <NavLink to={item.path}>

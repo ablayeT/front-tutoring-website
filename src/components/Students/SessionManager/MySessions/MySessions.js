@@ -56,10 +56,6 @@ function MySessions() {
     }
   };
 
-  const generateUniqueKey = (session) => {
-    return session.tutoring_session_id + Date.now();
-  };
-
   return (
     <Box width="100%" border="1px soslid red" position="relative">
       <Typography> Mes Sessions</Typography>

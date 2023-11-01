@@ -7,15 +7,15 @@ import { useNavigate } from 'react-router-dom';
 function SearchComponent() {
   const navigate = useNavigate();
   const { classes } = useStyles();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [query, setQuery] = useState('');
 
   const handleSearch = () => {
-    if (searchQuery.trim() !== '') {
-      // Redirigez l'utilisateur vers la page de recherche avec le terme de recherche en tant que paramètre
-      navigate(`search/${searchQuery}`);
+    if (query.trim() !== '') {
+      // Rediriger l'utilisateur vers la page de recherche avec le terme de recherche en tant que paramètre
+      navigate(`search?query=${query}`);
     }
   };
-  console.log(searchQuery);
+  console.log('query in SearchCompoent  : ', query);
   return (
     <Box
       sx={{
@@ -34,9 +34,9 @@ function SearchComponent() {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ 'aria-label': 'search' }}
-          value={searchQuery}
-          onChange={(event) => setSearchQuery(event.target.value)}
-          onKeyDown={(event) => {
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          onKeyUp={(event) => {
             if (event.key === 'Enter') {
               handleSearch();
             }

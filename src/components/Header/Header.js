@@ -25,6 +25,16 @@ function Header() {
   const { classes } = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [greeting, setGreeting] = useState('');
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour >= 6 && hour < 12) {
+      setGreeting('Bonjour');
+    } else {
+      setGreeting('Bonsoir');
+    }
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -69,18 +79,19 @@ function Header() {
 
         {isLoggedIn && userData && (
           <Box className={classes.userInfoChild}>
+            <Typography className={classes.userName}>
+              {greeting}, <br /> {userData.first_name}
+            </Typography>
             <Image
               imageUrl={userData.imageUrl}
               className={classes.avatar}
               alt="ProfileImage"
-              width="50%"
-              height="50px"
+              width="30%"
+              height="40px"
+              border="1px solid red"
               object-fit="fill"
               borderRadius="50%"
             />
-            <Typography className={classes.userName}>
-              Bienvenue, <br /> {userData.first_name}
-            </Typography>
           </Box>
         )}
 

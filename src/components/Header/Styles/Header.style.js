@@ -30,14 +30,13 @@ export const useStyles = makeStyles()((theme) => {
     },
     userInfoChild: {
       display: 'flex',
-      flexDirection: 'column',
       padding: '1rem',
       alignItems: 'center',
       height: '100%',
       gap: '10px',
     },
     userName: {
-      fontSize: '15px',
+      fontSize: '14px',
     },
     logo: {
       cursor: 'pointer',
