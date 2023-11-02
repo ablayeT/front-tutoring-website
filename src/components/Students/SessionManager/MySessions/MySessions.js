@@ -57,7 +57,15 @@ function MySessions() {
   };
 
   return (
-    <Box width="100%" border="1px soslid red" position="relative">
+    <Box
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      flexWrap="wrap"
+      border="1px solid yellow"
+      margin="10px"
+    >
       <Typography> Mes Sessions</Typography>
       <Box className={classes.MySessionContainer}>
         {reservedSessions.map((session) => {

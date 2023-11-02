@@ -43,7 +43,7 @@ function Index() {
     <Box
       width="100%"
       padding="4rem 0 3rem 0"
-      border="1px solid yellow"
+      minHeight="100vh"
       position="relative"
     >
       <form className={classes.form} component="form" onSubmit={handleSubmit}>

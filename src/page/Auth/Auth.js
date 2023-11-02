@@ -17,14 +17,13 @@ function Index() {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      borderRight="1px solid lightgray"
-      borderLeft="1px solid lightgray"
+      backgroundColor="white"
       margin="0 auto"
       box-shadow=" 10px 5px 5px red"
+      borderRadius="10px"
       paddingTop="8rem"
       paddingBottom="8rem"
       width="90%"
-      c
     >
       <Box
         display="flex"

@@ -6,17 +6,22 @@ export const useStyles = makeStyles()((theme) => {
       width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
+      margin: '10px',
       gap: '1rem',
       padding: '10px',
+      border: '1px solid red',
       justifyContent: 'center',
     },
     MySessionCard: {
+      border: '1px solid green',
+      display: 'flex',
+      flexWrap: 'wrap',
       [theme.breakpoints.down('md')]: {
-        width: '48%',
-      },
-      [theme.breakpoints.down('sm')]: {
         width: '100%',
       },
+      // [theme.breakpoints.down('sm')]: {
+      //   width: '100%',
+      // },
       [theme.breakpoints.up('md')]: {
         width: '48%',
         color: 'green',

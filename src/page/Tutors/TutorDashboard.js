@@ -10,6 +10,8 @@ function TutorDashboard() {
       margin="auto"
       padding="10px"
       marginTop="8rem"
+      backgroundColor="white"
+      borderRadius="15px"
     >
       <Dashboard />
     </Box>

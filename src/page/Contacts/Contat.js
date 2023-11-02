@@ -9,6 +9,8 @@ function Index() {
       alignItems="center"
       justifyContent="center"
       width="80%"
+      backgroundColor="white"
+      borderRadius="15px"
       margin="auto"
       minheight="100vh"
       paddingTop="6rem"

@@ -1,13 +1,12 @@
-import { React, useEffect, useState } from 'react';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { React, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import ProfileManager from '../ProfileManager/ProfileManager';
 import CreateSession from '../SessionManager/CreateSession/CreateSession';
 import Sessions from '../SessionManager/Sessions/Sessions';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import api from '../../../services/api';
 import { useStyles } from './Styles';
 import ReservedSessions from '../SessionManager/ReservedSessions/ReservedSessions';
 import AppBarDashboard from '../../AppBarDashboard';
@@ -15,102 +14,23 @@ import DashboardHomePage from '../../DashboardHomePage';
 
 function Dashboard() {
   const { classes } = useStyles();
-  const [profileData, setProfileData] = useState(null);
-  const [userData, setUserData] = useState(null);
-  const [sessionData, setSessionData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  // const [showMain, setShowMain] = useState(true);
-  const [sessions, setSessions] = useState([]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const userResponse = await api.get(`/users/profiles/${userId}`);
-
-        setUserData(userResponse.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const fetchProfileData = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const profileResponse = await api.get(`/tutors/profile/${userId}`);
-        if (profileResponse === null) {
-        }
-        setProfileData(profileResponse.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const fetchData = async () => {
-      setIsLoading(true);
-      await Promise.all([fetchUserData(), fetchProfileData()]);
-      setIsLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchTutorSessions = async () => {
-      try {
-        const response = await api.get('tutors/sessions');
-
-        setSessionData(response.data.sessions);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTutorSessions();
-  }, []);
-
-  const updateSessions = (newSession) => {
-    setSessions([...sessions, newSession]);
-  };
-
-  // function handleMain() {
-  //   setShowMain(false);
-  // }
-  if (isLoading) {
-    return <Typography>Chargement....</Typography>;
-  }
 
   return (
     <Box className={classes.dashboard}>
       <CssBaseline />
       <AppBarDashboard />
       <Box open={open} width="100%">
-        <Container sx={{ textAlign: 'left' }}>
+        <Box sx={{ textAlign: 'left' }}>
           <Routes>
-            <Route
-              path="profile"
-              element={
-                <ProfileManager profileData={profileData} userData={userData} />
-              }
-            />
+            <Route path="profile" element={<ProfileManager />} />
 
-            <Route
-              path="sessions"
-              element={<Sessions sessionData={sessionData} />}
-            />
-            <Route
-              path="create-session"
-              element={<CreateSession updateSessions={updateSessions} />}
-            />
-            <Route
-              path="reserved-sessions"
-              element={<ReservedSessions sessionData={sessions} />}
-            />
+            <Route path="sessions" element={<Sessions />} />
+            <Route path="create-session" element={<CreateSession />} />
+            <Route path="reserved-sessions" element={<ReservedSessions />} />
             <Route path="/" element={<DashboardHomePage />} />
           </Routes>
-        </Container>
+        </Box>
       </Box>
     </Box>
   );

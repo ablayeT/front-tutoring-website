@@ -46,12 +46,25 @@ function Dashboard() {
   }, []);
 
   return (
-    <Box display="flex" minHeight="100vh">
+    <Box
+      display="flex"
+      border="1px solid pink"
+      flexWrap="wrap"
+      width="100%"
+      minHeight="100vh"
+    >
       <CssBaseline />
 
       <AppBarDashboard />
 
-      <Container sx={{ textAlign: 'left' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          border: '1px solid purples',
+          width: '100%',
+          flexWrap: 'wrap',
+        }}
+      >
         <Routes>
           <Route
             path="profile"
@@ -63,7 +76,7 @@ function Dashboard() {
           <Route path="search" element={<SearchResults />} />
           <Route path="/" element={<DashboardHomePage />} />
         </Routes>
-      </Container>
+      </Box>
     </Box>
   );
 }

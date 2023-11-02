@@ -10,9 +10,9 @@ export const useStyles = makeStyles()((theme) => {
       boxShadow: '2px 2px 7px #FFA500',
       flexWrap: 'wrap',
       gap: '1rem',
-      [theme.breakpoints.down('sm')]: {
-        width: '100%',
-      },
+      // [theme.breakpoints.down('sm')]: {
+      //   width: '100%',
+      // },
     },
   };
 });

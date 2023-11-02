@@ -1,45 +1,60 @@
-import { Box } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import TutorProfileForm from './TutorProfileForm/TutorProfileForm';
+import { Box } from '@mui/material';
+import TutorProfileForm from './TutorProfileForm';
 import ProfileInfos from './ProfileInfos/ProfileInfos';
 import useStyles from './style';
+import api from '../../../services/api';
 
-function ProfileManager({ profileData, userData }) {
+function ProfileManager() {
   const { classes } = useStyles();
+  const [userData, setUserData] = useState(null);
+  const [profileData, setProfileData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [isProfileComplete, setIsProfileComplete] = useState(false);
-  const [profileInfos, setProfileInfos] = useState(profileData);
-  const [userInfos, setUserInfos] = useState(userData);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    const checkProfileCompleteness = async () => {
+    const fetchData = async () => {
+      setIsLoading(true);
       try {
-        if (profileData) {
+        const [userResponse, profileResponse] = await Promise.all([
+          api.get(`/users/profiles/${userId}`),
+          api.get(`/tutors/profile/${userId}`),
+        ]);
+
+        setUserData(userResponse.data);
+        console.log('profileResponse.data:', profileResponse.data);
+
+        setProfileData(profileResponse.data);
+
+        // Vérifier si le profil est complet ou non
+        if (
+          profileResponse.data &&
+          Object.keys(profileResponse.data).length > 0
+        ) {
+          setIsLoading(false);
           setIsProfileComplete(true);
-          setUserInfos(userInfos);
-          setProfileInfos(profileInfos);
         } else {
-          setIsProfileComplete(false);
+          setIsLoading(false);
+          setIsProfileComplete(false); // Définir setIsProfileComplete sur true si le profil est vide
         }
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     };
-    checkProfileCompleteness();
-  });
 
-  if (profileInfos.length === 0) {
-    return <TutorProfileForm profileInfos={profileInfos} />;
+    fetchData();
+  }, [userId]);
+
+  if (isLoading) {
+    return <p>Chargement...</p>;
   }
-  // console.log('porfileInfos in profile:',profileInfos)
-  // console.log('userInfos  in profile:',userInfos)
 
   return (
     <Box className={classes.profileManager}>
-      {profileInfos.length === 0 && (
-        <TutorProfileForm profileInfos={profileInfos} />
-      )}
       {isProfileComplete ? (
-        <ProfileInfos profileInfos={profileInfos} userInfos={userInfos} />
+        <ProfileInfos profileInfos={profileData} userInfos={userData} />
       ) : (
         <TutorProfileForm />
       )}

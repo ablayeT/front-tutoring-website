@@ -6,7 +6,7 @@ import useStyles from '../../components/Students/Dashboard/Styles';
 function StudentDashboard() {
   const { classes } = useStyles();
   return (
-    <Box sx={{}} className={classes.studentDashboardPage}>
+    <Box className={classes.studentDashboardPage}>
       <Dashboard />
     </Box>
   );

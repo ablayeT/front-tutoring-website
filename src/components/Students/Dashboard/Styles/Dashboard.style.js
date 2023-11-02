@@ -8,15 +8,15 @@ export const useStyles = makeStyles()((theme) => {
   return {
     studentDashboardPage: {
       minHeight: '100vh',
-      marginTop: '8rem',
+      background: 'white',
+      borderRadius: '15px',
+      width: '80%',
+      alignSelf: 'center',
       display: 'flex',
-      margin: '8rem',
+      margin: 'auto',
       padding: '10px',
       flexDirection: 'column',
       [theme.breakpoints.down('md')]: {
-        width: '100%',
-        position: 'relative',
-        margin: '8rem 0.5rem 8rem 0.5rem',
         padding: '0',
       },
     },

@@ -7,36 +7,40 @@ import Button from '../../../Buttons/Button';
 import api from '../../../../services/api';
 // import useStyles from '../../../Cards/TutorSessionCard/style';
 import useStyles from './style';
-import CreateSession from '../CreateSession/CreateSession';
+import CreateSession from '../CreateSession';
 
-function Sessions({ sessionData }) {
+function Sessions() {
   const { classes } = useStyles();
-  const [tutorSessions, setTutorSessions] = useState(sessionData);
-  const [isLoading, setIsLoading] = useState(true);
+  const [tutorSessions, setTutorSessions] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
-  const [studentList, setstudentList] = useState([]);
+  const [studentList, setStudentList] = useState([]);
   const [confirmationMessage, setConfirmationMessage] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTutorSessions = async (sessionId) => {
+    const fetchTutorSessions = async () => {
       try {
-        setIsLoading(false);
+        const response = await api.get('tutors/sessions');
 
-        // Récupérer les étudiants inscrits à la session spécifique
-        const response = await api.get(
-          `/tutors/sessions/${sessionId}/students`,
-        );
-        console.log('response.data in session:', response.data);
-        setstudentList(response.data);
+        setTutorSessions(response.data.sessions);
+        console.log('sessions in sessions : ', response.data.sessions);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchTutorSessions();
-  }, [sessionData]);
+  }, []);
 
-  console.log('studentLis in session :', studentList);
+  const fetchStudentsForSession = async (sessionId) => {
+    try {
+      const response = await api.get(`/tutors/sessions/${sessionId}/students`);
+      setStudentList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleDeleteSession = async (sessionId) => {
     try {
@@ -63,7 +67,7 @@ function Sessions({ sessionData }) {
       }, 3000);
       // Mettre à jour l'état tutorSessions localement
       setTutorSessions(
-        tutorSessions.filter((session) => session.id !== sessionId),
+        tutorSessions.sessions.filter((session) => session.id !== sessionId),
       );
     } catch (error) {
       console.error(error);
@@ -75,13 +79,16 @@ function Sessions({ sessionData }) {
   };
 
   const handleCancelCreate = () => {
+    console.log('handleCancelCreate is called');
     setIsCreating(false);
   };
-
+  // if (isLoadingStudentList || tutorSessions === null) {
+  //   return <Typography>Loading</Typography>;
+  // }
   if (isLoading) {
-    return <Typography>Loading</Typography>;
+    return <Typography>Chargement....</Typography>;
   }
-
+  console.log('tutorSessions in sessions :', tutorSessions);
   return (
     <Box className={classes.cardContainer}>
       <Box
@@ -93,7 +100,7 @@ function Sessions({ sessionData }) {
         padding="10px"
       >
         {isCreating ? (
-          <CreateSession onCancel={handleCancelCreate} />
+          <CreateSession handleCancelCreate={handleCancelCreate} />
         ) : tutorSessions.length === 0 ? (
           <Box display="flex" justifyContent="center">
             <Typography variant="h5" textAlign="center">
@@ -109,18 +116,18 @@ function Sessions({ sessionData }) {
           </NavLink>
         )}
       </Box>
-
-      {tutorSessions.map((session) => (
-        <Box padding="10px" key={session.id}>
-          <TutorSessionCard
-            session={session}
-            sessionId={session.id}
-            onDelete={handleDeleteSession}
-            setTutorSessions={setTutorSessions}
-            studentList={studentList}
-          />
-        </Box>
-      ))}
+      {tutorSessions &&
+        tutorSessions.map((session) => (
+          <Box padding="10px" key={session.id}>
+            <TutorSessionCard
+              session={session}
+              sessionId={session.id}
+              onDelete={handleDeleteSession}
+              setTutorSessions={setTutorSessions}
+              studentList={studentList}
+            />
+          </Box>
+        ))}
 
       {/* Affichage du message de confirmation */}
       {confirmationMessage && (

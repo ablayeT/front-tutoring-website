@@ -23,7 +23,7 @@ export const useStyles = makeStyles()((theme) => {
     appBarTutor: {
       height: '2.4rem',
       top: '5rem',
-      backgroundColor: 'orange',
+      backgroundColor: 'white',
       color: '#4a4a49',
       display: 'flex',
       flexDirection: 'row',

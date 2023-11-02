@@ -109,22 +109,6 @@ function TutorProfileForm() {
             />
           </Stack>
         ))}
-        {/* <Stack>
-        <FormLabel sx={{fontSize:'19px', fontWeight:'bold'}}>Télécharger une photo</FormLabel>
-        <TextField  type="file" name="imageUrl" id="imageUrl" onChange={handleChange}/>
-      </Stack>
-      <Stack >
-        <TextField name="skills" label='Compétences' id="skills" value={formData.skills} onChange={handleChange} />
-      </Stack>
-      <Stack>
-        <TextField name="experience" label='Expériences' id="experience" value={formData.experience} onChange={handleChange} />
-      </Stack>
-      <Stack>
-        <TextField type="text" label='Taux horaire' name="hourly_rate" id="hourly_rate" value={formData.hourly_rate} onChange={handleChange} />
-      </Stack>
-      <Stack>
-        <TextField name="availability" label='Disponibilité' id="availability" value={formData.availability} onChange={handleChange} />
-      </Stack> */}
         <Button type="submit">Soumettre</Button>
       </FormControl>
     </Box>

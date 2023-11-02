@@ -15,10 +15,16 @@ import tutoringSessionFields from './CreateSessionForm.schema/CreateSessionsForm
 import useStyles from './style';
 import { useNavigate } from 'react-router-dom';
 
-function CreateSession({ mode, sessionToEdit, updateSessions, onCancel }) {
+function CreateSession({ mode, sessionToEdit, handleCancelCreate }) {
   const navigate = useNavigate();
+  const [sessions, setSessions] = useState([]);
+
   const { classes } = useStyles();
   const tutorId = localStorage.getItem('userId');
+
+  const updateSessions = (newSession) => {
+    setSessions([...sessions, newSession]);
+  };
 
   const [formData, setFormData] = useState({
     tutor_id: tutorId,
@@ -67,7 +73,11 @@ function CreateSession({ mode, sessionToEdit, updateSessions, onCancel }) {
       [name]: value,
     });
   };
-
+  const handleCancel = () => {
+    console.log('teste');
+    console.log(typeof onCancel);
+    handleCancelCreate();
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -94,9 +104,7 @@ function CreateSession({ mode, sessionToEdit, updateSessions, onCancel }) {
         console.log(error);
       });
   };
-  const handleCancel = () => {
-    onCancel();
-  };
+
   return (
     <Box className={classes.createSessionContainer}>
       <Typography variant="h4" marginBottom="15px">
@@ -144,7 +152,7 @@ function CreateSession({ mode, sessionToEdit, updateSessions, onCancel }) {
             )}
           </Stack>
         ))}
-        <Box display="flex" justifyContent="center" marginTop="2rem">
+        <Box display="flex" justifyContent="center" gap="1rem" marginTop="2rem">
           <Button onClick={handleCancel}>Annuler</Button>
           <Button>Créer la session</Button>
         </Box>

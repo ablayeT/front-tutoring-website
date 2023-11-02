@@ -2,8 +2,24 @@ import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
 import TutorReservedSessionCard from '../../../Cards/TutorReservedSessionCard';
 
-function ReservedSessions({ sessionData }) {
+function ReservedSessions() {
   // console.log('sesssionData : ', sessionData);
+  const [sessionData, setSessionData] = useState(null);
+
+  useEffect(() => {
+    const fetchTutorSessions = async () => {
+      try {
+        const response = await api.get('/tutors/sessions');
+
+        setSessionData(response.data.sessions);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTutorSessions();
+  }, []);
   return (
     <Box minHeight="100vh" paddingTop={15}>
       <Typography variant="body1">
