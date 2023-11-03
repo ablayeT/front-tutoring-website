@@ -63,13 +63,12 @@ export const useStyles = makeStyles()((theme) => {
         justifyContent: 'center',
         textAlign: 'center',
         paddingRight: '10px',
-        background: '#222',
+        background: 'rgba(255, 165, 0, 0.8)',
         width: '2rem',
         '&:hover': {
-          color: 'red',
-          background: 'white',
+          background: 'lightgray',
           borderRadius: '0',
-          border: '1px solid #222',
+          border: '1px solid rgba(255, 165, 0, 1)',
         },
       },
     },
@@ -86,10 +85,13 @@ export const useStyles = makeStyles()((theme) => {
     button: {
       color: 'black',
       borderRadius: '0',
+      fontWeight: 'bold',
+
       height: '100%',
       '&:hover': {
-        color: 'white',
-        background: 'black',
+        color: '#222',
+        background: 'rgba(255, 165, 0, 0.8)',
+        borderRadius: '10px',
       },
     },
     toggleButton: {
@@ -134,6 +136,7 @@ export const useStyles = makeStyles()((theme) => {
 
       [theme.breakpoints.down('md')]: {
         color: 'white',
+
         '&:hover': {
           color: '#222',
         },

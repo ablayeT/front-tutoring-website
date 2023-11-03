@@ -7,10 +7,9 @@ export const useStyles = makeStyles()((theme) => {
       textAlign: 'center',
       alignItems: 'center',
       background: '#222',
-      flexDirection: 'column',
       color: '#FFFFFF',
-      fontSize: '19px',
-      height: '6rem',
+      fontSize: '15px',
+      height: '4rem',
       justifyContent: 'center',
       position: 'fixed',
       bottom: '0',
@@ -19,10 +18,10 @@ export const useStyles = makeStyles()((theme) => {
     },
     logoFooter: {
       width: '120px',
-      height: '80px',
+      height: '100px',
     },
     footerText: {
-      paddingBottom: '15px',
+      fontSize: '12px',
     },
   };
 });

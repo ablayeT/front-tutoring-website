@@ -11,6 +11,10 @@ import Contact from './page/Contacts/Contat';
 import Footer from './components/Footer/Footer';
 import AllSessions from './page/Courses/AllSessions/AllSessions';
 import { Box } from '@mui/material';
+import ProfileManager from '../src/components/Students/profileManager';
+import Sessions from '../src/components/Students/SessionManager/MySessions/MySessions';
+import SearchResults from '../src/components/Students/SearchResults/SearchResults';
+import DashboardHomePage from '../src/components/DashboardHomePage';
 
 function App() {
   return (
@@ -21,7 +25,6 @@ function App() {
       height="100%"
       width="100%"
       minWidth="10%"
-      border="1px solid red"
     >
       <Router>
         <AuthProvider>
@@ -36,9 +39,14 @@ function App() {
               element={<PrivateRoute element={<TutorDashboard />} />}
             />
             <Route
-              path="/student-dashboard/*"
+              path="/student-dashboard"
               element={<PrivateRoute element={<StudentDashboard />} />}
-            />
+            >
+              <Route path="profile" element={<ProfileManager />} />
+              <Route path="sessions" element={<Sessions />} />
+              <Route path="search" element={<SearchResults />} />
+              <Route path="" element={<DashboardHomePage />} />
+            </Route>
           </Routes>
           <Footer />
         </AuthProvider>

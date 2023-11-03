@@ -1,6 +1,6 @@
 import { React, useEffect } from 'react';
 import { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import api from '../../../../services/api';
 import ReservedSessionCard from '../../../Cards/ReservedSessionCard';
 import useStyles from './Styles';
@@ -8,25 +8,27 @@ import useStyles from './Styles';
 function MySessions() {
   const { classes } = useStyles();
   const [reservedSessions, setReservedSessions] = useState([]);
-  const [refresh, setRefresh] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchStudentSessions = async () => {
-      try {
-        const response = await api.get('/students/sessions');
+  // useEffect(() => {
+  //   const fetchStudentSessions = async () => {
+  //     try {
+  //       const response = await api.get('/students/sessions');
 
-        setReservedSessions(response.data);
-      } catch (error) {
-        console.error(
-          'Erreur lors de la récupération de la session réservées :',
-          error,
-        );
-      }
-    };
+  //       setReservedSessions(response.data);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error(
+  //         'Erreur lors de la récupération de la session réservées :',
+  //         error,
+  //       );
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchStudentSessions();
-  }, [refresh]);
+  //   fetchStudentSessions();
+  // }, []);
 
   const handleCancelSession = async (sessionId) => {
     const isConfirmed = window.confirm(
@@ -44,7 +46,9 @@ function MySessions() {
             (session) => session.tutoring_session_id !== sessionId,
           ),
         );
-        setRefresh((prevRefresh) => !prevRefresh);
+
+        refreshData();
+
         setConfirmationMessage('Session annulée avec succès');
         // Effacez le message de confirmation après 2 secondes
         setTimeout(() => {
@@ -55,6 +59,29 @@ function MySessions() {
       }
     }
   };
+
+  const refreshData = () => {
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/students/sessions');
+        setReservedSessions(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(
+          'Erreur lors de la récupération de la session réservées :',
+          error,
+        );
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  };
+  useEffect(refreshData, []); // Appel initial pour charger les données
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
 
   return (
     <Box
@@ -86,7 +113,7 @@ function MySessions() {
         <Box
           className={`${classes.confirmationMessage} ${classes.confirmationMessageVisible}  `}
         >
-          <Typography variant="body1">{confirmationMessage}</Typography>
+          <Typography variant="body1">Sessions annulée avec succés</Typography>
         </Box>
       )}
     </Box>

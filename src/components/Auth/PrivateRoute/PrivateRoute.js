@@ -1,13 +1,24 @@
+import { useEffect, useState } from 'react';
 import { useAuth } from '../AuthContext/AuthContext'; // Importer le hook
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 const PrivateRoute = ({ element }) => {
   const { verifyLogin } = useAuth();
+  const [isVerified, setIsverified] = useState(false);
 
-  if (verifyLogin()) {
+  useEffect(() => {
+    const verification = async () => {
+      await verifyLogin();
+      setIsverified(true);
+    };
+    verification();
+  }, []);
+
+  if (isVerified) {
     return element;
   } else {
-    return <Navigate to="/auth" />;
+    return <CircularProgress />;
   }
 };
 export default PrivateRoute;

@@ -14,6 +14,7 @@ import DashboardHomePage from '../../DashboardHomePage';
 
 function Dashboard() {
   const { classes } = useStyles();
+  const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
 
   return (

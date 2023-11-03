@@ -79,17 +79,16 @@ function ProfileInfos({ profileData, userData }) {
 
       const updatedProfileResponse = await api.get(
         `/students/profile/${userInfos.user.id}`,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        },
       );
       setProfileInfos(updatedProfileResponse.data);
       setIsEditing(false);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
   };
 
   return (
@@ -143,13 +142,18 @@ function ProfileInfos({ profileData, userData }) {
             </Stack>
           ))}
 
-          <Stack display="flex" justifyContent="center">
+          <Stack
+            display="flex"
+            justifyContent="center"
+            width="20%"
+            margin="auto"
+          >
             <MuiButton
               variant="outlined"
               sx={{ background: '#FFA500', width: '3rem' }}
               onClick={handleEditClick}
             >
-              Modifier mon proifil
+              Modifier
             </MuiButton>
           </Stack>
         </Box>
@@ -161,7 +165,8 @@ function ProfileInfos({ profileData, userData }) {
           width="100%"
           gap="20px"
           margin="auto"
-          border="1px solid lightgray"
+          boxShadow="0px 0px 10px 0px rgba(0, 0, 0, 0.6);"
+          backgroundColor="white"
           padding="10px"
           borderRadius="10px"
           flexDirection="column"
@@ -184,7 +189,14 @@ function ProfileInfos({ profileData, userData }) {
               <Orangebar />
             </Stack>
           ))}
-          <Stack display="flex" justifyContent="center">
+          <Stack
+            display="flex"
+            justifyContent="center"
+            width="20%"
+            margin="auto"
+            flexDirection="row"
+            gap="10px"
+          >
             <MuiButton
               variant="outlined"
               sx={{
@@ -194,7 +206,18 @@ function ProfileInfos({ profileData, userData }) {
               }}
               onClick={handleUpdateProfile}
             >
-              Enregistrer les Modifications
+              Enregistrer
+            </MuiButton>
+            <MuiButton
+              variant="outlined"
+              sx={{
+                alignSelf: 'center',
+                background: '#FFA500',
+                color: 'black',
+              }}
+              onClick={handleCancelEdit}
+            >
+              Annuler
             </MuiButton>
           </Stack>
         </Box>
