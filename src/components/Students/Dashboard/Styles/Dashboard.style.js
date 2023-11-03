@@ -8,13 +8,14 @@ export const useStyles = makeStyles()((theme) => {
   return {
     studentDashboardPage: {
       minHeight: '100vh',
-      background: 'white',
+      background: 'rgba(255, 165, 0, 0.2)',
       borderRadius: '15px',
-      width: '80%',
+      width: '90%',
       alignSelf: 'center',
       display: 'flex',
       margin: 'auto',
-      padding: '10px',
+      marginTop: '2rem',
+      padding: '2rem',
       flexDirection: 'column',
       [theme.breakpoints.down('md')]: {
         padding: '0',
@@ -22,33 +23,6 @@ export const useStyles = makeStyles()((theme) => {
     },
   };
 });
-
-// export const Main = styled('main', {
-//   shouldForwardProp: (prop) => prop !== 'open',
-// })(({ theme, open }) => ({
-//   // flexGrow: 1,
-//   // padding: theme.spacing(3),
-//   width: '80%',
-//   textAlign: 'center',
-//   border: '1px solid blue',
-//   alignSelf: 'center',
-//   alignItems: 'center',
-//   width: '100%',
-//   justifyContent: 'center',
-//   minHeight: '100vh',
-//   transition: theme.transitions.create('margin', {
-//     // easing: theme.transitions.easing.sharp,
-//     // duration: theme.transitions.duration.leavingScreen,
-//   }),
-//   marginLeft: `-${drawerWidth}px`,
-//   ...(open && {
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//     // marginLeft: 0,
-//   }),
-// }));
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',

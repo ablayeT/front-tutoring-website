@@ -7,13 +7,14 @@ export const useStyles = makeStyles()((theme) => {
       flexDirection: 'column',
       gap: '3rem',
       margin: 'auto',
-      width: '40%',
+      width: '60%',
       padding: '2rem',
       borderRadius: '10px',
       backgroundColor: theme.palette,
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
-        width: 'auto',
+        width: '90%',
+        margin: 'auto',
       },
     },
     button: {

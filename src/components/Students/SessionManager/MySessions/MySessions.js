@@ -63,8 +63,6 @@ function MySessions() {
       flexDirection="column"
       justifyContent="center"
       flexWrap="wrap"
-      border="1px solid yellow"
-      margin="10px"
     >
       <Typography> Mes Sessions</Typography>
       <Box className={classes.MySessionContainer}>

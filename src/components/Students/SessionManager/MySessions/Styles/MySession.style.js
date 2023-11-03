@@ -6,14 +6,15 @@ export const useStyles = makeStyles()((theme) => {
       width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
-      margin: '10px',
       gap: '1rem',
-      padding: '10px',
-      border: '1px solid red',
+      padding: '15px',
+      // border: '0.1px solid lightgray',
+      boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.6);',
+      background: 'white',
+      borderRadius: '15px',
       justifyContent: 'center',
     },
     MySessionCard: {
-      border: '1px solid green',
       display: 'flex',
       flexWrap: 'wrap',
       [theme.breakpoints.down('md')]: {
@@ -24,11 +25,9 @@ export const useStyles = makeStyles()((theme) => {
       // },
       [theme.breakpoints.up('md')]: {
         width: '48%',
-        color: 'green',
       },
       [theme.breakpoints.up('lg')]: {
-        width: '32%',
-        color: 'blue',
+        width: '33%',
       },
     },
 

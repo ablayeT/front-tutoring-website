@@ -46,13 +46,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <Box
-      display="flex"
-      border="1px solid pink"
-      flexWrap="wrap"
-      width="100%"
-      minHeight="100vh"
-    >
+    <Box display="flex" flexWrap="wrap" width="100%" minHeight="100vh">
       <CssBaseline />
 
       <AppBarDashboard />
@@ -60,7 +54,6 @@ function Dashboard() {
       <Box
         sx={{
           display: 'flex',
-          border: '1px solid purples',
           width: '100%',
           flexWrap: 'wrap',
         }}

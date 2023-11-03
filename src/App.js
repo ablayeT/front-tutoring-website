@@ -10,18 +10,18 @@ import Auth from './page/Auth/Auth';
 import Contact from './page/Contacts/Contat';
 import Footer from './components/Footer/Footer';
 import AllSessions from './page/Courses/AllSessions/AllSessions';
-import useStyles from './App.style';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 
 function App() {
-  const classes = useStyles();
   return (
     <Box
-      backgroundColor="orange"
-      paddingTop="8rem"
-      paddingBottom="6rem"
+      backgroundColor="white"
+      paddingTop="7rem"
+      paddingBottom="5rem"
       height="100%"
       width="100%"
+      minWidth="10%"
+      border="1px solid red"
     >
       <Router>
         <AuthProvider>

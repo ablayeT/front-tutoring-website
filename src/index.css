@@ -8,12 +8,3 @@ body {
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
 }
-
-#root {
-  min-width: 100vh;
-}
-.indexCss {
-  padding: 0;
-  margin: 0;
-  border: 1px solid red;
-}
