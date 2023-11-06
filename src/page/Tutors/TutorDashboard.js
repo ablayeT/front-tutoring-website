@@ -6,26 +6,37 @@ import CreateSession from '../../components/Tutors/SessionManager/CreateSession'
 import Sessions from '../../components/Tutors/SessionManager/Sessions';
 import ReservedSessions from '../../components/Tutors/SessionManager/ReservedSessions';
 import DashboardHomePage from '../../components/DashboardHomePage';
-import { Box, CssBaseline } from '@mui/material';
-// import { useStyles } from './Styles';
+import { Box, CssBaseline, Button, IconButton } from '@mui/material';
+import useStyles from './style';
 import AppBarDashboard from '../../components/AppBarDashboard';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function TutorDashboard() {
-  // const { classes } = useStyles();
+  const { classes } = useStyles();
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
-    <Box className="">
+    <Box className={classes.TutorDashboard}>
       <CssBaseline />
       <AppBarDashboard />
       <Box width="100%">
         <Box sx={{ textAlign: 'left' }}>
-          <Routes>
-            <Route path="profile" element={<ProfileManager />} />
-            <Route path="sessions" element={<Sessions />} />
-            <Route path="create-session" element={<CreateSession />} />
-            <Route path="reserved-sessions" element={<ReservedSessions />} />
-            <Route path="/" element={<DashboardHomePage />} />
-          </Routes>
+          <Link>
+            <Button onClick={handleGoBack}>
+              <IconButton
+                onClick={handleGoBack}
+                color="#222"
+                aria-label="retour"
+              >
+                <ArrowBackIcon />
+              </IconButton>
+            </Button>
+          </Link>
+          <Outlet />
         </Box>
       </Box>
     </Box>

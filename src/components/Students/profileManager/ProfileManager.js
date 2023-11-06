@@ -38,7 +38,7 @@ function ProfileManager() {
   }
 
   return (
-    <Box width="100%">
+    <Box width="90%" margin="auto">
       {isProfileComplete ? (
         <ProfileInfos profileData={profileData} userData={userData} />
       ) : (

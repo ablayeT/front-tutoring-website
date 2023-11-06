@@ -2,25 +2,22 @@ import { makeStyles } from 'tss-react/mui';
 
 export const useStyles = makeStyles()((theme) => {
   return {
-    createSessionContainer: {
+    profileContainer: {
       display: 'flex',
-      flexDirection: 'column',
       justifyContent: 'center',
-      border: '1px solid lightgray',
-      width: '90%',
-      margin: 'auto',
-      borderRadius: '15px',
-      padding: '15px',
-      backgroundColor: '#fafafa',
+      alignItems: 'center',
+      flexDirection: 'column',
     },
 
     updateButton: {
+      background: '#FFA500',
+
       [theme.breakpoints.down('md')]: {
-        width: '60%',
+        width: 'rem',
       },
-      [theme.breakpoints.down('sm')]: {
-        width: '100%',
-      },
+      //   [theme.breakpoints.down('sm')]: {
+      //     width: '100%',
+      //   },
     },
     editProfileContainer: {
       display: 'flex',

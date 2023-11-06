@@ -6,8 +6,10 @@ import MuiButton from '../../../Buttons/Button';
 import userFields from './userInfo.schema';
 import { orange } from '@mui/material/colors';
 import Orangebar from '../../../Assets/OrangeBar';
+import useStyles from './style';
 
 function ProfileInfos({ profileData, userData }) {
+  const { classes } = useStyles();
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfileData, setEditedProfileData] = useState({
     skills: '',
@@ -92,12 +94,7 @@ function ProfileInfos({ profileData, userData }) {
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-    >
+    <Box className={classes.profileContainer}>
       {!isEditing && (
         <Box
           display="flex"
@@ -150,7 +147,7 @@ function ProfileInfos({ profileData, userData }) {
           >
             <MuiButton
               variant="outlined"
-              sx={{ background: '#FFA500', width: '3rem' }}
+              className={classes.updateButton}
               onClick={handleEditClick}
             >
               Modifier

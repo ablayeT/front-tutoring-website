@@ -88,20 +88,13 @@ function Sessions() {
   if (isLoading) {
     return <Typography>Chargement....</Typography>;
   }
-  console.log('tutorSessions in sessions :', tutorSessions);
   return (
-    <Box className={classes.cardContainer}>
-      <Box
-        display="flex"
-        flexDirection="column"
-        gap="1rem"
-        width="100%"
-        textAlign="center"
-        padding="10px"
-      >
-        {isCreating ? (
-          <CreateSession handleCancelCreate={handleCancelCreate} />
-        ) : tutorSessions.length === 0 ? (
+    <Box className={classes.SessionsContainer}>
+      {isCreating ? (
+        <CreateSession handleCancelCreate={handleCancelCreate} />
+      ) : (
+        tutorSessions &&
+        tutorSessions.length === 0 && (
           <Box display="flex" justifyContent="center">
             <Typography variant="h5" textAlign="center">
               Vous n'avez pas encore de session.
@@ -110,25 +103,38 @@ function Sessions() {
               <Button>Créer une session</Button>
             </NavLink>
           </Box>
-        ) : (
-          <NavLink to="/tutor-dashboard/create-session">
-            <Button onClick={handleCreateSession}>Nouvelle session</Button>
-          </NavLink>
-        )}
-      </Box>
-      {tutorSessions &&
-        tutorSessions.map((session) => (
-          <Box padding="10px" key={session.id}>
-            <TutorSessionCard
-              session={session}
-              sessionId={session.id}
-              onDelete={handleDeleteSession}
-              setTutorSessions={setTutorSessions}
-              studentList={studentList}
-            />
-          </Box>
-        ))}
+        )
+      )}
 
+      <Box
+        padding="10px"
+        display="flex"
+        flexDirection="column"
+        width="100%"
+        gap="10px"
+      >
+        <NavLink to="/tutor-dashboard/create-session">
+          <Button onClick={handleCreateSession}>Nouvelle session</Button>
+        </NavLink>
+        <Box
+          display="flex"
+          justifyContent="center"
+          gap="1.5rem"
+          flexWrap="wrap"
+        >
+          {tutorSessions &&
+            tutorSessions.map((session) => (
+              <TutorSessionCard
+                session={session}
+                key={session.id}
+                sessionId={session.id}
+                onDelete={handleDeleteSession}
+                setTutorSessions={setTutorSessions}
+                studentList={studentList}
+              />
+            ))}
+        </Box>
+      </Box>
       {/* Affichage du message de confirmation */}
       {confirmationMessage && (
         <Box className={classes.confirmationMessage}>

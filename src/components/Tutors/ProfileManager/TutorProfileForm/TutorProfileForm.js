@@ -69,6 +69,7 @@ function TutorProfileForm() {
       display="flex"
       paddingTop="80px"
       justifyContent="center"
+      border="1px solid red"
       width="50%"
       margin="auto"
     >
@@ -76,7 +77,7 @@ function TutorProfileForm() {
         component="form"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
-        sx={{ gap: '20px', width: '100%' }}
+        sx={{ gap: '20px', width: '100%', border: '1px solid blue' }}
       >
         <Stack textAlign="center">
           <Typography variant="h5">Complétez votre profil</Typography>

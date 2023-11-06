@@ -1,19 +1,37 @@
 // StudentDashboard.js
 import React from 'react';
-import { Route, Routes, Outlet } from 'react-router-dom';
-import ProfileManager from '../../components/Students/profileManager/ProfileManager';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
-import Sessions from '../../components/Students/SessionManager/MySessions/MySessions';
-import SearchResults from '../../components/Students/SearchResults/SearchResults';
 import AppBarDashboard from '../../components/AppBarDashboard/AppBarDashboard';
-import { Box } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
+import useStyles from './style';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function StudentDashboard() {
+  const { classes } = useStyles();
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
-    <Box display="flex" flexWrap="wrap" width="100%" minHeight="100vh">
+    <Box className={classes.studentDashboard}>
       <CssBaseline />
       <AppBarDashboard />
-      <Box sx={{ display: 'flex', width: '100%', flexWrap: 'wrap' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          flexDirection: 'column',
+          flexWrap: 'wrap',
+        }}
+      >
+        <Link>
+          <Button onClick={handleGoBack}>
+            <IconButton onClick={handleGoBack} color="#222" aria-label="retour">
+              <ArrowBackIcon />
+            </IconButton>
+          </Button>
+        </Link>
         <Outlet />
       </Box>
     </Box>

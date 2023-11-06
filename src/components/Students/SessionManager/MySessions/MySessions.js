@@ -85,11 +85,15 @@ function MySessions() {
 
   return (
     <Box
-      width="100%"
       display="flex"
       flexDirection="column"
-      justifyContent="center"
-      flexWrap="wrap"
+      margin="auto"
+      width="90%"
+      padding="10px"
+      height="100%"
+      backgroundColor="white"
+      boxShadow="0px 0px 10px 0px rgba(34, 34, 34, 0.6);"
+      borderRadius="15px"
     >
       <Typography> Mes Sessions</Typography>
       <Box className={classes.MySessionContainer}>

@@ -11,7 +11,7 @@ export const useStyles = makeStyles()((theme) => {
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   backgroundColor: alpha(theme.palette.common.white, 1),
-  border: `2px solid rgba(255, 187, 51, 1)`,
+  border: `2px solid rgb(34, 34, 34, 0.6)`,
   borderRadius: '0.6rem',
   '&:hover': {
     backgroundColor: 'rgba(240, 240, 240, 0.8)',

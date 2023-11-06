@@ -11,16 +11,20 @@ import Contact from './page/Contacts/Contat';
 import Footer from './components/Footer/Footer';
 import AllSessions from './page/Courses/AllSessions/AllSessions';
 import { Box } from '@mui/material';
-import ProfileManager from '../src/components/Students/profileManager';
-import Sessions from '../src/components/Students/SessionManager/MySessions/MySessions';
+import StudentProfileManager from '../src/components/Students/profileManager';
+import StudentSessions from '../src/components/Students/SessionManager/MySessions/MySessions';
 import SearchResults from '../src/components/Students/SearchResults/SearchResults';
 import DashboardHomePage from '../src/components/DashboardHomePage';
+import CreateSession from './components/Tutors/SessionManager/CreateSession';
+import ReservedSessions from './components/Tutors/SessionManager/ReservedSessions/ReservedSessions';
+import TutorProfileManager from './components/Tutors/ProfileManager';
+import TutorSessions from './components/Tutors/SessionManager/Sessions';
 
 function App() {
   return (
     <Box
       backgroundColor="white"
-      paddingTop="7rem"
+      paddingTop="8rem"
       paddingBottom="5rem"
       height="100%"
       width="100%"
@@ -37,13 +41,19 @@ function App() {
             <Route
               path="/tutor-dashboard/*"
               element={<PrivateRoute element={<TutorDashboard />} />}
-            />
+            >
+              <Route path="profile" element={<TutorProfileManager />} />
+              <Route path="sessions" element={<TutorSessions />} />
+              <Route path="create-session" element={<CreateSession />} />
+              <Route path="reserved-sessions" element={<ReservedSessions />} />
+              <Route path="" element={<DashboardHomePage />} />
+            </Route>
             <Route
               path="/student-dashboard"
               element={<PrivateRoute element={<StudentDashboard />} />}
             >
-              <Route path="profile" element={<ProfileManager />} />
-              <Route path="sessions" element={<Sessions />} />
+              <Route path="profile" element={<StudentProfileManager />} />
+              <Route path="sessions" element={<StudentSessions />} />
               <Route path="search" element={<SearchResults />} />
               <Route path="" element={<DashboardHomePage />} />
             </Route>

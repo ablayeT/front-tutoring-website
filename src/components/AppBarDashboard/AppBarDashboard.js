@@ -54,6 +54,7 @@ function AppBarDashboard() {
 
   return (
     <AppBar
+      sx={{ borderTop: '3px solid rgba(255, 165, 0, 10)' }}
       className={
         userType === 'Student' ? classes.appBarStudent : classes.appBarTutor
       }
