@@ -36,18 +36,22 @@ export const AuthProvider = ({ children }) => {
       const userTypeLowercase =
         userType.charAt(0).toLowerCase() + userType.slice(1);
 
-      const profileResponse = await api.get(
-        `/${userTypeLowercase}s/profile/${userId}`,
-      );
-
       let userImage;
 
-      if (userType === 'Tutor') {
-        userImage = profileResponse.data.profile.imageUrl;
-      } else if (userType === 'Student') {
-        userImage = profileResponse.data.imageUrl;
-      } else {
-        // Gérez le cas par défaut ici si nécessaire
+      try {
+        const profileResponse = await api.get(
+          `/${userTypeLowercase}s/profile/${userId}`,
+        );
+
+        if (userType === 'Tutor') {
+          userImage = profileResponse.data.profile.imageUrl;
+        } else if (userType === 'Student') {
+          userImage = profileResponse.data.imageUrl;
+        } else {
+          // Gérer le cas par défaut ici si nécessaire
+          userImage = ''; // ou null ou une autre valeur par défaut
+        }
+      } catch (err) {
         userImage = ''; // ou null ou une autre valeur par défaut
       }
 
@@ -57,7 +61,7 @@ export const AuthProvider = ({ children }) => {
         type: userType,
         first_name: userFirstName,
         last_name: userLastName,
-        imageUrl: userImage,
+        imageUrl: userImage ? userImage : null,
       };
 
       setUser(userData);
@@ -72,15 +76,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Faire une requête à l'API pour déconnecter l'utilisateur
-      await api.post(
-        '/auth/logout',
-        {},
-        // {
-        //   headers: {
-        //     authorization: `Bearer ${localStorage.getItem('token')}`,
-        //   },
-        // },
-      );
+      await api.post('/auth/logout', {});
 
       // Supprimez le token de l'utilisateur du stockage local
       localStorage.clear();

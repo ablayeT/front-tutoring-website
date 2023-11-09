@@ -1,52 +1,56 @@
 import React from 'react';
 import { Box, Typography, Grid, Paper, Stack, Container } from '@mui/material';
 import useStyles from './style';
-import BannerImage from '../../Assets/photoTuteur3.jpg';
-
+import BannerImage1 from '../../Assets/photoTuteur3.jpg';
+import BannerImage2 from '../../Assets/photoTutor4.jpg';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 const ChooseYourTime = () => {
   const { classes } = useStyles();
 
   return (
-    <Box
-      display="flex"
-      gap="15px"
-      height="100%"
-      alignItems="center"
-      flexWrap="wrap"
-      width="100%"
-      className={classes.gridContainer}
-    >
+    <Box display="flex" className={classes.gridContainer}>
       <Box
         flex="1"
         display="flex"
         justifyContent="center"
         className={classes.imageContainer}
       >
-        <Box
-          component="img"
-          src={BannerImage}
-          transform="rotate(-9deg)"
-          width="400px"
-          object-fit="fill"
-          margin="auto"
-          borderRadius="1000px 1200px 1200px 1000px"
-          height="280px"
-          alt="tutorWithStudent"
-          className={classes.bannerImage}
-        />
+        <Box position="relative" height="350px">
+          <Box className={classes.orangeCircle}></Box>
+          <Box className={classes.yellowCircle}></Box>
+
+          <Box>
+            <Box
+              component="img"
+              src={BannerImage1}
+              alt="tutorWithStudent"
+              className={classes.bannerImage1}
+            />
+          </Box>
+          <Box>
+            <Box
+              component="img"
+              src={BannerImage2}
+              alt="tutorWithStudent"
+              className={classes.bannerImage2}
+            />
+          </Box>
+        </Box>
       </Box>
-      <Box
-        flex="1"
-        display="flex"
-        padding="20px"
-        gap="5px"
-        alignSelf="center"
-        flexDirection="column"
-        justifyContent="center"
-      >
+      <Box className={classes.textContainer}>
         <Typography variant="h5">C'est toi qui choisis!</Typography>
-        <Typography variant="body1">Fléxibilité des horaires</Typography>
-        <Typography> Tu est 100% maître de ton planning</Typography>
+        <Stack>
+          <Box display="flex" color="orange">
+            <HourglassBottomIcon />
+
+            <Typography variant="body1">Fléxibilité des horaires</Typography>
+          </Box>
+          <Box display="flex" color="orange">
+            <LocationOnIcon />
+            <Typography>Tu es 100% maitre de ton planning</Typography>
+          </Box>
+        </Stack>
         <Typography variant="body3">
           En tant que tuteur indépendant, tu gères ton emploi du temps comme tu
           l’entends. Eduguide, c’est ouvert 7 jours sur 7.

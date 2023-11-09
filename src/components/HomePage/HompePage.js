@@ -22,10 +22,16 @@ function HompePage() {
         <Banner />
       </Box>
 
-      <Box>
+      <Box height="400px" borderwidth="90%" margin="auto" borderRadius="15px">
         <ChooseYourTime />
       </Box>
-      <Box height="400px" backgroundColor="rgba(255, 165, 0, 0.2)">
+      <Box
+        height="400px"
+        backgroundColor="rgba(255, 165, 0, 0.2)"
+        width="90%"
+        margin="auto"
+        borderRadius="15px"
+      >
         <TutorBloc />
       </Box>
       <Box height="400px" backgroundColor="white">
@@ -40,6 +46,9 @@ function HompePage() {
       <Box
         backgroundColor="rgba(255, 165, 0, 0.2)"
         display="flex"
+        width="90%"
+        borderRadius="15px"
+        margin="auto"
         justifyContent="center"
         padding="25px"
       >

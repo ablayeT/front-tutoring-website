@@ -34,11 +34,19 @@ const TutorBloc = () => {
         className={classes.imageContainer}
         // borderRadius="950px 909px 800px 1000px"
       >
+        <Box className={classes.orangeCircle}></Box>
+        <Box className={classes.yellowCircle}></Box>
         <Box
           component="img"
           src={BannerImage}
           className={classes.bannerImage}
         />
+        <Box
+          className={classes.blueCircle}
+          shape="heart"
+          width={100}
+          height={100}
+        ></Box>
       </Box>
     </Box>
     // </Box>

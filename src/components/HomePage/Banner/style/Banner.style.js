@@ -7,11 +7,10 @@ export const useStyles = makeStyles()((theme) => {
       padding: '1rem',
       alignSelf: 'center',
       justifyContent: 'center',
-      gap: '15px',
-
       height: '100%',
       alignItems: 'center',
       width: '100%',
+
       background: 'rgba(255, 165, 0, 0.2)',
       [theme.breakpoints.down('md')]: {
         flexDirection: 'column',
@@ -59,7 +58,6 @@ export const useStyles = makeStyles()((theme) => {
       width: '400px',
       objectFit: 'fill',
       margin: 'auto',
-      // borderRadius:"10px"
       borderRadius: '1000px 1200px 1200px 1000px',
       height: '280px',
       alt: 'tutorWithStudent',

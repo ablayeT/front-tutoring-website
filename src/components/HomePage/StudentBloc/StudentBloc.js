@@ -9,44 +9,16 @@ const StudentBloc = () => {
   const { classes } = useStyles();
 
   return (
-    <Box
-      display="flex"
-      gap="15px"
-      height="100%"
-      alignItems="center"
-      flexWrap="wrap"
-      width="100%"
-      className={classes.gridContainer}
-    >
-      <Box
-        flex="1"
-        display="flex"
-        justifyContent="center"
-        className={classes.imageContainer}
-        // borderRadius="950px 909px 800px 1000px"
-      >
+    <Box className={classes.gridContainer}>
+      <Box className={classes.imageContainer}>
         <Box
           component="img"
           src={BannerImage}
-          transform="rotate(-9deg)"
-          width="400px"
-          object-fit="fill"
-          margin="auto"
-          borderRadius="1000px 1200px 1200px 1000px"
-          height="280px"
           alt="tutorWithStudent"
           className={classes.bannerImage}
         />
       </Box>
-      <Box
-        flex="1"
-        display="flex"
-        padding="20px"
-        gap="5px"
-        alignSelf="center"
-        flexDirection="column"
-        justifyContent="center"
-      >
+      <Box className={classes.textContainer}>
         <Typography variant="h5">Je veux m'inscrire comme étudiant</Typography>
         <Box display="flex" color="orange">
           <HourglassBottomIcon />

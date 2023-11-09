@@ -70,14 +70,17 @@ function TutorProfileForm() {
       paddingTop="80px"
       justifyContent="center"
       border="1px solid red"
-      width="50%"
+      backgroundColor="white"
+      borderRadius="10px"
+      width="100%"
+      padding="10px"
       margin="auto"
     >
       <FormControl
         component="form"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
-        sx={{ gap: '20px', width: '100%', border: '1px solid blue' }}
+        sx={{ gap: '20px', width: '100%' }}
       >
         <Stack textAlign="center">
           <Typography variant="h5">Complétez votre profil</Typography>

@@ -61,7 +61,6 @@ const CarouselComponent = () => {
               height="40px"
               backgroundColor="white"
               border="1px solid green"
-              borderRadius="10px"
             >
               <Typography>{subject}</Typography>
             </Container>
