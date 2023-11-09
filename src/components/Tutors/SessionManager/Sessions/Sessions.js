@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
-// import instanceAxios from '../../../services/axiosInterceptor';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import TutorSessionCard from '../../../Cards/TutorSessionCard/TutorSessionsCard';
 import { NavLink } from 'react-router-dom';
 import Button from '../../../Buttons/Button';
 import api from '../../../../services/api';
-// import useStyles from '../../../Cards/TutorSessionCard/style';
 import useStyles from './style';
 import CreateSession from '../CreateSession';
 
@@ -86,7 +84,7 @@ function Sessions() {
   //   return <Typography>Loading</Typography>;
   // }
   if (isLoading) {
-    return <Typography>Chargement....</Typography>;
+    return <CircularProgress />;
   }
   return (
     <Box className={classes.SessionsContainer}>

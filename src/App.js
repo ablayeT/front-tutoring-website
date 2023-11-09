@@ -28,6 +28,8 @@ function App() {
       paddingBottom="5rem"
       height="100%"
       width="100%"
+      fontStyle="normal"
+      fontFamily="Nunito sans"
       minWidth="10%"
     >
       <Router>

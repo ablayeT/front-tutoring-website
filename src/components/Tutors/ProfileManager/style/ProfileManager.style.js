@@ -8,9 +8,14 @@ export const useStyles = makeStyles()((theme) => {
       alignSelf: 'center',
       display: 'flex',
       alignItems: 'center',
-      width: '80%',
+      borderRadius: '15px',
+      boxShadow: '0px 0px 10px 0px rgba(34, 34, 34, 0.6)',
+      width: '90%',
       [theme.breakpoints.down('md')]: {
         width: '100%',
+      },
+      [theme.breakpoints.up('md')]: {
+        width: '80%',
       },
     },
   };

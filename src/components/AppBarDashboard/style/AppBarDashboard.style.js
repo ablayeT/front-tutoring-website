@@ -6,7 +6,7 @@ export const useStyles = makeStyles()((theme) => {
   return {
     appBarStudent: {
       height: '3rem',
-      top: '5rem',
+      top: '4rem',
       backgroundColor: 'white ',
       color: '#4a4a49',
       display: 'flex',
@@ -22,7 +22,7 @@ export const useStyles = makeStyles()((theme) => {
 
     appBarTutor: {
       height: '2.4rem',
-      top: '5rem',
+      top: '4rem',
       backgroundColor: 'white',
       color: '#4a4a49',
       display: 'flex',

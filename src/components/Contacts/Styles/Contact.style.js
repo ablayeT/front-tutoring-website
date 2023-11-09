@@ -10,10 +10,13 @@ export const useStyles = makeStyles()((theme) => {
       margin: 'auto',
       padding: '1rem',
       borderRadius: '10px',
-      backgroundColor: theme.palette,
-      boxShadow: theme.shadows[5],
+      background: 'white',
+      boxShadow: '0px 0px 10px 0px rgba(34, 34, 34, 0.6)',
       [theme.breakpoints.up('md')]: {
-        width: '70%',
+        width: '60%',
+      },
+      [theme.breakpoints.down('md')]: {
+        width: '90%',
       },
     },
     confirmationMessage: {

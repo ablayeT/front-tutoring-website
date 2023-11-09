@@ -9,7 +9,7 @@ export const useStyles = makeStyles()((theme) => {
       background: '#222',
       color: '#FFFFFF',
       fontSize: '15px',
-      height: '4rem',
+      height: '3rem',
       justifyContent: 'center',
       position: 'fixed',
       bottom: '0',

@@ -8,12 +8,14 @@ function Index() {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      width="80%"
-      backgroundColor="white"
+      width="90%"
+      border="1px solid red"
+      backgroundColor="rgba(255, 165, 0, 0.5)"
       borderRadius="15px"
       margin="auto"
       minheight="100vh"
-      paddingTop="6rem"
+      paddingTop="1rem"
+      paddingBottom="1rem"
     >
       <Contact />
     </Box>

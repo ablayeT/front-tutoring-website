@@ -5,7 +5,7 @@ export const useStyles = makeStyles()((theme) => {
     profileContainer: {
       display: 'flex',
       flexDirection: 'column',
-      width: '80%',
+      width: '100%',
       margin: 'auto',
       border: '1px solid lightgray',
       borderRadius: '10px',

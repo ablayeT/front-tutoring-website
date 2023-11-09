@@ -20,7 +20,7 @@ export const useStyles = makeStyles()((theme) => {
       justifyContent: 'space-between',
       color: 'white',
       background: '#222',
-      height: '5rem',
+      height: '4rem',
     },
 
     Toolbar: {
@@ -43,6 +43,7 @@ export const useStyles = makeStyles()((theme) => {
       width: '200px',
       objectFit: 'cover',
       padding: '15px',
+      marginBottom: '20px',
     },
     menuIcon: {
       height: '4rem',

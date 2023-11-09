@@ -4,6 +4,7 @@ import TutorProfileForm from './TutorProfileForm';
 import ProfileInfos from './ProfileInfos/ProfileInfos';
 import useStyles from './style';
 import api from '../../../services/api';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function ProfileManager() {
   const { classes } = useStyles();
@@ -48,7 +49,7 @@ function ProfileManager() {
   }, [userId]);
 
   if (isLoading) {
-    return <p>Chargement...</p>;
+    return <CircularProgress />;
   }
 
   return (

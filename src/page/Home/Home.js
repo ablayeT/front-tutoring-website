@@ -5,11 +5,10 @@ import HomePage from '../../components/HomePage';
 function Home() {
   return (
     <Box
-      border="1px solid lightgray"
+      // border="1px solid lightgray"
       backgroundColor="white"
-      width="90%"
       margin="auto"
-      borderRadius="15px"
+      padding="1rem 0 1rem 0"
       display="flex"
     >
       <HomePage />

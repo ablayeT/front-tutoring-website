@@ -53,12 +53,14 @@ function Header() {
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />
-      <Box
-        className={classes.logo}
-        component="img"
-        srcSet={logoImg}
-        alt="Logo"
-      ></Box>
+      <Button>
+        <Box
+          className={classes.logo}
+          component="img"
+          srcSet={logoImg}
+          alt="Logo"
+        ></Box>
+      </Button>
       <Toolbar className={classes.Toolbar}>
         <Box className={classes.navlinks}>
           {newButtonsData.map(

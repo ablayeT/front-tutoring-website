@@ -75,7 +75,7 @@ function CreateSession({ mode, sessionToEdit, handleCancelCreate }) {
   };
   const handleCancel = () => {
     console.log('teste');
-    console.log(typeof onCancel);
+    console.log(handleCancelCreate);
     handleCancelCreate();
   };
   const handleSubmit = async (event) => {
