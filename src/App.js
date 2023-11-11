@@ -1,4 +1,3 @@
-import { React } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import { AuthProvider } from './components/Auth/AuthContext/AuthContext';
@@ -19,6 +18,7 @@ import CreateSession from './components/Tutors/SessionManager/CreateSession';
 import ReservedSessions from './components/Tutors/SessionManager/ReservedSessions/ReservedSessions';
 import TutorProfileManager from './components/Tutors/ProfileManager';
 import TutorSessions from './components/Tutors/SessionManager/Sessions';
+import { React } from 'react';
 
 function App() {
   return (

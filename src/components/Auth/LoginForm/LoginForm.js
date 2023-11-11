@@ -14,6 +14,7 @@ function LoginForm() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,29 +24,51 @@ function LoginForm() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const userData = await login(email, password);
+    // setErrorMessage('');
+    try {
+      const userData = await login(email, password);
 
-    if (userData.error) {
-      console.log('Erreur de connexion :', userData.error);
-    } else {
-      // Redirigez vers la page de profil du tuteur ou de l'etudiant après la connexion réussie
-      console.log('userData:', userData);
-      console.log('userType1 :', userData.userType);
-      if (userData.userType === 'Tutor') {
-        localStorage.setItem('userType', 'Tutor');
-        navigate('/tutor-dashboard/');
-      } else if (userData.userType === 'Student') {
-        localStorage.setItem('userType', 'Student');
-        navigate('/student-dashboard/');
+      if (userData.error) {
+        console.log('Erreur de connexion :', userData.error);
       } else {
-        navigate('/');
+        // Redirigez vers la page de profil du tuteur ou de l'etudiant après la connexion réussie
+        console.log('userData:', userData);
+        console.log('userType1 :', userData.userType);
+        if (userData.userType === 'Tutor') {
+          localStorage.setItem('userType', 'Tutor');
+          navigate('/tutor-dashboard/');
+        } else if (userData.userType === 'Student') {
+          localStorage.setItem('userType', 'Student');
+          navigate('/student-dashboard/');
+        } else {
+          navigate('/');
+        }
       }
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error);
+      setErrorMessage(
+        "Une erreur s'est produite lors de la connexion. Veuillez réessayer.",
+      );
     }
   };
 
   return (
     <Box>
       <form onSubmit={handleFormSubmit} className={classes.form}>
+        {errorMessage && (
+          <Typography
+            variant="body1"
+            sx={{
+              backgroundColor: 'red',
+              color: 'white',
+              padding: '10px',
+              borderRadius: '5px',
+            }}
+          >
+            Erreur
+          </Typography>
+        )}
+
         <Typography variant="h4">Se Connecter</Typography>
         <Stack display="flex" flexDirection="column" justifyContent="center">
           <OrangeBar />

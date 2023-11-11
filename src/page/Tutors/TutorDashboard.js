@@ -6,7 +6,13 @@ import CreateSession from '../../components/Tutors/SessionManager/CreateSession'
 import Sessions from '../../components/Tutors/SessionManager/Sessions';
 import ReservedSessions from '../../components/Tutors/SessionManager/ReservedSessions';
 import DashboardHomePage from '../../components/DashboardHomePage';
-import { Box, CssBaseline, Button, IconButton } from '@mui/material';
+import {
+  Box,
+  CssBaseline,
+  Button,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import useStyles from './style';
 import AppBarDashboard from '../../components/AppBarDashboard';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
@@ -27,13 +33,13 @@ function TutorDashboard() {
         <Box sx={{ textAlign: 'left' }}>
           <Link>
             <Button onClick={handleGoBack}>
-              <IconButton
+              <Typography
                 onClick={handleGoBack}
                 color="#222"
                 aria-label="retour"
               >
                 <ArrowBackIcon />
-              </IconButton>
+              </Typography>
             </Button>
           </Link>
           <Outlet />

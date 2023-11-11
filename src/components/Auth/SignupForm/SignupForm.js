@@ -7,8 +7,10 @@ import {
   Stack,
   FormControl,
   TextField,
+  List,
+  ListItem,
 } from '@mui/material';
-import instanceAxios from '../../../services/api/index.js';
+import api from '../../../services/api';
 import MuiButton from '../../Buttons/Button';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from './Styles/SignupForm.style';
@@ -24,21 +26,90 @@ function SignupForm() {
     password: '',
     user_type: 'tutor',
   });
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleError = (error) => {
+    if (error.response && error.response.data) {
+      if (error.response.status === 400 && error.response.data.error) {
+        // Si le serveur renvoie une erreur 400 avec un message d'erreur spécifique
+        setErrorMessage(error.response.data.error);
+        setSuccessMessage('');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 5000); // Disparaît après 4 secondes
+      } else if (error.response.data.errors) {
+        // Si le serveur renvoie des erreurs de validation spécifiques aux champs
+        setFieldErrors(
+          error.response.data.errors.reduce((acc, error) => {
+            acc[error.param] = error.msg;
+            return acc;
+          }, {}),
+        );
+        setErrorMessage('');
+      } else {
+        // Si une autre erreur s'est produite
+        setFieldErrors({});
+        console.error(error);
+        setErrorMessage(
+          "Une erreur s'est produite lors de la requête. Veuillez réessayer.",
+        );
+        setSuccessMessage('');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 5000); // Disparaît après 4 secondes
+      }
+    } else {
+      // Si une autre erreur s'est produite
+      setFieldErrors({});
+      console.error(error);
+      setErrorMessage(
+        "Une erreur s'est produite lors de la requête. Veuillez réessayer.",
+      );
+      setSuccessMessage('');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 5000); // Disparaît après 4 secondes
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Envoyer une requête POST à votre backend pour l'inscription
-      const response = await instanceAxios.post('/auth/signup', formData);
+      const response = await api.post('/auth/signup', formData);
       console.log(response.data);
+
+      // Si la requête est réussie, définir le message de succès
+      setSuccessMessage(
+        'Inscription réussie. Vous pouvez maintenant vous connecter.',
+      );
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 5000); // Disparaît après 4 secondes
+
       navigate('/auth');
     } catch (error) {
-      console.error(error); // Afficher toute erreur survenue lors de la requête
+      console.error(error);
+
+      if (error.response && error.response.data && error.response.data.errors) {
+        // Si le serveur renvoie des erreurs de validation spécifiques aux champs
+        setFieldErrors(
+          error.response.data.errors.reduce((acc, error) => {
+            acc[error.param] = error.msg;
+            return acc;
+          }, {}),
+        );
+      } else {
+        // Si une autre erreur s'est produite
+        handleError(error);
+      }
     }
   };
 
@@ -48,6 +119,10 @@ function SignupForm() {
       onSubmit={handleSubmit}
       className={classes.form}
     >
+      {/* {successMessage && (
+        <Typography variant="success">{successMessage}</Typography>
+      )}
+      {errorMessage && <Typography variant="error">{errorMessage}</Typography>} */}
       <Typography variant="h4">S'inscrire</Typography>
       <Stack>
         <OrangeBar />
@@ -84,8 +159,8 @@ function SignupForm() {
           value={formData.user_type}
           onChange={handleChange}
         >
-          <MenuItem value="student">Étudiant</MenuItem>
-          <MenuItem value="tutor">Tuteur</MenuItem>
+          <MenuItem value="Student">Étudiant</MenuItem>
+          <MenuItem value="Tutor">Tuteur</MenuItem>
         </Select>
       </Stack>
       <Stack display="flex">
@@ -118,6 +193,40 @@ function SignupForm() {
           <MuiButton type="submit">S'inscrire</MuiButton>
         </Stack>
       </Box>
+      {fieldErrors && Object.keys(fieldErrors).length > 0 && (
+        <Box>
+          <Typography variant="body1" color="error">
+            Erreurs :
+            <List>
+              {Object.keys(fieldErrors).map((fieldName, index) => (
+                <ListItem key={index}>{fieldErrors[fieldName]}</ListItem>
+              ))}
+            </List>
+          </Typography>
+        </Box>
+      )}
+      {errorMessage && (
+        <Typography
+          variant="body1"
+          color="white"
+          backgroundColor="green"
+          position="absolute"
+          width="80%"
+        >
+          {errorMessage}
+        </Typography>
+      )}
+      {successMessage && (
+        <Typography
+          variant="body1"
+          color="white"
+          backgroundColor="green"
+          position="absolute"
+          width="80%"
+        >
+          {successMessage}
+        </Typography>
+      )}
     </FormControl>
   );
 }

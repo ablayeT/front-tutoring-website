@@ -19,7 +19,6 @@ export const useStyles = makeStyles()((theme) => {
       display: 'flex',
       justifyContent: 'center',
       padding: '1rem',
-      border: '1px solid red',
       position: 'relative',
     },
     bannerImage: {
