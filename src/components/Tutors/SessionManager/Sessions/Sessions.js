@@ -18,7 +18,7 @@ function Sessions() {
   useEffect(() => {
     const fetchTutorSessions = async () => {
       try {
-        const response = await api.get('tutors/sessions');
+        const response = await api.get('/tutors/sessions');
 
         setTutorSessions(response.data.sessions);
         console.log('sessions in sessions : ', response.data.sessions);
