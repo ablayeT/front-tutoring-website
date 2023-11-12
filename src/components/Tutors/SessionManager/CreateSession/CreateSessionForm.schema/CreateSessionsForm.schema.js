@@ -1,10 +1,10 @@
 const tutoringSessionFields = [
-  {
-    key: 'tutor_id',
-    label: 'Tutor ID',
-    type: 'text',
-    disabled: true,
-  },
+  // {
+  //   key: 'tutor_id',
+  //   label: 'Tutor ID',
+  //   type: 'text',
+  //   disabled: true,
+  // },
   {
     key: 'subject_id',
     label: 'Sélectionner un sujet',

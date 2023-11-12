@@ -3,6 +3,13 @@ import { makeStyles } from 'tss-react/mui';
 export const useStyles = makeStyles()((theme) => {
   return {
     gridContainer: {
+      display: 'flex',
+      padding: '1rem',
+      alignSelf: 'center',
+      justifyContent: 'center',
+      height: '100%',
+      alignItems: 'center',
+      width: '100%',
       [theme.breakpoints.down('md')]: {
         flexDirection: 'column',
       },

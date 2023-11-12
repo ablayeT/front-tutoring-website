@@ -1,24 +1,20 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { React, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import MuiButton from '../../Buttons/Button';
 import api from '../../../services/api/index.js';
 import sessionCardFields from './SessionCardFields';
+import testPhoto from '../../Assets/photoTutor4.jpg';
 import {
-  Card,
   Box,
-  CardContent,
   FormControl,
   FormLabel,
   TextField,
   Stack,
   Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   MenuItem,
+  Accordion,
+  AccordionDetails,
   Menu,
-  Button,
+  Container,
 } from '@mui/material';
 import useStyles from './style';
 
@@ -30,23 +26,13 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [anchorElement, setAnchorElement] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const anchorRef = useRef(null);
 
-  const handleClick = () => {
-    setAnchorElement(event.currentTarget);
-    setIsMenuOpen(true);
-  };
-  const handleClose = () => {
-    setAnchorElement(null);
-    setIsMenuOpen(false);
-  };
   useEffect(() => {
-    setEditedSession(session); // Mettre à jour editedSession lorsque session change
-  }, [session]); // Utiliser un effet pour surveiller les changements dans la session
+    setEditedSession(session);
+  }, [session]);
 
   useEffect(() => {
-    // Récupérer les étudiants inscrits à la session spécifique lors du chargement initial
     const fetchRegisteredStudents = async () => {
       try {
         const response = await api.get(
@@ -64,8 +50,6 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
     fetchRegisteredStudents();
   }, [sessionId]);
 
-  console.log('studentList :', studentList);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEditedSession({
@@ -78,23 +62,20 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
     event.preventDefault();
     setEditMode(false);
     try {
-      const formattedDate = new Date(editedSession.date)
-        .toISOString()
-        .split('T')[0];
+      const formattedDate = new Date(editedSession.date);
+      const year = formattedDate.getFullYear();
+      const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+      const day = formattedDate.getDate().toString().padStart(2, '0');
+      const formattedDateString = `${year}-${month}-${day}`;
       const updatedSession = {
         ...editedSession,
-        date: formattedDate, // Mettre à jour la propriété date avec la date formatée
+        date: formattedDateString,
       };
-      // Envoie de la requête pour la mise à jour de la session
-      await api.put(`/tutors/sessions/${sessionId}`, updatedSession);
-      console.log('Session mise à jour avec succès');
 
-      // Mettre à jour l'état `tutorSessions` dans le composant `Sessions`
-      setTutorSessions((prevSessions) =>
-        prevSessions.map((session) =>
-          session.id === sessionId ? updatedSession : session,
-        ),
-      );
+      await api.put(`/tutors/sessions/${sessionId}`, updatedSession);
+
+      // Mettez à jour l'état de votre composant parent ou de l'endroit où vous stockez vos sessions
+      // Exemple : onSessionUpdate(updatedSession);
     } catch (error) {
       console.error('Erreur lors de la mise à jour de la session', error);
     }
@@ -102,105 +83,172 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
 
   const handleConfirmatonMessage = () => {
     setConfirmationMessage(
-      'Suppréssion impossible, des étudiants sont inscrits à cette session',
+      'Suppression impossible, des étudiants sont inscrits à cette session',
     );
     setTimeout(() => {
       setConfirmationMessage('');
     }, 3000);
   };
 
+  const handleClick = (event) => {
+    setAnchorElement(event.currentTarget);
+    setIsMenuOpen(true);
+  };
+
+  const handleClose = () => {
+    setAnchorElement(null);
+    setIsMenuOpen(false);
+  };
+
   return (
-    <Card className={classes.card}>
-      <CardContent className={classes.cardContent}>
-        {editMode ? (
+    <Container
+      sx={{
+        border: '1px solid lightgray',
+        margin: '10px',
+        borderRadius: '10px',
+        backgroundColor: 'rgba(255, 165, 0, 0.2)',
+      }}
+    >
+      {/* Mode edition*/}
+      {editMode && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)', // Fond gris semi-transparent
+            zIndex: 1000,
+          }}
+        />
+      )}
+
+      <Box position="relative">
+        {editMode && (
           <Box
+            position="fixed"
+            top="0"
+            width="100%"
+            left="0"
+            paddingTop="3rem"
             display="flex"
-            flexDirection="column"
+            alignItems="center"
+            minHeight="100vh"
+            border="1px solid red"
             justifyContent="center"
-            margin="auto"
-            borderRadius="10px"
-            padding="15px"
+            transform="translate(-50%, -50%)"
+            zIndex="1001"
           >
-            <Typography variant="h4" marginBottom="15px">
-              Mise à jour de la session
-            </Typography>
-            <form onSubmit={handleSaveClick}>
-              <FormControl
-                sx={{
-                  display: 'flex',
-                  width: '95%',
-                  gap: '20px',
-                  flexDirection: 'column',
-                  padding: '10px',
-                  borderRadius: '15px',
-                }}
-              >
-                {sessionCardFields.map((field) => (
-                  <Stack key={field.name}>
-                    <FormLabel>{field.label}</FormLabel>
-                    <TextField
-                      type={field.type}
-                      name={field.name}
-                      value={editedSession[field.name]}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Stack>
-                ))}
+            <Box
+              borderRadius="10px"
+              padding="4rem 0 4rem 0"
+              marginBottom="3rem"
+              boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
+              className={classes.editModeChild}
+            >
+              <form onSubmit={handleSaveClick} className={classes.form}>
+                <Typography variant="h4">Mise à jour de la session</Typography>
+                <FormControl
+                  sx={{
+                    display: 'flex',
+                    width: '95%',
+                    gap: '10px',
 
-                {/* Afficher les étudiants inscrits */}
-                <Typography variant="h6">Étudiants inscrits :</Typography>
-                <ul>
-                  {studentList.map((student) => (
-                    <li key={student.id}>{student.first_name}</li>
-                  ))}
-                </ul>
-
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  gap="1rem"
-                  marginTop="2rem"
+                    flexDirection: 'column',
+                    padding: '10px',
+                    borderRadius: '15px',
+                  }}
                 >
-                  <MuiButton type="submit">Sauvegarder</MuiButton>
-                  <MuiButton onClick={() => setEditMode(false)}>
-                    Annuler
-                  </MuiButton>
-                </Box>
-              </FormControl>
-            </form>
-          </Box>
-        ) : (
-          <Box position="relative">
-            {sessionCardFields.map((field) => (
-              <Typography key={field.name} className={classes.text}>
-                {field.label}: {session[field.name]}
-              </Typography>
-            ))}
+                  {sessionCardFields.map((field) => (
+                    <Stack key={field.name}>
+                      <FormLabel>{field.label}</FormLabel>
+                      <TextField
+                        type={field.type}
+                        name={field.name}
+                        value={editedSession[field.name]}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </Stack>
+                  ))}
 
-            <Box display="flex" gap="20px">
-              <MuiButton onClick={() => setEditMode(true)}>Modifier</MuiButton>
-              {studentList.length > 0 ? (
-                <MuiButton onClick={() => onDelete(session.id)}>
-                  Annuler
-                </MuiButton>
-              ) : (
-                <MuiButton onClick={() => onDelete(session.id)}>
-                  Supprimer
-                </MuiButton>
-              )}
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    gap="1rem"
+                    marginTop="10px"
+                  >
+                    <MuiButton type="submit">Sauvegarder</MuiButton>
+                    <MuiButton onClick={() => setEditMode(false)}>
+                      Annuler
+                    </MuiButton>
+                  </Box>
+                </FormControl>
+              </form>
             </Box>
           </Box>
         )}
 
+        {/* contenu de la session*/}
+        <Box
+          border="1px solid green"
+          backgroundColor="white"
+          padding="10px"
+          borderRadius="10px"
+          margin="10px"
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="space-between"
+          gap="10px"
+        >
+          <Box display="flex" flexDirection="column" gap="10px" flex="1">
+            <Stack component="img" src={testPhoto} alt="photoDuTuteur"></Stack>
+            <Box display="flex" justifyContent="space-between">
+              <Typography>Nom :{session.name}</Typography>
+              <Typography>Prix :{session.price} € </Typography>
+            </Box>
+          </Box>
+
+          <Box
+            justifyContent="space-between"
+            display="flex"
+            flex="2"
+            flexDirection="column"
+          >
+            <Box flex="2" display="flex" flexDirection="column" gap="10px">
+              <Typography textAlign="right" margin="5px">
+                Date : {session.date}
+              </Typography>
+              <Box display="flex" justifyContent="space-between" margin="5px">
+                <Stack>
+                  <Typography>Lieu :{session.location}</Typography>
+                </Stack>
+                <Stack>
+                  <Typography>Début :{session.end_time}</Typography>
+                  <Typography>Fin : {session.start_time}</Typography>
+                </Stack>
+              </Box>
+            </Box>
+            <Box flex="1" padding="5px">
+              <Typography>Description :{session.description}</Typography>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Affichage du message de confirmation */}
+        {confirmationMessage && (
+          <Box className={classes.confirmationMessage}>
+            <Typography variant="body1">{confirmationMessage}</Typography>
+          </Box>
+        )}
+
         <Accordion className={classes.accordion}>
-          {/* <Button>Open Menu</Button> */}
           <AccordionDetails
             ref={anchorRef}
             aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={handleClick}
-            className={classes.accordionDetails}
           >
             <Typography>Étudiants inscrits :</Typography>
             <Typography
@@ -228,69 +276,19 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
             <Typography>Aucun étudiant inscrit.</Typography>
           )}
         </Accordion>
-      </CardContent>
-      {/* Affichage du message de confirmation */}
-      {confirmationMessage && (
-        <Box className={classes.confirmationMessage}>
-          <Typography variant="body1">{confirmationMessage}</Typography>
+        <Box display="flex" gap="20px" margin="10px">
+          <MuiButton onClick={() => setEditMode(true)}>Modifier</MuiButton>
+          {studentList.length > 0 ? (
+            <MuiButton onClick={() => onDelete(session.id)}>Annuler</MuiButton>
+          ) : (
+            <MuiButton onClick={() => onDelete(session.id)}>
+              Supprimer
+            </MuiButton>
+          )}
         </Box>
-      )}
-    </Card>
+      </Box>
+    </Container>
   );
 }
 
 export default TutorSessionsCard;
-
-// const handleDeleteSession = async (sessionId) => {
-//   try {
-//     // Récupérer les étudiants inscrits à la session spécifique
-//     const response = await api.get(`tutors/sessions/${sessionId}/students`);
-
-//     // Si des étudiants sont inscrits, mettre à jour le statut à "Annuler"
-//     if (response.data.length > 0) {
-//       await api.put(`tutors/sessions/${sessionId}/status`, {
-//         status: 'Annuler',
-//       });
-
-//       // Mettez à jour l'état tutorSessions localement
-//       setTutorSessions((prevSessions) =>
-//         prevSessions.map((session) =>
-//           session.id === sessionId
-// ? { ...session, status: 'Annuler' }
-//             : session,
-//         ),
-//       );
-//     } else {
-//       // Si aucun étudiant inscrit, supprimez la session en appelant la fonction onDelete passée en tant que prop
-//       onDelete(sessionId);
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-{
-  /* <Accordion
-          sx={{
-            position: 'absolute',
-            bottom: '0',
-            right: '0',
-            border: '1px solid green',
-          }}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Étudiants inscrits</Typography>
-          </AccordionSummary>
-          <AccordionDetails className={classes.studentListAccordion}>
-            {studentList.length > 0 ? (
-              <ul className={classes.studentList}>
-                {studentList.map((student) => (
-                  <li key={student.id}>{student.first_name}</li>
-                ))}
-              </ul>
-            ) : (
-              <Typography>Aucun étudiant inscrit.</Typography>
-            )}
-          </AccordionDetails>
-        </Accordion> */
-}

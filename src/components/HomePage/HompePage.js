@@ -22,7 +22,7 @@ function HompePage() {
         <Banner />
       </Box>
 
-      <Box height="400px" borderwidth="90%" margin="auto" borderRadius="15px">
+      <Box height="400px">
         <ChooseYourTime />
       </Box>
       <Box
@@ -40,7 +40,14 @@ function HompePage() {
       <Box
         boxShadow="0px 0px 10px 0px rgba(34, 34, 34, 0.6)"
         backgroundColor="rgba(255, 165, 0, 0.2)"
+        width="90%"
+        borderRadius="15px"
+        marginTop="2rem"
+        margin="auto"
       >
+        <Typography variant="h5" textAlign="center" padding="10px">
+          Découvez nos matières
+        </Typography>
         <Carousel />
       </Box>
       <Box

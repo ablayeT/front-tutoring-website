@@ -8,19 +8,19 @@ export const useStyles = makeStyles()((theme) => {
       alignItems: 'center',
       minHeight: '100vh',
       flexWrap: 'wrap',
+      position: 'relative',
       backgroundColor: 'white',
       margin: '0 auto',
-      // boxShadow: ' 10px 5px 5px red',
       borderRadius: '10px',
-      paddingTop: '4rem',
       paddingBottom: '8rem',
-      width: '80%',
+      width: '100%',
       minWidth: '10%',
       [theme.breakpoints.down('md')]: {
         width: '100%',
         margin: 'auto',
       },
     },
+
     buttonBox: {
       display: 'flex',
       flexDirection: 'column',

@@ -24,7 +24,7 @@ function SignupForm() {
     last_name: '',
     email: '',
     password: '',
-    user_type: 'tutor',
+    user_type: 'Tutor',
   });
   const [fieldErrors, setFieldErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
@@ -114,120 +114,128 @@ function SignupForm() {
   };
 
   return (
-    <FormControl
-      component="form"
-      onSubmit={handleSubmit}
-      className={classes.form}
+    <Box
+      width="50%"
+      margin="auto"
+      padding="30px"
+      borderRadius="10px"
+      backgroundColor="rgba(255, 165, 0, 0.2)"
     >
-      {/* {successMessage && (
+      <FormControl
+        component="form"
+        onSubmit={handleSubmit}
+        className={classes.form}
+      >
+        {/* {successMessage && (
         <Typography variant="success">{successMessage}</Typography>
       )}
       {errorMessage && <Typography variant="error">{errorMessage}</Typography>} */}
-      <Typography variant="h4">S'inscrire</Typography>
-      <Stack>
-        <OrangeBar />
-        <TextField
-          type="text"
-          id="last_name"
-          name="last_name"
-          label="Nom"
-          placeholder="Nom"
-          value={formData.last_name}
-          onChange={handleChange}
-        />
-        <OrangeBar />
-      </Stack>
-      <Stack>
-        <OrangeBar />
-        <TextField
-          type="text"
-          id="first_name"
-          name="first_name"
-          label="Prénom"
-          placeholder="Prénom"
-          value={formData.first_name}
-          onChange={handleChange}
-        />
-        <OrangeBar />
-      </Stack>
-      <Stack>
-        <Select
-          type="select"
-          label="Type"
-          name="user_type"
-          id="user_type"
-          value={formData.user_type}
-          onChange={handleChange}
-        >
-          <MenuItem value="Student">Étudiant</MenuItem>
-          <MenuItem value="Tutor">Tuteur</MenuItem>
-        </Select>
-      </Stack>
-      <Stack display="flex">
-        <OrangeBar />
-        <TextField
-          type="email"
-          label="Email"
-          placeholder="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <OrangeBar />
-      </Stack>
-      <Stack>
-        <OrangeBar />
-        <TextField
-          type="password"
-          label="Mot de passe"
-          placeholder="..........."
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <OrangeBar />
-      </Stack>
-
-      <Box>
+        <Typography variant="h4">S'inscrire</Typography>
         <Stack>
-          <MuiButton type="submit">S'inscrire</MuiButton>
+          <OrangeBar />
+          <TextField
+            type="text"
+            id="last_name"
+            name="last_name"
+            label="Nom"
+            placeholder="Nom"
+            value={formData.last_name}
+            onChange={handleChange}
+          />
+          <OrangeBar />
         </Stack>
-      </Box>
-      {fieldErrors && Object.keys(fieldErrors).length > 0 && (
+        <Stack>
+          <OrangeBar />
+          <TextField
+            type="text"
+            id="first_name"
+            name="first_name"
+            label="Prénom"
+            placeholder="Prénom"
+            value={formData.first_name}
+            onChange={handleChange}
+          />
+          <OrangeBar />
+        </Stack>
+        <Stack>
+          <Select
+            type="select"
+            label="Type"
+            name="user_type"
+            id="user_type"
+            value={formData.user_type}
+            onChange={handleChange}
+          >
+            <MenuItem value="Student">Étudiant</MenuItem>
+            <MenuItem value="Tutor">Tuteur</MenuItem>
+          </Select>
+        </Stack>
+        <Stack display="flex">
+          <OrangeBar />
+          <TextField
+            type="email"
+            label="Email"
+            placeholder="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <OrangeBar />
+        </Stack>
+        <Stack>
+          <OrangeBar />
+          <TextField
+            type="password"
+            label="Mot de passe"
+            placeholder="..........."
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <OrangeBar />
+        </Stack>
+
         <Box>
-          <Typography variant="body1" color="error">
-            Erreurs :
-            <List>
-              {Object.keys(fieldErrors).map((fieldName, index) => (
-                <ListItem key={index}>{fieldErrors[fieldName]}</ListItem>
-              ))}
-            </List>
-          </Typography>
+          <Stack>
+            <MuiButton type="submit">S'inscrire</MuiButton>
+          </Stack>
         </Box>
-      )}
-      {errorMessage && (
-        <Typography
-          variant="body1"
-          color="white"
-          backgroundColor="green"
-          position="absolute"
-          width="80%"
-        >
-          {errorMessage}
-        </Typography>
-      )}
-      {successMessage && (
-        <Typography
-          variant="body1"
-          color="white"
-          backgroundColor="green"
-          position="absolute"
-          width="80%"
-        >
-          {successMessage}
-        </Typography>
-      )}
-    </FormControl>
+        {fieldErrors && Object.keys(fieldErrors).length > 0 && (
+          <Box>
+            <Typography variant="body1" color="error">
+              Erreurs :
+              <List>
+                {Object.keys(fieldErrors).map((fieldName, index) => (
+                  <ListItem key={index}>{fieldErrors[fieldName]}</ListItem>
+                ))}
+              </List>
+            </Typography>
+          </Box>
+        )}
+        {errorMessage && (
+          <Typography
+            variant="body1"
+            color="white"
+            backgroundColor="green"
+            position="absolute"
+            width="80%"
+          >
+            {errorMessage}
+          </Typography>
+        )}
+        {successMessage && (
+          <Typography
+            variant="body1"
+            color="white"
+            backgroundColor="green"
+            position="absolute"
+            width="80%"
+          >
+            {successMessage}
+          </Typography>
+        )}
+      </FormControl>
+    </Box>
   );
 }
 

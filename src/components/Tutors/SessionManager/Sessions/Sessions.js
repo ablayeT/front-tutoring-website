@@ -64,9 +64,11 @@ function Sessions() {
         setConfirmationMessage('');
       }, 3000);
       // Mettre à jour l'état tutorSessions localement
-      setTutorSessions(
-        tutorSessions.sessions.filter((session) => session.id !== sessionId),
-      );
+      if (tutorSessions) {
+        setTutorSessions(
+          tutorSessions.filter((session) => session.id !== sessionId),
+        );
+      }
     } catch (error) {
       console.error(error);
     }
@@ -89,7 +91,7 @@ function Sessions() {
   return (
     <Box className={classes.SessionsContainer}>
       {isCreating ? (
-        <CreateSession handleCancelCreate={handleCancelCreate} />
+        <CreateSession />
       ) : (
         tutorSessions &&
         tutorSessions.length === 0 && (
@@ -117,6 +119,7 @@ function Sessions() {
         <Box
           display="flex"
           justifyContent="center"
+          border="1px solid black"
           gap="1.5rem"
           flexWrap="wrap"
         >

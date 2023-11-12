@@ -9,33 +9,15 @@ const ChooseYourTime = () => {
   const { classes } = useStyles();
 
   return (
-    <Box display="flex" className={classes.gridContainer}>
-      <Box
-        flex="1"
-        display="flex"
-        justifyContent="center"
-        className={classes.imageContainer}
-      >
-        <Box position="relative" height="350px">
-          <Box className={classes.orangeCircle}></Box>
-          <Box className={classes.yellowCircle}></Box>
-
-          <Box>
-            <Box
-              component="img"
-              src={BannerImage1}
-              alt="tutorWithStudent"
-              className={classes.bannerImage1}
-            />
-          </Box>
-          <Box>
-            <Box
-              component="img"
-              src={BannerImage2}
-              alt="tutorWithStudent"
-              className={classes.bannerImage2}
-            />
-          </Box>
+    <Box className={classes.gridContainer}>
+      <Box className={classes.imageContainer}>
+        <Box position="relative" className={classes.imgBox}>
+          <Box className={classes.circle}></Box>
+          <Box
+            component="img"
+            src={BannerImage1}
+            className={classes.bannerImage}
+          ></Box>
         </Box>
       </Box>
       <Box className={classes.textContainer}>

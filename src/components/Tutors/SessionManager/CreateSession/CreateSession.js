@@ -14,11 +14,15 @@ import Button from '../../../Buttons/Button';
 import tutoringSessionFields from './CreateSessionForm.schema/CreateSessionsForm.schema';
 import useStyles from './style';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
-function CreateSession({ mode, sessionToEdit, handleCancelCreate }) {
+function CreateSession({ mode, sessionToEdit }) {
   const navigate = useNavigate();
   const [sessions, setSessions] = useState([]);
+  const [minDate, setMinDate] = useState('');
 
+  const today = new Date();
+  const formattedToday = format(today, 'yyyy-MM-dd');
   const { classes } = useStyles();
   const tutorId = localStorage.getItem('userId');
 
@@ -54,6 +58,10 @@ function CreateSession({ mode, sessionToEdit, handleCancelCreate }) {
             subject_id: sessionToEdit.subject_id,
           }));
         }
+
+        // Mise à jour de la date minimale (aujourd'hui)
+        const today = new Date().toISOString().split('T')[0];
+        setMinDate(today);
       })
       .catch((error) => {
         console.error('Error fetching subjects:', error);
@@ -74,9 +82,7 @@ function CreateSession({ mode, sessionToEdit, handleCancelCreate }) {
     });
   };
   const handleCancel = () => {
-    console.log('teste');
-    console.log(handleCancelCreate);
-    handleCancelCreate();
+    navigate('/tutor-dashboard/sessions');
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -140,6 +146,15 @@ function CreateSession({ mode, sessionToEdit, handleCancelCreate }) {
                   ))}
                 </Select>
               </FormControl>
+            ) : field.type === 'date' ? (
+              <TextField
+                type="date"
+                name={field.key}
+                value={formattedToday}
+                onChange={handleInputChange}
+                required={field.required}
+                inputProps={{ min: minDate }}
+              />
             ) : (
               <TextField
                 type={field.type}

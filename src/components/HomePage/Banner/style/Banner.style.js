@@ -17,7 +17,6 @@ export const useStyles = makeStyles()((theme) => {
       },
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
-        color: 'red',
       },
     },
     imageContainer: {
@@ -26,7 +25,6 @@ export const useStyles = makeStyles()((theme) => {
       display: 'flex',
       padding: '15px',
       justifyContent: 'center',
-
       [theme.breakpoints.down('md')]: {
         display: 'flex',
         width: '100%',

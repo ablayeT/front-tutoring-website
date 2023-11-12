@@ -7,15 +7,7 @@ const TutorBloc = () => {
   const { classes } = useStyles();
 
   return (
-    <Box
-      display="flex"
-      gap="15px"
-      height="100%"
-      alignItems="center"
-      flexWrap="wrap"
-      width="100%"
-      className={classes.gridContainer}
-    >
+    <Box className={classes.gridContainer}>
       <Box
         flex="1"
         display="flex"

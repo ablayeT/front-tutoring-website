@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Grid, Paper, Stack, Container } from '@mui/material';
 import useStyles from './style';
-import BannerImage from '../../Assets/photoTuteur3.jpg';
+import BannerImage from '../../Assets/studentBoxImg.jpg';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
@@ -33,8 +33,7 @@ const StudentBloc = () => {
           Participez à des sessions de tutorat en direct où vous pouvez poser
           des questions, clarifier vos doutes et consolider vos connaissances.
           Nos tuteurs vous guideront à travers des concepts complexes, vous
-          aideront à résoudre des problèmes et vous prépareront pour les
-          examens.
+          aideront à résoudre des problèmes.
         </Typography>
       </Box>
     </Box>

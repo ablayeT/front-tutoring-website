@@ -6,17 +6,24 @@ export const useStyles = makeStyles()((theme) => {
       display: 'flex',
       flexDirection: 'column',
       gap: '3rem',
-      margin: 'auto',
-      width: '60%',
+      width: '100%',
       padding: '2rem',
       borderRadius: '10px',
-      backgroundColor: theme.palette,
+      backgroundColor: 'white',
       boxShadow: theme.shadows[5],
       [theme.breakpoints.down('md')]: {
         width: '90%',
         margin: 'auto',
       },
     },
+    // circle: {
+    //   position: 'absolute',
+    //   with: '300px',
+    //   height: '300ppx',
+    //   border: '150px solid rgb(173, 216, 230)',
+    //   borderRadius: '50%',
+
+    // },
     button: {
       fontWeight: 'bold',
       '&:hover': {

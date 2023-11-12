@@ -5,7 +5,7 @@ function OrangeBar() {
   return (
     <Box
       sx={{
-        height: 20,
+        height: 2,
         backgroundColor: (theme) =>
           theme.palette.mode === 'light'
             ? 'rgba(255, 165, 0, 0.6)'

@@ -53,7 +53,14 @@ function LoginForm() {
   };
 
   return (
-    <Box>
+    <Box
+      width="50%"
+      margin="auto"
+      padding="30px"
+      borderRadius="10px"
+      backgroundColor="rgba(255, 165, 0, 0.2)"
+    >
+      <Box className={classes.circle}></Box>
       <form onSubmit={handleFormSubmit} className={classes.form}>
         {errorMessage && (
           <Typography

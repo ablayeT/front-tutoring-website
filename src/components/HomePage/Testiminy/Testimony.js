@@ -18,7 +18,9 @@ const TutorBloc = () => {
       className={classes.gridContainer}
     >
       <Box className={classes.imageContainer}>
-        <Typography variant="h5">Ils nous ont fait confiance</Typography>
+        <Typography variant="h5" textAlign="center">
+          Ils nous ont fait confiance
+        </Typography>
       </Box>
       <Box className={classes.textCards}>
         {testimonials.map((testimonial, index) => (

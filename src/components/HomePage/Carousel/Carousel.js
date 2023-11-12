@@ -20,7 +20,7 @@ const CarouselComponent = () => {
     dots: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
     spacing: 1,
     speed: 500,
@@ -30,7 +30,7 @@ const CarouselComponent = () => {
       {
         breakpoint: 768,
         settings: {
-          dots: false,
+          dots: true,
           slidesToShow: 1,
           slidesToScroll: 1,
         },

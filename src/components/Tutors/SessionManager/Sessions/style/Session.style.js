@@ -6,6 +6,7 @@ export const useStyles = makeStyles()((theme) => {
       margin: '10px',
       padding: '10px',
       display: 'flex',
+      position: 'relative',
       justifyContent: ' center',
       flexWrap: 'wrap',
       gap: '1rem',
@@ -15,6 +16,14 @@ export const useStyles = makeStyles()((theme) => {
       borderRadius: '15px',
     },
     confirmationMessage: {
+      borderRadius: '10px',
+      padding: '5px',
+      width: '50%',
+      textAlign: 'center',
+      position: 'absolute',
+      color: 'white',
+      background: 'green',
+
       [theme.breakpoints.down('sm')]: {
         width: '100%',
       },
