@@ -87,5 +87,13 @@ export const useStyles = makeStyles()((theme) => {
         display: 'none',
       },
     },
+    dialogButton: {
+      color: 'white',
+      background: '#222',
+      ':hover': {
+        color: 'black',
+        backgroundColor: 'orange',
+      },
+    },
   };
 });

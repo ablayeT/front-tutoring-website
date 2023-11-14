@@ -106,7 +106,8 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
         border: '1px solid lightgray',
         margin: '10px',
         borderRadius: '10px',
-        backgroundColor: 'rgba(255, 165, 0, 0.2)',
+        width: '100%',
+        background: 'rgba(255, 165, 0, 0.2)',
       }}
     >
       {/* Mode edition*/}
