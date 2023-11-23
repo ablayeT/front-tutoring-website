@@ -99,10 +99,7 @@ function MySessions() {
       <Box className={classes.MySessionContainer}>
         {reservedSessions.map((session) => {
           return (
-            <Box
-              key={session.tutoring_session_id}
-              className={classes.MySessionCard}
-            >
+            <Box key={session.id} className={classes.MySessionCard}>
               <ReservedSessionCard
                 key={session.tutoring_session_id}
                 session={session}

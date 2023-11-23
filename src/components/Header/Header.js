@@ -73,33 +73,35 @@ function Header() {
   // ...
 
   const handleDrop = async (acceptedFile) => {
+    console.log('userType in Header.js :', userType);
+    console.log('userId in Header js :', userId);
     try {
-      // Vérifier si un fichier a été sélectionné
       if (acceptedFile.length === 0) {
         // Gérer le cas où aucun fichier n'est sélectionné
         console.error('Aucun fichier sélectionné.');
         return;
       }
 
-      // Afficher la prévisualisation de l'image temporairement ici
-      const previewImage = acceptedFile[0].preview;
-      setNewProfileImage(previewImage);
+      const uploadedFile = acceptedFile[0]; // Récupérer le fichier
+      console.log('previewImage:', uploadedFile);
 
-      // Effectuer l'envoi du fichier vers le serveur
       const formData = new FormData();
-      formData.append('imageUrl', acceptedFile[0]); // Utiliser la clé correcte
+      formData.append('imageUrl', uploadedFile); // Ajouter le fichier à FormData avec la clé attendue par le backend
 
-      // L'URL du serveur de téléchargement d'image
-      const apiUrl = `/users/${userType}/${userId}/profile-image`;
+      console.log('formData:', formData);
 
       // Effectuer la requête vers le serveur
-      const response = await api.put(apiUrl, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer VOTRE_JETON_JWT`,
+      const response = await api.put(
+        `/users/${userType}/${userId}/profile-image`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Ajouter l'entête pour indiquer le type de contenu
+          },
         },
-      });
+      );
 
+      console.log('response.data:', response.data);
       // Vérifier si le téléchargement a réussi
       if (!response.ok) {
         console.error("Échec du téléchargement de l'image.");
@@ -109,6 +111,8 @@ function Header() {
       // Mettre à jour l'état local avec le chemin de l'image téléchargée
       const responseBody = await response.json();
       const uploadedImageUrl = responseBody.imageUrl;
+
+      console.log(uploadedImageUrl);
 
       // Mettre à jour l'état local avec la nouvelle image téléchargée
       setNewProfileImage(previewImage);
@@ -123,6 +127,8 @@ function Header() {
       );
     }
   };
+
+  console.log('newProfileImage    : ', newProfileImage);
 
   // ...
 
@@ -164,9 +170,7 @@ function Header() {
                 <Image
                   key={newProfileImage ? 'preview' : 'original'}
                   imageUrl={
-                    newProfileImage
-                      ? newProfileImage.preview
-                      : userData.imageUrl
+                    newProfileImage ? newProfileImage : userData.imageUrl
                   } // Utiliser la prévisualisation du fichier pour l'affichage temporaire
                   className={classes.avatar}
                   alt="ProfileImage"
