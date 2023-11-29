@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import useStyles from './style';
 import BannerImage from '../../Assets/photoTuteur2.jpg';
 
@@ -12,6 +12,7 @@ const TutorBloc = () => {
         flex="1"
         display="flex"
         padding="10px"
+        gap="1rem"
         flexDirection="column"
         justifyContent="center"
       >
@@ -21,6 +22,7 @@ const TutorBloc = () => {
           facilisi. Proin non bibendum ipsum. Etiam auctor, sem a hendrerit
           feugiat, purus leo fringilla sapien.
         </Typography>
+        <Button>En savoir plus </Button>
       </Box>
       <Box
         className={classes.imageContainer}

@@ -1,5 +1,13 @@
 import React from 'react';
-import { Box, Typography, Grid, Paper, Stack, Container } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  Paper,
+  Stack,
+  Container,
+} from '@mui/material';
 import useStyles from './style';
 import BannerImage from '../../Assets/studentBoxImg.jpg';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
@@ -20,14 +28,16 @@ const StudentBloc = () => {
       </Box>
       <Box className={classes.textContainer}>
         <Typography variant="h5">Je veux m'inscrire comme étudiant</Typography>
-        <Box display="flex" color="orange">
-          <HourglassBottomIcon />
+        <Box>
+          <Box display="flex" color="orange">
+            <HourglassBottomIcon />
 
-          <Typography variant="body1">Ponctualité et souplesse</Typography>
-        </Box>
-        <Box display="flex" color="orange">
-          <LocationOnIcon />
-          <Typography>disponible où que vous souyez</Typography>
+            <Typography variant="body1">Ponctualité et souplesse</Typography>
+          </Box>
+          <Box display="flex" color="orange">
+            <LocationOnIcon />
+            <Typography>disponible où que vous souyez</Typography>
+          </Box>
         </Box>
         <Typography variant="body3">
           Participez à des sessions de tutorat en direct où vous pouvez poser
@@ -35,6 +45,7 @@ const StudentBloc = () => {
           Nos tuteurs vous guideront à travers des concepts complexes, vous
           aideront à résoudre des problèmes.
         </Typography>
+        <Button>En savoir plus </Button>
       </Box>
     </Box>
     // </Box>

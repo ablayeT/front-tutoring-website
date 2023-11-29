@@ -33,11 +33,7 @@ function TutorDashboard() {
         <Box sx={{ textAlign: 'left' }}>
           <Link>
             <Button onClick={handleGoBack}>
-              <Typography
-                onClick={handleGoBack}
-                color="#222"
-                aria-label="retour"
-              >
+              <Typography color="#222" aria-label="retour">
                 <ArrowBackIcon />
               </Typography>
             </Button>

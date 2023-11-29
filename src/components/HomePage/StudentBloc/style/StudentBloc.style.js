@@ -59,7 +59,7 @@ export const useStyles = makeStyles()((theme) => {
       width: '90%',
       alignItems: 'center',
       margin: 'auto',
-      gap: '10px',
+      gap: '1rem',
       alignSelf: 'center',
       flexDirection: 'column',
       justifyContent: 'center',
