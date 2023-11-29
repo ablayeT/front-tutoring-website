@@ -45,7 +45,7 @@ const StudentBloc = () => {
           Nos tuteurs vous guideront à travers des concepts complexes, vous
           aideront à résoudre des problèmes.
         </Typography>
-        <Button>En savoir plus </Button>
+        <Button>En savoir plus teste</Button>
       </Box>
     </Box>
     // </Box>
