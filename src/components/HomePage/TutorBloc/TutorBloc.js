@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import useStyles from './style';
 import BannerImage from '../../Assets/photoTuteur2.jpg';
+import { Link } from 'react-router-dom';
 
 const TutorBloc = () => {
   const { classes } = useStyles();
@@ -22,7 +23,9 @@ const TutorBloc = () => {
           facilisi. Proin non bibendum ipsum. Etiam auctor, sem a hendrerit
           feugiat, purus leo fringilla sapien.
         </Typography>
-        <Button>En savoir plus </Button>
+        <Button component={Link} to="/tutorInfoPage">
+          En savoir plus
+        </Button>
       </Box>
       <Box
         className={classes.imageContainer}

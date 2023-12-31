@@ -26,10 +26,8 @@ export const useStyles = makeStyles()((theme) => {
       padding: '1rem',
       padding: '1rem',
       justifyContent: 'center',
-
       [theme.breakpoints.down('md')]: {
         display: 'flex',
-
         justifyContent: 'center',
         minHeight: '150px',
         width: '50%',
@@ -37,11 +35,11 @@ export const useStyles = makeStyles()((theme) => {
     },
     bannerImage: {
       transform: 'rotate(6deg)',
-      width: '400px',
+      width: '300px',
       objectFit: 'fill',
       margin: 'auto',
       borderRadius: '20px',
-      height: '350px',
+      height: '200px',
       alt: 'tutorWithStudent',
       [theme.breakpoints.down('md')]: {
         height: '200px',

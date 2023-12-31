@@ -53,14 +53,9 @@ const CarouselComponent = () => {
               gap="1rem"
               margin="1rem"
               display="flex"
-              alignItems="center"
-              alignSelf="center"
-              justifyContent="center"
               width="150px"
               sx={{ marginRight: '10px' }}
               height="40px"
-              backgroundColor="white"
-              border="1px solid green"
             >
               <Typography>{subject}</Typography>
             </Container>

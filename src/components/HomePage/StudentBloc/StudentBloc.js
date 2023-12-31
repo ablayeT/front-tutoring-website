@@ -12,6 +12,7 @@ import useStyles from './style';
 import BannerImage from '../../Assets/studentBoxImg.jpg';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Link } from 'react-router-dom';
 
 const StudentBloc = () => {
   const { classes } = useStyles();
@@ -45,7 +46,9 @@ const StudentBloc = () => {
           Nos tuteurs vous guideront à travers des concepts complexes, vous
           aideront à résoudre des problèmes.
         </Typography>
-        <Button>En savoir plus teste</Button>
+        <Button component={Link} to="/studentInfoPage">
+          En savoir plus
+        </Button>
       </Box>
     </Box>
     // </Box>

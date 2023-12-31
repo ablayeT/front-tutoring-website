@@ -18,6 +18,8 @@ import CreateSession from './components/Tutors/SessionManager/CreateSession';
 import ReservedSessions from './components/Tutors/SessionManager/ReservedSessions/ReservedSessions';
 import TutorProfileManager from './components/Tutors/ProfileManager';
 import TutorSessions from './components/Tutors/SessionManager/Sessions';
+import TutorInfoPage from './page/TutorInfoPage';
+import StudentInfoPage from './page/StudentInfoPage';
 import { React } from 'react';
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/courses" element={<AllSessions />} />
+            <Route path="/tutorInfoPage" element={<TutorInfoPage />} />
+            <Route path="/studentInfoPage" element={<StudentInfoPage />} />
             <Route
               path="/tutor-dashboard/*"
               element={<PrivateRoute element={<TutorDashboard />} />}

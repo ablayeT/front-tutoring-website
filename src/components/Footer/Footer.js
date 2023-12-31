@@ -12,7 +12,7 @@ function Index() {
       </Box>
       <Box display="flex" alignItems="center">
         <Typography className={classes.footerText}>
-          © 2020 Eduguide. All rights reserved
+          © 2023 Eduguide. All rights reserved
         </Typography>
       </Box>
     </Box>

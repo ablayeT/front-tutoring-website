@@ -19,7 +19,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import useStyles from './Styles';
 import buttonsData from './ButtonsData.schema';
 import Image from '../Assets/Image';
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Dropzone from 'react-dropzone';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -135,7 +134,7 @@ function Header() {
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />
-      <Button>
+      <Button component={Link} to="/">
         <Box
           component="img"
           className={classes.logo}
