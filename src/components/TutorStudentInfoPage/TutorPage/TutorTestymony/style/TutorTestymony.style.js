@@ -7,18 +7,34 @@ export const useStyles = makeStyles()((theme) => {
     container: {
       width: '100%',
       display: 'flex',
-      flexDirection: 'column',
-      gap: '25px',
-    },
-    banner: {
-      textAlign: 'center',
-      background: 'grey',
-    },
-    circle2: {
-      [theme.breakpoints.down('md')]: {
-        bottom: '60px',
-        right: '50px',
+      width: '80%',
+      margin: 'auto',
+      gap: '15px',
+      [theme.breakpoints.down('sm')]: {
+        display: 'flex',
+        flexDirection: 'column-reverse',
+        gap: '0px',
       },
+    },
+    textBox: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      padding: '10px',
+    },
+    imgBox: {
+      display: 'flex',
+      textAlign: 'center',
+      alignContent: 'center',
+    },
+    button: {
+      background: 'orange',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '40px',
+      width: '180px',
+      margin: 'auto',
+      borderRadius: '10px',
     },
   };
 });

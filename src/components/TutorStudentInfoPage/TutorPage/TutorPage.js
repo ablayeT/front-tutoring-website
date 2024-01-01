@@ -5,6 +5,7 @@ import TutorPageBanner from './TutorPageBanner';
 import WhyBecomeTutor from './WhyBecomeTutor';
 import EarnMoney from './EarnMoney';
 import JoinTheTeam from './JoinTheTeam';
+import TutorTestimony from './TutorTestymony';
 const TutorPage = () => {
   const { classes } = useStyles();
   return (
@@ -17,6 +18,9 @@ const TutorPage = () => {
       </Box>
       <Box>
         <EarnMoney />
+      </Box>
+      <Box>
+        <TutorTestimony />
       </Box>
       <Box>
         <JoinTheTeam />
