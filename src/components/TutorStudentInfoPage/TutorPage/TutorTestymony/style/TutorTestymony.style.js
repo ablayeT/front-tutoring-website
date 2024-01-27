@@ -1,14 +1,26 @@
 import { makeStyles } from 'tss-react/mui';
 
 const drawerWidth = 180;
+// const scaleInCenter = Keyframes`
+//  0% {
+//     -webkit-transform: scale(0);
+//             transform: scale(0);
+//     opacity: 1;
+//   }
+//   100% {
+//     -webkit-transform: scale(1);
+//             transform: scale(1);
+//     opacity: 1;
+//   }'
+//   `;
 
 export const useStyles = makeStyles()((theme) => {
   return {
     container: {
-      width: '100%',
+      maxWidth: '800px',
       display: 'flex',
-      width: '80%',
       margin: 'auto',
+      borderRadius: '10px',
       gap: '15px',
       [theme.breakpoints.down('sm')]: {
         display: 'flex',
@@ -20,10 +32,12 @@ export const useStyles = makeStyles()((theme) => {
       display: 'flex',
       flexWrap: 'wrap',
       padding: '10px',
+
+      background: 'rgba(255, 165, 0, 0.2)',
     },
     imgBox: {
       display: 'flex',
-      textAlign: 'center',
+      justifyContent: 'center',
       alignContent: 'center',
     },
     button: {

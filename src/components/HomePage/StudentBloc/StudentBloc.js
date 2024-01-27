@@ -37,7 +37,7 @@ const StudentBloc = () => {
           </Box>
           <Box display="flex" color="orange">
             <LocationOnIcon />
-            <Typography>disponible où que vous souyez</Typography>
+            <Typography>disponible où que vous soyez</Typography>
           </Box>
         </Box>
         <Typography variant="body3">

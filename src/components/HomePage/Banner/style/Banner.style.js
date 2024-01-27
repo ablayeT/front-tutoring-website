@@ -10,7 +10,6 @@ export const useStyles = makeStyles()((theme) => {
       height: '100%',
       alignItems: 'center',
       width: '100%',
-
       background: 'rgba(255, 165, 0, 0.2)',
       [theme.breakpoints.down('md')]: {
         flexDirection: 'column',
@@ -21,10 +20,11 @@ export const useStyles = makeStyles()((theme) => {
     },
     imageContainer: {
       flex: '1',
-      position: 'relative',
       display: 'flex',
       padding: '15px',
+
       justifyContent: 'center',
+      alignItems: 'center',
       [theme.breakpoints.down('md')]: {
         display: 'flex',
         width: '100%',
@@ -35,6 +35,7 @@ export const useStyles = makeStyles()((theme) => {
     },
     textContainer: {
       flex: '1',
+
       [theme.breakpoints.down('md')]: {
         flexDirection: 'column',
       },
@@ -58,15 +59,14 @@ export const useStyles = makeStyles()((theme) => {
       margin: 'auto',
       borderRadius: '1000px 1200px 1200px 1000px',
       height: '280px',
-      alt: 'tutorWithStudent',
       [theme.breakpoints.down('md')]: {
-        height: '200px',
-        width: '280px',
+        height: '220px',
+        width: '340px',
       },
-      [theme.breakpoints.down('md')]: {
-        height: '150px',
-        width: '280px',
-      },
+      // [theme.breakpoints.down('md')]: {
+      //   height: '280px',
+      //   width: '280px',
+      // },
     },
 
     circle: {

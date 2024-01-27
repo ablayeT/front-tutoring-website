@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import {
   Box,
   CardMedia,
@@ -8,10 +8,23 @@ import {
   Button,
 } from '@mui/material';
 import imageTest from '../Assets/imagesTest.jpg';
+import Sessions from '../Tutors/SessionManager/Sessions';
+import Profile from '../Tutors/ProfileManager';
 
 function DashboardHomePage() {
   const userType = localStorage.getItem('userType');
   console.log('userType in  DashboardHomePage: ', userType);
+  const [showSessions, setShowSessions] = useState(false);
+  const [showProfil, setShowProfil] = useState(false);
+
+  const toggleSessions = () => {
+    setShowSessions(!showSessions);
+    setShowProfil(false);
+  };
+  const toggleProfil = () => {
+    setShowProfil(!showProfil);
+    setShowSessions(false);
+  };
 
   return (
     <>
@@ -21,6 +34,7 @@ function DashboardHomePage() {
           display="flex"
           gap="2rem"
           padding="1rem"
+          height="100vh"
           justifyContent="center"
         >
           <Box
@@ -29,10 +43,11 @@ function DashboardHomePage() {
             borderRadius="15px"
             display="flex"
             flexDirection="column"
+            overflow="scroll"
             alignItems="center"
             gap="3rem"
+            minWidth="250px"
             margin="10px"
-            justifyContent="center"
             padding="15px"
           >
             <Container
@@ -49,8 +64,8 @@ function DashboardHomePage() {
                 sx={{
                   border: '1px solid blue',
                   borderRadius: '50%',
-                  height: '150px',
-                  width: '150px',
+                  height: '50px',
+                  width: '50px',
                 }}
               ></CardMedia>
 
@@ -63,6 +78,13 @@ function DashboardHomePage() {
             <Container
               sx={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}
             >
+              <Box display="flex" gap="10px" flexDirection="column">
+                <Typography variant="h6">Tableau de bord</Typography>
+                <Divider />
+
+                <Button onClick={toggleProfil}>Profil</Button>
+                <Button onClick={toggleSessions}>mes sessions</Button>
+              </Box>
               <Box display="flex" gap="10px" flexDirection="column">
                 <Typography variant="h6">Mes Compétences</Typography>
                 <Divider />
@@ -80,16 +102,20 @@ function DashboardHomePage() {
           </Box>
 
           <Box
-            flex="4"
+            flex="3"
             border="1px solid lightgray"
             borderRadius="15px"
             padding="20px"
             margin="10px"
+            overflow="auto" // Permet le défilement vertical
+            maxHeight="100vh"
           >
             <Typography textAlign="center" variant="h6">
               Mes Prochaines sessions de formations
             </Typography>
             <Divider />
+            <Box>{showSessions && <Sessions />}</Box>
+            <Box>{showProfil && <Profile />}</Box>
           </Box>
         </Box>
       ) : (

@@ -6,26 +6,30 @@ import WhyBecomeTutor from './WhyBecomeTutor';
 import EarnMoney from './EarnMoney';
 import JoinTheTeam from './JoinTheTeam';
 import TutorTestimony from './TutorTestymony';
-const TutorPage = () => {
+import { motion } from 'framer-motion';
+const TutorPage = ({ isVisible }) => {
   const { classes } = useStyles();
   return (
-    <Box className={classes.container}>
-      <Box>
+    <motion.Box
+      className={classes.container}
+      animate={{ opacity: isVisible ? 1 : 0 }}
+    >
+      <Box className={classes.containerChildren}>
         <TutorPageBanner />
       </Box>
-      <Box>
+      <Box className={classes.containerChildren}>
         <WhyBecomeTutor />
       </Box>
-      <Box>
+      <Box className={classes.containerChildren}>
         <EarnMoney />
       </Box>
-      <Box>
+      <Box className={classes.containerChildren}>
         <TutorTestimony />
       </Box>
-      <Box>
+      <Box className={classes.containerChildren}>
         <JoinTheTeam />
       </Box>
-    </Box>
+    </motion.Box>
   );
 };
 
