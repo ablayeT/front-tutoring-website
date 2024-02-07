@@ -126,5 +126,30 @@ export const useStyles = makeStyles()((theme) => {
       marginBottom: '1rem',
       border: '1px solid pink',
     },
+    BoxContainer: {
+      border: '1px solid lightgray',
+      margin: '10px',
+      borderRadius: '10px',
+      width: '100%',
+      background: 'rgba(255, 165, 0, 0.2)',
+    },
+    sessionInfos: {
+      backgroundColor: 'white',
+      padding: '10px',
+      borderRadius: '10px',
+      margin: '10px',
+      display: 'flex',
+
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      gap: '10px',
+    },
+    photo: {
+      border: '1px solid red',
+      borderRadius: '10px',
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+      },
+    },
   };
 });

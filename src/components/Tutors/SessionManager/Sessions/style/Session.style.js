@@ -3,15 +3,13 @@ import { makeStyles } from 'tss-react/mui';
 export const useStyles = makeStyles()((theme) => {
   return {
     SessionsContainer: {
-      margin: '10px',
-      padding: '10px',
       display: 'flex',
       position: 'relative',
       justifyContent: ' center',
       flexWrap: 'wrap',
       gap: '1rem',
       background: 'white',
-      boxShadow: '2px 2px 7px #222',
+      // boxShadow: '2px 2px 7px #222',
       minHeight: '100vh',
       borderRadius: '15px',
     },

@@ -72,8 +72,8 @@ function Header() {
   // ...
 
   const handleDrop = async (acceptedFile) => {
-    console.log('userType in Header.js :', userType);
-    console.log('userId in Header js :', userId);
+    // console.log('userType in Header.js :', userType);
+    // console.log('userId in Header js :', userId);
     try {
       if (acceptedFile.length === 0) {
         // Gérer le cas où aucun fichier n'est sélectionné
@@ -82,12 +82,12 @@ function Header() {
       }
 
       const uploadedFile = acceptedFile[0]; // Récupérer le fichier
-      console.log('previewImage:', uploadedFile);
+      // console.log('previewImage:', uploadedFile);
 
       const formData = new FormData();
       formData.append('imageUrl', uploadedFile); // Ajouter le fichier à FormData avec la clé attendue par le backend
 
-      console.log('formData:', formData);
+      // console.log('formData:', formData);
 
       // Effectuer la requête vers le serveur
       const response = await api.put(
@@ -100,8 +100,9 @@ function Header() {
         },
       );
 
-      console.log('response.data:', response.data);
+      console.log('response.data:', response);
       // Vérifier si le téléchargement a réussi
+
       if (!response.ok) {
         console.error("Échec du téléchargement de l'image.");
         return;
@@ -110,11 +111,10 @@ function Header() {
       // Mettre à jour l'état local avec le chemin de l'image téléchargée
       const responseBody = await response.json();
       const uploadedImageUrl = responseBody.imageUrl;
-
-      console.log(uploadedImageUrl);
+      console.log('uploadedImageUrl:', uploadedImageUrl);
 
       // Mettre à jour l'état local avec la nouvelle image téléchargée
-      setNewProfileImage(previewImage);
+      setNewProfileImage(uploadedImageUrl);
       forceUpdate(); //  pour forcer un rendu
 
       // Fermer la boîte de dialogue après le téléchargement de l'image
@@ -126,8 +126,7 @@ function Header() {
       );
     }
   };
-
-  console.log('newProfileImage    : ', newProfileImage);
+  console.log('newProfile :', newProfileImage);
 
   // ...
 

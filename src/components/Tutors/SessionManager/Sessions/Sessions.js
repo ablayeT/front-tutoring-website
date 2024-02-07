@@ -106,21 +106,15 @@ function Sessions() {
         )
       )}
 
-      <Box
-        padding="10px"
-        display="flex"
-        flexDirection="column"
-        width="100%"
-        gap="10px"
-      >
+      <Box display="flex" flexDirection="column" width="100%" gap="10px">
         <NavLink to="/tutor-dashboard/create-session">
           <Button onClick={handleCreateSession}>Nouvelle session</Button>
         </NavLink>
         <Box
           display="flex"
           justifyContent="center"
-          border="1px solid black"
           gap="1.5rem"
+          width="100%"
           flexWrap="wrap"
         >
           {tutorSessions &&

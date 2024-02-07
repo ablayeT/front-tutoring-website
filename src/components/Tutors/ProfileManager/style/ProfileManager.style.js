@@ -9,7 +9,7 @@ export const useStyles = makeStyles()((theme) => {
       display: 'flex',
       alignItems: 'center',
       borderRadius: '15px',
-      boxShadow: '0px 0px 10px 0px rgba(34, 34, 34, 0.6)',
+      // boxShadow: '0px 0px 10px 0px rgba(34, 34, 34, 0.6)',
       width: '90%',
       [theme.breakpoints.down('md')]: {
         width: '100%',

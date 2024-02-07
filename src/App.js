@@ -26,7 +26,7 @@ function App() {
   return (
     <Box
       backgroundColor="white"
-      paddingTop="8rem"
+      paddingTop="4rem"
       paddingBottom="5rem"
       height="100%"
       width="100%"

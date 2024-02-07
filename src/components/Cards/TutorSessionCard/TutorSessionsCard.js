@@ -101,15 +101,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
   };
 
   return (
-    <Container
-      sx={{
-        border: '1px solid lightgray',
-        margin: '10px',
-        borderRadius: '10px',
-        width: '100%',
-        background: 'rgba(255, 165, 0, 0.2)',
-      }}
-    >
+    <Box className={classes.BoxContainer}>
       {/* Mode edition*/}
       {editMode && (
         <Box
@@ -192,19 +184,14 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
         )}
 
         {/* contenu de la session*/}
-        <Box
-          border="1px solid green"
-          backgroundColor="white"
-          padding="10px"
-          borderRadius="10px"
-          margin="10px"
-          display="flex"
-          flexWrap="wrap"
-          justifyContent="space-between"
-          gap="10px"
-        >
+        <Box className={classes.sessionInfos}>
           <Box display="flex" flexDirection="column" gap="10px" flex="1">
-            <Stack component="img" src={testPhoto} alt="photoDuTuteur"></Stack>
+            <Stack
+              className={classes.photo}
+              component="img"
+              src={testPhoto}
+              alt="photoDuTuteur"
+            ></Stack>
             <Box display="flex" justifyContent="space-between">
               <Typography>Nom :{session.name}</Typography>
               <Typography>Prix :{session.price} € </Typography>
@@ -288,7 +275,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
           )}
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 }
 
