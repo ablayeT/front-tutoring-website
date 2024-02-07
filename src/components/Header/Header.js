@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../Auth/AuthContext/AuthContext';
 import { Link } from 'react-router-dom';
 import logoImg from '../Assets/logoTutorat.png';
@@ -55,6 +55,13 @@ function Header() {
     }
   }, [isLoggedIn, user]);
 
+  useEffect(() => {
+    const storedProfileImage = localStorage.getItem('newProfileImage');
+    if (storedProfileImage) {
+      setNewProfileImage(storedProfileImage);
+    }
+  }, []); // Run only once when the component mounts
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -69,56 +76,40 @@ function Header() {
     setIsDialogOpen(false);
   };
 
-  // ...
-
   const handleDrop = async (acceptedFile) => {
-    // console.log('userType in Header.js :', userType);
-    // console.log('userId in Header js :', userId);
     try {
       if (acceptedFile.length === 0) {
-        // Gérer le cas où aucun fichier n'est sélectionné
         console.error('Aucun fichier sélectionné.');
         return;
       }
 
-      const uploadedFile = acceptedFile[0]; // Récupérer le fichier
-      // console.log('previewImage:', uploadedFile);
-
+      const uploadedFile = acceptedFile[0];
       const formData = new FormData();
-      formData.append('imageUrl', uploadedFile); // Ajouter le fichier à FormData avec la clé attendue par le backend
+      formData.append('imageUrl', uploadedFile);
 
-      // console.log('formData:', formData);
-
-      // Effectuer la requête vers le serveur
       const response = await api.put(
         `/users/${userType}/${userId}/profile-image`,
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data', // Ajouter l'entête pour indiquer le type de contenu
+            'Content-Type': 'multipart/form-data',
           },
         },
       );
 
-      console.log('response.data:', response);
-      // Vérifier si le téléchargement a réussi
+      console.log('response:', response);
 
-      if (!response.ok) {
+      if (response.status === 200) {
+        console.log('Image téléchargée avec succès.');
+        const { updatedProfile } = response.data;
+        console.log('updatedProfile:', updatedProfile);
+        setNewProfileImage(updatedProfile.imageUrl); // Mettre à jour avec la nouvelle URL d'image
+        console.log('updatedProfile.imageUrl :', updatedProfile.imageUrl);
+        localStorage.setItem('newProfileImage', updatedProfile.imageUrl);
+        setIsDialogOpen(false);
+      } else {
         console.error("Échec du téléchargement de l'image.");
-        return;
       }
-
-      // Mettre à jour l'état local avec le chemin de l'image téléchargée
-      const responseBody = await response.json();
-      const uploadedImageUrl = responseBody.imageUrl;
-      console.log('uploadedImageUrl:', uploadedImageUrl);
-
-      // Mettre à jour l'état local avec la nouvelle image téléchargée
-      setNewProfileImage(uploadedImageUrl);
-      forceUpdate(); //  pour forcer un rendu
-
-      // Fermer la boîte de dialogue après le téléchargement de l'image
-      setIsDialogOpen(false);
     } catch (error) {
       console.error(
         "Une erreur est survenue lors du téléchargement de l'image.",
@@ -126,10 +117,8 @@ function Header() {
       );
     }
   };
-  console.log('newProfile :', newProfileImage);
-
-  // ...
-
+  console.log('newProfileImage : ', newProfileImage);
+  // console.log('userData.imageUrl : ', userData.imageUrl);
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />
@@ -169,7 +158,7 @@ function Header() {
                   key={newProfileImage ? 'preview' : 'original'}
                   imageUrl={
                     newProfileImage ? newProfileImage : userData.imageUrl
-                  } // Utiliser la prévisualisation du fichier pour l'affichage temporaire
+                  }
                   className={classes.avatar}
                   alt="ProfileImage"
                   width="30%"
