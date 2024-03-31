@@ -74,7 +74,7 @@ function TutorSessionsCard({ session, sessionId, onDelete }) {
 
       await api.put(`/tutors/sessions/${sessionId}`, updatedSession);
 
-      // Mettez à jour l'état de votre composant parent ou de l'endroit où vous stockez vos sessions
+      // Mettre à jour l'état du composant parent ou de l'endroit ou sont stock sessions
       // Exemple : onSessionUpdate(updatedSession);
     } catch (error) {
       console.error('Erreur lors de la mise à jour de la session', error);

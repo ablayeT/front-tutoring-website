@@ -46,21 +46,19 @@ function Header() {
       setGreeting('Bonsoir');
     }
   }, []);
-
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && user) {
       setUserData(user);
-    } else {
-      setUserData(null);
+      localStorage.setItem('userData', JSON.stringify(user));
     }
   }, [isLoggedIn, user]);
 
   useEffect(() => {
-    const storedProfileImage = localStorage.getItem('newProfileImage');
-    if (storedProfileImage) {
-      setNewProfileImage(storedProfileImage);
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
     }
-  }, []); // Run only once when the component mounts
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -100,11 +98,8 @@ function Header() {
       console.log('response:', response);
 
       if (response.status === 200) {
-        console.log('Image téléchargée avec succès.');
         const { updatedProfile } = response.data;
-        console.log('updatedProfile:', updatedProfile);
         setNewProfileImage(updatedProfile.imageUrl); // Mettre à jour avec la nouvelle URL d'image
-        console.log('updatedProfile.imageUrl :', updatedProfile.imageUrl);
         localStorage.setItem('newProfileImage', updatedProfile.imageUrl);
         setIsDialogOpen(false);
       } else {
@@ -118,7 +113,7 @@ function Header() {
     }
   };
   console.log('newProfileImage : ', newProfileImage);
-  // console.log('userData.imageUrl : ', userData.imageUrl);
+  console.log('userData: ', userData);
   return (
     <AppBar className={classes.header} position="fixed">
       <CssBaseline />

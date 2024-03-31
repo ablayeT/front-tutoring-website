@@ -41,20 +41,20 @@ function Index() {
   };
   return (
     <Box
-      padding="4rem 0 3rem 0"
+      padding="4rem 0 5rem 0"
       minHeight="100vh"
       position="relative"
       display="flex"
       justifyContent="center"
-      alignSelf="center"
+      alignItems="center"
       width="90%"
       backgroundColor="white"
       borderRadius="15px"
       boxShadow="0px 0px 10px 0px rgba(34, 34, 34, 0.6)"
     >
       <form className={classes.form} component="form" onSubmit={handleSubmit}>
-        <Box display="flex" flexDirection="column" gap="3rem">
-          <Typography variant="h6" gutterBottom>
+        <Box display="flex" flexDirection="column" gap="1rem">
+          <Typography variant="h6" gutterBottom textAlign="center">
             Contactez-nous
           </Typography>
 
