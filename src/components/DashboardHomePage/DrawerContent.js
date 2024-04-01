@@ -8,15 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 import imageTest from '../Assets/imagesTest.jpg';
-import Sessions from '../Tutors/SessionManager/Sessions';
-import Profile from '../Tutors/ProfileManager';
 
-function DrawerContent({
-  toggleProfil,
-  toggleSessions,
-  showSessions,
-  showProfil,
-}) {
+function DrawerContent({ toggleProfil, toggleSessions }) {
   return (
     <Box
       flex="1"

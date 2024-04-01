@@ -118,7 +118,7 @@ function ProfileInfos({ profileData, userData }) {
                 border="1px solid #FFA500"
                 padding="10px"
                 width="50%"
-                value={userData.user[field.key]}
+                value={userData?.user?.[field.key]}
               />
               <Orangebar />
             </Stack>
@@ -133,7 +133,7 @@ function ProfileInfos({ profileData, userData }) {
                 border="1px solid #FFA500"
                 padding="10px"
                 width="50%"
-                value={profileData[field.key]}
+                value={profileData ? profileData.skills : ''}
               />
               <Orangebar />
             </Stack>

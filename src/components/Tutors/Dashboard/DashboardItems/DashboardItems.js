@@ -1,6 +1,6 @@
-const dashboardItems = [
-  { label: 'Profil', path: 'profile' },
-  { label: 'Sessions', path: 'sessions' },
-];
+// const dashboardItems = [
+//   { label: 'Profil', path: 'profile' },
+//   { label: 'Sessions', path: 'sessions' },
+// ];
 
-export default dashboardItems;
+// export default dashboardItems;

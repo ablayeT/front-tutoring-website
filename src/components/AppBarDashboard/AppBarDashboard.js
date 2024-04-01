@@ -1,26 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import AppBarDashboardSchema from './AppBarDashboard.schema';
 import { AppBar, useStyles } from './style/AppBarDashboard.style';
-import { Box, Button } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { Box } from '@mui/material';
 import SearchComponent from '../Search';
-import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 function AppBarDashboard() {
   const { classes } = useStyles();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const userType = localStorage.getItem('userType');
   const menuButtonRef = useRef(null);
-  const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 });
 
   // const handleNewMain = () => {
   //   handleMain();
   // };
-
-  const handlePopupToggle = () => {
-    setIsPopupOpen(!isPopupOpen);
-  };
 
   useEffect(() => {
     // s'assurer que la référence est non nulle avant d'utiliser ses propriétés
@@ -54,62 +45,12 @@ function AppBarDashboard() {
 
   return (
     <AppBar
-      sx={{ borderTop: '3px solid rgba(255, 165, 0, 10)' }}
       className={
         userType === 'Student' ? classes.appBarStudent : classes.appBarTutor
       }
     >
-      <Box
-        className={
-          userType === 'Tutor'
-            ? classes.appBarTutorDashboard
-            : classes.appBarStudentDashboard
-        }
-      >
-        {AppBarDashboardSchema.map((item, index) => (
-          <Box
-            key={index}
-            // onClick={handleNewMain}
-            className={classes.buttonBox}
-          >
-            <NavLink to={item.path}>
-              <Button className={classes.button}>{item.label}</Button>
-            </NavLink>
-          </Box>
-        ))}
-        {/* Bouton de l'icône MoreVert pour ouvrir/fermer le pop-up */}
-        <IconButton
-          aria-label="open popup"
-          edge="end"
-          onClick={handlePopupToggle}
-          className={
-            userType === 'Student'
-              ? classes.studentMenuButton
-              : classes.tutorMenuButton
-          }
-          ref={menuButtonRef} // Attribution de  la référence à l'icône MoreVert
-        >
-          <MoreVertIcon className={classes.menuIcon} />
-        </IconButton>
-        {/* Pop-up */}
-        {isPopupOpen && (
-          <Box
-            top={popupPosition.top} // Ajustement de la position du pop-up au-dessus de l'icône
-            left={popupPosition.left}
-            className={classes.mobileMenuOpen}
-          >
-            {AppBarDashboardSchema.map((item, index) => (
-              <Box key={index} margin="10px 0">
-                <NavLink to={item.path}>
-                  <Button className={classes.toggleButton}>{item.label}</Button>
-                </NavLink>
-              </Box>
-            ))}
-          </Box>
-        )}
-      </Box>
       {userType === 'Student' && (
-        <Box textAlign="center" width="70%">
+        <Box className={classes.searComponent}>
           <SearchComponent />
         </Box>
       )}

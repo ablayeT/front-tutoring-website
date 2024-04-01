@@ -7,15 +7,16 @@ export const useStyles = makeStyles()((theme) => {
     appBarStudent: {
       height: '3rem',
       top: '4rem',
-      backgroundColor: 'white ',
+      backgroundColor: 'rgba(255, 165, 0, 0.2)',
       color: '#4a4a49',
+      borderTop: '3px solid rgba(255, 165, 0, 0.2)',
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-around',
+      justifyContent: 'center',
       alignItems: 'center',
       [theme.breakpoints.down('md')]: {
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         flexDirection: 'row',
       },
     },
@@ -82,29 +83,6 @@ export const useStyles = makeStyles()((theme) => {
         display: 'none',
       },
     },
-    button: {
-      color: 'black',
-      borderRadius: '0',
-      fontWeight: 'bold',
-
-      height: '100%',
-      '&:hover': {
-        color: '#222',
-        background: 'rgba(255, 165, 0, 0.8)',
-        borderRadius: '10px',
-      },
-    },
-    toggleButton: {
-      color: 'black',
-      borderRadius: '0',
-      height: '100%',
-
-      '&:hover': {
-        color: 'white',
-        background: 'black',
-        borderRadius: '10px',
-      },
-    },
 
     tutorMenuButton: {
       display: 'block',
@@ -128,23 +106,6 @@ export const useStyles = makeStyles()((theme) => {
       },
     },
 
-    studentMenuButton: {
-      display: 'flex',
-      justifyContent: 'center',
-      textAlign: 'center',
-      color: '#222',
-
-      [theme.breakpoints.down('md')]: {
-        color: 'white',
-
-        '&:hover': {
-          color: '#222',
-        },
-      },
-      [theme.breakpoints.up('md')]: {
-        display: 'none',
-      },
-    },
     mobileMenuOpen: {
       position: 'fixed',
       backgroundColor: 'white',
@@ -155,6 +116,10 @@ export const useStyles = makeStyles()((theme) => {
       display: 'flex',
       width: '120px',
       boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Ombre du pop-up
+    },
+    searComponent: {
+      textAlign: 'center',
+      width: '70%',
     },
   };
 });

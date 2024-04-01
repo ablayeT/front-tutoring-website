@@ -6,28 +6,27 @@ export const useStyles = makeStyles()((theme) => {
       width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
-      gap: '1rem',
+      gap: '2rem',
       padding: '15px',
       width: '100%',
-      background: 'white',
       justifyContent: 'center',
     },
     MySessionCard: {
       display: 'flex',
       flexWrap: 'wrap',
-      border: '1px solid lightgray',
+      boxShadow: '0px 0px 4px 0px rgba(34, 34, 34, 0.6)',
       borderRadius: '10px',
       [theme.breakpoints.down('md')]: {
-        width: '48%',
+        width: '47%',
       },
       [theme.breakpoints.down('sm')]: {
         width: '100%',
       },
       [theme.breakpoints.up('md')]: {
-        width: '48%',
+        width: '47%',
       },
       [theme.breakpoints.up('lg')]: {
-        width: '35%',
+        width: '30%',
       },
     },
 

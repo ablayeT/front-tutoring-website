@@ -8,7 +8,7 @@ function OrangeBar() {
         height: 2,
         backgroundColor: (theme) =>
           theme.palette.mode === 'light'
-            ? 'rgba(255, 165, 0, 0.6)'
+            ? 'rgba(255, 165, 0, 0.2)'
             : 'rgb(255 132 132 / 25%)',
       }}
     ></Box>

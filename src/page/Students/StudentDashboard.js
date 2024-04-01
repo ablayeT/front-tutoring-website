@@ -26,11 +26,9 @@ function StudentDashboard() {
         }}
       >
         <Link>
-          <Button onClick={handleGoBack}>
-            <IconButton onClick={handleGoBack} color="#222" aria-label="retour">
-              <ArrowBackIcon />
-            </IconButton>
-          </Button>
+          <IconButton onClick={handleGoBack} color="#222" aria-label="retour">
+            <ArrowBackIcon />
+          </IconButton>
         </Link>
         <Outlet />
       </Box>

@@ -11,25 +11,6 @@ function MySessions() {
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchStudentSessions = async () => {
-  //     try {
-  //       const response = await api.get('/students/sessions');
-
-  //       setReservedSessions(response.data);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.error(
-  //         'Erreur lors de la récupération de la session réservées :',
-  //         error,
-  //       );
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchStudentSessions();
-  // }, []);
-
   const handleCancelSession = async (sessionId) => {
     const isConfirmed = window.confirm(
       'Voulez-vous vraiment annuler cette session ?',
@@ -88,14 +69,11 @@ function MySessions() {
       display="flex"
       flexDirection="column"
       margin="auto"
-      width="90%"
+      width="100%"
       padding="10px"
-      height="100%"
-      backgroundColor="white"
-      boxShadow="0px 0px 10px 0px rgba(34, 34, 34, 0.6);"
+      // boxShadow="0px 0px 10px 0px rgba(34, 34, 34, 0.6);"
       borderRadius="15px"
     >
-      <Typography> Mes Sessions</Typography>
       <Box className={classes.MySessionContainer}>
         {reservedSessions.map((session) => {
           return (
