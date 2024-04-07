@@ -5,11 +5,10 @@ import MuiAppBar from '@mui/material/AppBar';
 export const useStyles = makeStyles()((theme) => {
   return {
     appBarStudent: {
-      height: '3rem',
+      height: '3.5rem',
       top: '4rem',
-      backgroundColor: 'rgba(255, 165, 0, 0.2)',
+      backgroundColor: 'white',
       color: '#4a4a49',
-      borderTop: '3px solid rgba(255, 165, 0, 0.2)',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',

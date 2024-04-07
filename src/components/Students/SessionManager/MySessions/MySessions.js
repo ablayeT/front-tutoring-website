@@ -46,6 +46,7 @@ function MySessions() {
     const fetchData = async () => {
       try {
         const response = await api.get('/students/sessions');
+        console.log('response', response);
         setReservedSessions(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -63,6 +64,7 @@ function MySessions() {
   if (isLoading) {
     return <CircularProgress />;
   }
+  console.log('resevedSessions:', reservedSessions);
 
   return (
     <Box
