@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '../../Buttons/Button';
 import { useStyles } from './Styles/AllSessionCard.styles';
 import api from '../../../services/api';
-// import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 function AllSessionCard({ session }) {
   // const navigate = useNavigate();
@@ -13,10 +13,11 @@ function AllSessionCard({ session }) {
 
   const handleReservationClick = async () => {
     try {
+      const formattedDate = moment(session.date).format('YYYY-MM-DD HH:mm:ss');
       const reservationData = {
         student_id: localStorage.getItem('userId'),
         tutoring_session_id: session.id, // ID de la session
-        date: session.date,
+        date: formattedDate,
         start_time: session.start_time,
         end_time: session.end_time,
         subject: session.subject_id,
@@ -114,7 +115,9 @@ function AllSessionCard({ session }) {
             marginTop: '1.5rem',
           }}
         >
-          <Typography>Date : {session.date}</Typography>
+          <Typography>
+            Date : {moment(session.date).format('DD-MM-YYYY')}
+          </Typography>
           <Typography>Début : {session.start_time}</Typography>
           <Typography>Fin :{session.end_time}</Typography>
           <Typography>Lieu : {session.location}</Typography>
