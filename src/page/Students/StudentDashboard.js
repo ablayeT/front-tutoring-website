@@ -3,15 +3,19 @@ import React from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBarDashboard from '../../components/AppBarDashboard/AppBarDashboard';
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, But, IconButton } from '@mui/material';
 import useStyles from './style';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function StudentDashboard() {
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const handleGoBack = () => {
-    navigate(-1);
+
+  // const handleGoBack = () => {
+  //   navigate(-1);
+  // };
+  const handleGoBackProperly = () => {
+    navigate('/'); // Remplacez '/' par le chemin de la page d'accueil de votre tableau de bord étudiant
   };
   return (
     <Box className={classes.studentDashboard}>
@@ -26,7 +30,11 @@ function StudentDashboard() {
         }}
       >
         <Link>
-          <IconButton onClick={handleGoBack} color="#222" aria-label="retour">
+          <IconButton
+            onClick={handleGoBackProperly}
+            color="#222"
+            aria-label="retour"
+          >
             <ArrowBackIcon />
           </IconButton>
         </Link>
